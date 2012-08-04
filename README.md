@@ -28,6 +28,7 @@ Este serviço é responsável por solicitar pagamentos, seu fluxo básico é:
 O uso básico é:
 
 ```php
+<?php
 // Consideramos que já existe um autoloader compatível com a PSR-0 registrado
 
 use \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
@@ -84,6 +85,7 @@ Este serviço é responsável por buscar o status de uma transação, ele deve s
 O uso básico é:
 
 ```php
+<?php
 // Consideramos que já existe um autoloader compatível com a PSR-0 registrado
 
 use \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
