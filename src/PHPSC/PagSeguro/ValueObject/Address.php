@@ -59,9 +59,10 @@ class Address
         $district = null,
         $street = null,
         $number = null,
-        $complement = null
+        $complement = null,
+        $country = 'BRA'
     ) {
-        $this->setCountry('BRA');
+        $this->setCountry($country);
 
         if ($state !== null) {
             $this->setState($state);

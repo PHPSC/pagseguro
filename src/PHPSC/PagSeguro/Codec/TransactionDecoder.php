@@ -1,6 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro\Codec;
 
+use PHPSC\PagSeguro\ValueObject\Address;
+
 use \PHPSC\PagSeguro\ValueObject\PaymentMethod;
 use \PHPSC\PagSeguro\ValueObject\Transaction;
 use \PHPSC\PagSeguro\ValueObject\Shipping;
@@ -97,6 +99,19 @@ class TransactionDecoder
     protected function createShipping(SimpleXMLElement $shipping)
     {
         $address = null;
+
+        if ($shipping->address) {
+            $address = new Address(
+                (string) $shipping->address->state,
+                (string) $shipping->address->city,
+                (string) $shipping->address->postalCode,
+                (string) $shipping->address->district,
+                (string) $shipping->address->street,
+                (string) $shipping->address->number,
+                (string) $shipping->address->complement,
+                (string) $shipping->address->country
+            );
+        }
 
         return new Shipping(
             (int) $shipping->type,
