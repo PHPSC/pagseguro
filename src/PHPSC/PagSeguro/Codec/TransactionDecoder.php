@@ -1,11 +1,10 @@
 <?php
 namespace PHPSC\PagSeguro\Codec;
 
-use PHPSC\PagSeguro\ValueObject\Address;
-
 use \PHPSC\PagSeguro\ValueObject\PaymentMethod;
 use \PHPSC\PagSeguro\ValueObject\Transaction;
 use \PHPSC\PagSeguro\ValueObject\Shipping;
+use \PHPSC\PagSeguro\ValueObject\Address;
 use \PHPSC\PagSeguro\ValueObject\Sender;
 use \PHPSC\PagSeguro\ValueObject\Phone;
 use \PHPSC\PagSeguro\ValueObject\Item;
