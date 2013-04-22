@@ -1,9 +1,11 @@
 <?php
 namespace PHPSC\PagSeguro\Http;
 
-use \PHPSC\PagSeguro\Error\HttpException;
-use \PHPSC\PagSeguro\Error\PagSeguroException;
-use \PHPSC\PagSeguro\Error\ConnectionException;
+use PHPSC\PagSeguro\Error\ConnectionException;
+use PHPSC\PagSeguro\Error\PagSeguroException;
+use PHPSC\PagSeguro\Error\HttpException;
+use Guzzle\Http\Client as HttpClient;
+use Guzzle\Common\Event;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -11,19 +13,9 @@ use \PHPSC\PagSeguro\Error\ConnectionException;
 class Client
 {
     /**
-     * @var int
+     * @var HttpClient
      */
-    private $timeout;
-
-    /**
-     * @var boolean
-     */
-    private $verifySSL;
-
-    /**
-     * @var string
-     */
-    private $charset;
+    private $client;
 
     /**
      * @param int $timeout
@@ -34,9 +26,38 @@ class Client
         $verifySSL = false,
         $charset = 'UTF-8'
     ) {
-        $this->timeout = $timeout;
-        $this->verifySSL = $verifySSL;
-        $this->charset = $charset;
+        $this->client = new HttpClient(
+            '',
+            array(
+                'curl.options' => array(
+                    CURLOPT_CONNECTTIMEOUT => $timeout,
+                    CURLOPT_SSL_VERIFYPEER => $verifySSL,
+                    CURLOPT_HTTPHEADER => array(
+                        'Content-Type: application/x-www-form-urlencoded; charset=' . $charset
+                    )
+                )
+            )
+        );
+
+        $this->client->getEventDispatcher()->addListener(
+            'request.error',
+            function (Event $event) {
+                $response = $event['response'];
+
+                if ($response->getStatusCode() == 400) {
+                    $error = PagSeguroException::createFromXml(
+                        $response->getBody(true)
+                    );
+
+                    throw new $error;
+                }
+
+                throw new HttpException(
+                    '[' . $response->getStatusCode() . '] A HTTP error has occurred: '
+                    . $response->getBody(true)
+                );
+            }
+        );
     }
 
     /**
@@ -46,15 +67,15 @@ class Client
      */
     public function post($url, array $fields = null)
     {
-        $params = $this->getDefaultParameters();
-        $params[CURLOPT_URL] = $url;
-        $params[CURLOPT_POST] = true;
+        $request = $this->client->post(
+            $url,
+            null,
+            $fields ? http_build_query($fields, '', '&') : null
+        );
 
-        if ($fields) {
-            $params[CURLOPT_POSTFIELDS] = http_build_query($fields, '', '&');
-        }
+        $response = $request->send();
 
-        return $this->sendRequest($params);
+        return $response->getBody(true);
     }
 
     /**
@@ -63,79 +84,9 @@ class Client
      */
     public function get($url)
     {
-        $params = $this->getDefaultParameters();
-        $params[CURLOPT_URL] = $url;
-        $params[CURLOPT_HTTPGET] = true;
+        $request = $this->client->get($url);
+        $response = $request->send();
 
-        return $this->sendRequest($params);
-    }
-
-    /**
-     * @return array
-     */
-    protected function getDefaultParameters()
-    {
-        return array(
-            CURLOPT_SSL_VERIFYPEER => $this->verifySSL,
-            CURLOPT_CONNECTTIMEOUT => $this->timeout,
-            CURLOPT_HEADER => false,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/x-www-form-urlencoded; charset='
-                . $this->charset
-            )
-        );
-    }
-
-    /**
-     * @param array $options
-     * @return array
-     * @throws \PHPSC\PagSeguro\Error\ConnectionException
-     */
-    protected function sendRequest(array $options)
-    {
-        $handler = curl_init();
-
-        curl_setopt_array($handler, $options);
-        $response = curl_exec($handler);
-
-        if ($response === false) {
-            $error = new ConnectionException(
-                curl_error($handler),
-                curl_errno($handler)
-            );
-        } else {
-            $error = $this->parseHttpErrors($handler, $response);
-        }
-
-        curl_close($handler);
-
-        if (isset($error)) {
-            throw $error;
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param resource $handler
-     * @param string $response
-     * @return \PHPSC\PagSeguro\Error\PagSeguroException|\PHPSC\PagSeguro\Error\HttpException
-     */
-    protected function parseHttpErrors($handler, $response)
-    {
-        $httpCode = curl_getinfo($handler, CURLINFO_HTTP_CODE);
-
-        if ($httpCode == 200) {
-            return null;
-        }
-
-        if ($httpCode == 400) {
-            return PagSeguroException::createFromXml($response);
-        }
-
-        return new HttpException(
-            '[' . $httpCode . '] A HTTP error has occurred: ' . $response
-        );
+        return $response->getBody(true);
     }
 }
