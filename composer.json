@@ -1,0 +1,24 @@
+{
+    "name": "phpsc/pagseguro",
+    "description": "Client para integração com API do Pagseguro",
+    "type": "library",
+    "authors": [{
+            "name": "Luís Otávio Cobucci Oblonczyk",
+            "email": "lcobucci@gmail.com"
+        }
+    ],
+    "keywords": [
+        "API", "Pagseguro", "Pagamento", "Notificacao"
+    ],
+    "license": [
+        "CC-BY-SA-2.5"
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "PHPSC\\PagSeguro": "src/"
+        }
+    }
+}
