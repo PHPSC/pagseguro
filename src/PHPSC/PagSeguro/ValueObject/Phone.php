@@ -23,7 +23,7 @@ class Phone
         $this->setNumber($number);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getAreaCode()
@@ -31,7 +31,7 @@ class Phone
         return $this->areaCode;
     }
 
-	/**
+    /**
      * @param string $areaCode
      */
     protected function setAreaCode($areaCode)
@@ -39,7 +39,7 @@ class Phone
         $this->areaCode = substr($areaCode, 0, 2);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getNumber()
@@ -47,7 +47,7 @@ class Phone
         return $this->number;
     }
 
-	/**
+    /**
      * @param string $number
      */
     protected function setNumber($number)

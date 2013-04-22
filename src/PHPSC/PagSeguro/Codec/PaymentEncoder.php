@@ -1,10 +1,10 @@
 <?php
 namespace PHPSC\PagSeguro\Codec;
 
-use \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
-use \PHPSC\PagSeguro\ValueObject\Credentials;
-use \PHPSC\PagSeguro\ValueObject\Address;
-use \PHPSC\PagSeguro\ValueObject\Item;
+use PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
+use PHPSC\PagSeguro\ValueObject\Credentials;
+use PHPSC\PagSeguro\ValueObject\Address;
+use PHPSC\PagSeguro\ValueObject\Item;
 
 class PaymentEncoder
 {

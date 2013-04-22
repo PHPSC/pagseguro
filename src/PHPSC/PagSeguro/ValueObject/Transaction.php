@@ -1,7 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\ValueObject;
 
-use \DateTime;
+use DateTime;
 
 class Transaction
 {
@@ -92,7 +92,7 @@ class Transaction
 
     public function __construct(
         $code,
-        $reference = null,
+        $reference,
         $type,
         $status,
         DateTime $date,
@@ -128,7 +128,7 @@ class Transaction
         $this->setShipping($shipping);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getCode()
@@ -136,7 +136,7 @@ class Transaction
         return $this->code;
     }
 
-	/**
+    /**
      * @param string $code
      */
     protected function setCode($code)
@@ -144,7 +144,7 @@ class Transaction
         $this->code = $code;
     }
 
-	/**
+    /**
      * @return string
      */
     public function getReference()
@@ -152,7 +152,7 @@ class Transaction
         return $this->reference;
     }
 
-	/**
+    /**
      * @param string $reference
      */
     protected function setReference($reference)
@@ -160,7 +160,7 @@ class Transaction
         $this->reference = $reference;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getType()
@@ -168,7 +168,7 @@ class Transaction
         return $this->type;
     }
 
-	/**
+    /**
      * @param number $type
      */
     protected function setType($type)
@@ -176,7 +176,7 @@ class Transaction
         $this->type = $type;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getStatus()
@@ -184,7 +184,7 @@ class Transaction
         return $this->status;
     }
 
-	/**
+    /**
      * @param number $status
      */
     protected function setStatus($status)
@@ -192,7 +192,7 @@ class Transaction
         $this->status = $status;
     }
 
-	/**
+    /**
      * @return \DateTime
      */
     public function getDate()
@@ -200,7 +200,7 @@ class Transaction
         return $this->date;
     }
 
-	/**
+    /**
      * @param \DateTime $date
      */
     protected function setDate(DateTime $date)
@@ -208,7 +208,7 @@ class Transaction
         $this->date = $date;
     }
 
-	/**
+    /**
      * @return \DateTime
      */
     public function getLastEventDate()
@@ -216,7 +216,7 @@ class Transaction
         return $this->lastEventDate;
     }
 
-	/**
+    /**
      * @param \DateTime $lastEventDate
      */
     protected function setLastEventDate(DateTime $lastEventDate)
@@ -224,7 +224,7 @@ class Transaction
         $this->lastEventDate = $lastEventDate;
     }
 
-	/**
+    /**
      * @return \DateTime
      */
     public function getEscrowEndDate()
@@ -232,7 +232,7 @@ class Transaction
         return $this->escrowEndDate;
     }
 
-	/**
+    /**
      * @param \DateTime $escrowEndDate
      */
     protected function setEscrowEndDate(DateTime $escrowEndDate = null)
@@ -240,7 +240,7 @@ class Transaction
         $this->escrowEndDate = $escrowEndDate;
     }
 
-	/**
+    /**
      * @return \PHPSC\PagSeguro\ValueObject\PaymentMethod
      */
     public function getPaymentMethod()
@@ -248,7 +248,7 @@ class Transaction
         return $this->paymentMethod;
     }
 
-	/**
+    /**
      * @param \PHPSC\PagSeguro\ValueObject\PaymentMethod $paymentMethod
      */
     protected function setPaymentMethod(PaymentMethod $paymentMethod)
@@ -256,7 +256,7 @@ class Transaction
         $this->paymentMethod = $paymentMethod;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getGrossAmount()
@@ -264,7 +264,7 @@ class Transaction
         return $this->grossAmount;
     }
 
-	/**
+    /**
      * @param number $grossAmount
      */
     protected function setGrossAmount($grossAmount)
@@ -272,7 +272,7 @@ class Transaction
         $this->grossAmount = $grossAmount;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getDiscountAmount()
@@ -280,7 +280,7 @@ class Transaction
         return $this->discountAmount;
     }
 
-	/**
+    /**
      * @param number $discountAmount
      */
     protected function setDiscountAmount($discountAmount)
@@ -288,7 +288,7 @@ class Transaction
         $this->discountAmount = $discountAmount;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getFeeAmount()
@@ -296,7 +296,7 @@ class Transaction
         return $this->feeAmount;
     }
 
-	/**
+    /**
      * @param number $feeAmount
      */
     protected function setFeeAmount($feeAmount)
@@ -304,7 +304,7 @@ class Transaction
         $this->feeAmount = $feeAmount;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getNetAmount()
@@ -312,7 +312,7 @@ class Transaction
         return $this->netAmount;
     }
 
-	/**
+    /**
      * @param number $netAmount
      */
     protected function setNetAmount($netAmount)
@@ -320,7 +320,7 @@ class Transaction
         $this->netAmount = $netAmount;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getExtraAmount()
@@ -328,7 +328,7 @@ class Transaction
         return $this->extraAmount;
     }
 
-	/**
+    /**
      * @param number $extraAmount
      */
     protected function setExtraAmount($extraAmount)
@@ -336,7 +336,7 @@ class Transaction
         $this->extraAmount = $extraAmount;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getInstallmentCount()
@@ -344,7 +344,7 @@ class Transaction
         return $this->installmentCount;
     }
 
-	/**
+    /**
      * @param number $installmentCount
      */
     protected function setInstallmentCount($installmentCount)
@@ -352,7 +352,7 @@ class Transaction
         $this->installmentCount = $installmentCount;
     }
 
-	/**
+    /**
      * @return multitype:\PHPSC\PagSeguro\ValueObject\Item
      */
     public function getItems()
@@ -360,7 +360,7 @@ class Transaction
         return $this->items;
     }
 
-	/**
+    /**
      * @param multitype:\PHPSC\PagSeguro\ValueObject\Item $items
      */
     protected function setItems(array $items)
@@ -368,7 +368,7 @@ class Transaction
         $this->items = $items;
     }
 
-	/**
+    /**
      * @return \PHPSC\PagSeguro\ValueObject\Sender
      */
     public function getSender()
@@ -376,7 +376,7 @@ class Transaction
         return $this->sender;
     }
 
-	/**
+    /**
      * @param \PHPSC\PagSeguro\ValueObject\Sender $sender
      */
     protected function setSender($sender)
@@ -384,7 +384,7 @@ class Transaction
         $this->sender = $sender;
     }
 
-	/**
+    /**
      * @return \PHPSC\PagSeguro\ValueObject\Shipping
      */
     public function getShipping()
@@ -392,7 +392,7 @@ class Transaction
         return $this->shipping;
     }
 
-	/**
+    /**
      * @param \PHPSC\PagSeguro\ValueObject\Shipping $shipping
      */
     protected function setShipping($shipping)

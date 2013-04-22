@@ -1,9 +1,9 @@
 <?php
 namespace PHPSC\PagSeguro;
 
-use \PHPSC\PagSeguro\Codec\TransactionDecoder;
-use \PHPSC\PagSeguro\ValueObject\Credentials;
-use \PHPSC\PagSeguro\Http\Client;
+use PHPSC\PagSeguro\Codec\TransactionDecoder;
+use PHPSC\PagSeguro\ValueObject\Credentials;
+use PHPSC\PagSeguro\Http\Client;
 
 class NotificationService
 {

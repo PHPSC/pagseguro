@@ -23,7 +23,7 @@ class PaymentMethod
         $this->setCode($code);
     }
 
-	/**
+    /**
      * @return number
      */
     public function getType()
@@ -31,7 +31,7 @@ class PaymentMethod
         return $this->type;
     }
 
-	/**
+    /**
      * @param number $type
      */
     protected function setType($type)
@@ -39,7 +39,7 @@ class PaymentMethod
         $this->type = $type;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getCode()
@@ -47,7 +47,7 @@ class PaymentMethod
         return $this->code;
     }
 
-	/**
+    /**
      * @param number $code
      */
     protected function setCode($code)

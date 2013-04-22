@@ -1,15 +1,15 @@
 <?php
 namespace PHPSC\PagSeguro\Codec;
 
-use \PHPSC\PagSeguro\ValueObject\PaymentMethod;
-use \PHPSC\PagSeguro\ValueObject\Transaction;
-use \PHPSC\PagSeguro\ValueObject\Shipping;
-use \PHPSC\PagSeguro\ValueObject\Address;
-use \PHPSC\PagSeguro\ValueObject\Sender;
-use \PHPSC\PagSeguro\ValueObject\Phone;
-use \PHPSC\PagSeguro\ValueObject\Item;
-use \SimpleXMLElement;
-use \DateTime;
+use PHPSC\PagSeguro\ValueObject\PaymentMethod;
+use PHPSC\PagSeguro\ValueObject\Transaction;
+use PHPSC\PagSeguro\ValueObject\Shipping;
+use PHPSC\PagSeguro\ValueObject\Address;
+use PHPSC\PagSeguro\ValueObject\Sender;
+use PHPSC\PagSeguro\ValueObject\Phone;
+use PHPSC\PagSeguro\ValueObject\Item;
+use SimpleXMLElement;
+use DateTime;
 
 class TransactionDecoder
 {
@@ -28,9 +28,7 @@ class TransactionDecoder
             (int) $obj->status,
             new DateTime((string) $obj->date),
             new DateTime((string) $obj->lastEventDate),
-            isset($obj->escrowEndDate)
-                ? new DateTime((string) $obj->escrowEndDate)
-                : null,
+            isset($obj->escrowEndDate) ? new DateTime((string) $obj->escrowEndDate) : null,
             new PaymentMethod(
                 (int) $obj->paymentMethod->type,
                 (int) $obj->paymentMethod->code

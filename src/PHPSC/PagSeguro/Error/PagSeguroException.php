@@ -1,7 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\Error;
 
-use \SimpleXMLElement;
+use SimpleXMLElement;
 
 class PagSeguroException extends \RuntimeException
 {

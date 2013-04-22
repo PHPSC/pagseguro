@@ -1,7 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\ValueObject\Payment;
 
-use \DateTime;
+use DateTime;
 
 class PaymentResponse
 {
@@ -30,7 +30,7 @@ class PaymentResponse
         $this->setDate($date);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getCode()
@@ -38,7 +38,7 @@ class PaymentResponse
         return $this->code;
     }
 
-	/**
+    /**
      * @param string $code
      */
     protected function setCode($code)
@@ -46,7 +46,7 @@ class PaymentResponse
         $this->code = $code;
     }
 
-	/**
+    /**
      * @return \DateTime
      */
     public function getDate()
@@ -54,7 +54,7 @@ class PaymentResponse
         return $this->date;
     }
 
-	/**
+    /**
      * @param \DateTime $date
      */
     protected function setDate(DateTime $date)

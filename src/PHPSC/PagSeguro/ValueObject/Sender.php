@@ -36,7 +36,7 @@ class Sender
         }
     }
 
-	/**
+    /**
      * @return string
      */
     public function getEmail()
@@ -44,7 +44,7 @@ class Sender
         return $this->email;
     }
 
-	/**
+    /**
      * @param string $email
      */
     protected function setEmail($email)
@@ -52,7 +52,7 @@ class Sender
         $this->email = substr($email, 0, 60);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getName()
@@ -60,7 +60,7 @@ class Sender
         return $this->name;
     }
 
-	/**
+    /**
      * @param string $name
      */
     protected function setName($name)
@@ -68,7 +68,7 @@ class Sender
         $this->name = substr($name, 0, 50);
     }
 
-	/**
+    /**
      * @return \PHPSC\PagSeguro\ValueObject\Phone
      */
     public function getPhone()
@@ -76,7 +76,7 @@ class Sender
         return $this->phone;
     }
 
-	/**
+    /**
      * @param \PHPSC\PagSeguro\ValueObject\Phone $phone
      */
     protected function setPhone(Phone $phone = null)

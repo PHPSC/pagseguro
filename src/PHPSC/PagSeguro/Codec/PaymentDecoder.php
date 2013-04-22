@@ -1,9 +1,9 @@
 <?php
 namespace PHPSC\PagSeguro\Codec;
 
-use \PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse;
-use \SimpleXMLElement;
-use \DateTime;
+use PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse;
+use SimpleXMLElement;
+use DateTime;
 
 class PaymentDecoder
 {
