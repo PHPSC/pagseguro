@@ -110,3 +110,7 @@ try {
     echo $error->getMessage(); // Exibe na tela a mensagem de erro
 }
 ```
+
+### Licença de uso
+
+Esta biblioteca segue os termos de uso da [Creative Commons Attribution-ShareAlike 2.5](http://creativecommons.org/licenses/by-sa/2.5)
