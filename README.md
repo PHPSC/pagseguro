@@ -3,6 +3,11 @@ API PagSeguro
 
 API de integração com o PagSeguro para PHP 5.3+, deve ser utilizado um Autoloader compatível com a PSR-0.
 
+Instalação
+----------
+
+A instalação desta biblioteca pode ser feita utilizando o [Composer](https://packagist.org/packages/phpsc/pagseguro).
+
 Uso básico
 ----------
 

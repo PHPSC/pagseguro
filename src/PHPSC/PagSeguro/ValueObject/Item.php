@@ -66,7 +66,7 @@ class Item
         }
     }
 
-	/**
+    /**
      * @return string
      */
     public function getId()
@@ -74,7 +74,7 @@ class Item
         return $this->id;
     }
 
-	/**
+    /**
      * @param string $id
      */
     protected function setId($id)
@@ -82,7 +82,7 @@ class Item
         $this->id = substr((string) $id, 0, 100);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getDescription()
@@ -90,7 +90,7 @@ class Item
         return $this->description;
     }
 
-	/**
+    /**
      * @param string $description
      */
     protected function setDescription($description)
@@ -98,7 +98,7 @@ class Item
         $this->description = substr((string) $description, 0, 100);
     }
 
-	/**
+    /**
      * @return number
      */
     public function getAmount()
@@ -106,7 +106,7 @@ class Item
         return $this->amount;
     }
 
-	/**
+    /**
      * @param number $amount
      */
     protected function setAmount($amount)
@@ -114,7 +114,7 @@ class Item
         $this->amount = round((float) $amount, 2);
     }
 
-	/**
+    /**
      * @return number
      */
     public function getQuantity()
@@ -122,7 +122,7 @@ class Item
         return $this->quantity;
     }
 
-	/**
+    /**
      * @param number $quantity
      */
     protected function setQuantity($quantity)
@@ -130,7 +130,7 @@ class Item
         $this->quantity = (int) $quantity;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getShippingCost()
@@ -138,7 +138,7 @@ class Item
         return $this->shippingCost;
     }
 
-	/**
+    /**
      * @param number $shippingCost
      */
     protected function setShippingCost($shippingCost)
@@ -146,7 +146,7 @@ class Item
         $this->shippingCost = round((float) $shippingCost, 2);
     }
 
-	/**
+    /**
      * @return number
      */
     public function getWeight()
@@ -154,7 +154,7 @@ class Item
         return $this->weight;
     }
 
-	/**
+    /**
      * @param number $weight
      */
     protected function setWeight($weight)

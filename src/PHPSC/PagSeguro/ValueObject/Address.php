@@ -93,7 +93,7 @@ class Address
         }
     }
 
-	/**
+    /**
      * @return string
      */
     public function getCountry()
@@ -101,7 +101,7 @@ class Address
         return $this->country;
     }
 
-	/**
+    /**
      * @param string $country
      */
     protected function setCountry($country)
@@ -109,7 +109,7 @@ class Address
         $this->country = (string) $country;
     }
 
-	/**
+    /**
      * @return string
      */
     public function getState()
@@ -117,7 +117,7 @@ class Address
         return $this->state;
     }
 
-	/**
+    /**
      * @param string $state
      */
     protected function setState($state)
@@ -125,7 +125,7 @@ class Address
         $this->state = substr((string) $state, 0, 2);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getCity()
@@ -133,7 +133,7 @@ class Address
         return $this->city;
     }
 
-	/**
+    /**
      * @param string $city
      */
     protected function setCity($city)
@@ -141,7 +141,7 @@ class Address
         $this->city = substr((string) $city, 0, 60);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getPostalCode()
@@ -149,7 +149,7 @@ class Address
         return $this->postalCode;
     }
 
-	/**
+    /**
      * @param string $postalCode
      */
     protected function setPostalCode($postalCode)
@@ -161,7 +161,7 @@ class Address
         );
     }
 
-	/**
+    /**
      * @return string
      */
     public function getDistrict()
@@ -169,7 +169,7 @@ class Address
         return $this->district;
     }
 
-	/**
+    /**
      * @param string $district
      */
     protected function setDistrict($district)
@@ -177,7 +177,7 @@ class Address
         $this->district = substr((string) $district, 0, 60);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getStreet()
@@ -185,7 +185,7 @@ class Address
         return $this->street;
     }
 
-	/**
+    /**
      * @param string $street
      */
     protected function setStreet($street)
@@ -193,7 +193,7 @@ class Address
         $this->street = substr((string) $street, 0, 80);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getNumber()
@@ -201,7 +201,7 @@ class Address
         return $this->number;
     }
 
-	/**
+    /**
      * @param string $number
      */
     protected function setNumber($number)
@@ -209,7 +209,7 @@ class Address
         $this->number = substr((string) $number, 0, 20);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getComplement()
@@ -217,7 +217,7 @@ class Address
         return $this->complement;
     }
 
-	/**
+    /**
      * @param string $complement
      */
     protected function setComplement($complement)

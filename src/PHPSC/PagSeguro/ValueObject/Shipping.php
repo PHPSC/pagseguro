@@ -48,7 +48,7 @@ class Shipping
         }
     }
 
-	/**
+    /**
      * @return number
      */
     public function getType()
@@ -56,7 +56,7 @@ class Shipping
         return $this->type;
     }
 
-	/**
+    /**
      * @param number $type
      */
     protected function setType($type)
@@ -64,7 +64,7 @@ class Shipping
         $this->type = (int) $type;
     }
 
-	/**
+    /**
      * @return \PHPSC\PagSeguro\ValueObject\Address
      */
     public function getAddress()
@@ -72,7 +72,7 @@ class Shipping
         return $this->address;
     }
 
-	/**
+    /**
      * @param \PHPSC\PagSeguro\ValueObject\Address $address
      */
     protected function setAddress(Address $address = null)
@@ -80,7 +80,7 @@ class Shipping
         $this->address = $address;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getCost()
@@ -88,7 +88,7 @@ class Shipping
         return $this->cost;
     }
 
-	/**
+    /**
      * @param number $cost
      */
     protected function setCost($cost)

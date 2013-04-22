@@ -1,8 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro\ValueObject\Payment;
 
-use \PHPSC\PagSeguro\ValueObject\Shipping;
-use \PHPSC\PagSeguro\ValueObject\Sender;
+use PHPSC\PagSeguro\ValueObject\Shipping;
+use PHPSC\PagSeguro\ValueObject\Sender;
 
 class PaymentRequest
 {
@@ -97,7 +97,7 @@ class PaymentRequest
         }
     }
 
-	/**
+    /**
      * @return string
      */
     public function getCurrency()
@@ -105,7 +105,7 @@ class PaymentRequest
         return $this->currency;
     }
 
-	/**
+    /**
      * @param string $currency
      */
     protected function setCurrency($currency)
@@ -113,7 +113,7 @@ class PaymentRequest
         $this->currency = $currency;
     }
 
-	/**
+    /**
      * @return array
      */
     public function getItems()
@@ -121,7 +121,7 @@ class PaymentRequest
         return $this->items;
     }
 
-	/**
+    /**
      * @param array $items
      */
     protected function setItems(array $items)
@@ -129,7 +129,7 @@ class PaymentRequest
         $this->items = $items;
     }
 
-	/**
+    /**
      * @return string
      */
     public function getReference()
@@ -137,7 +137,7 @@ class PaymentRequest
         return $this->reference;
     }
 
-	/**
+    /**
      * @param string $reference
      */
     protected function setReference($reference)
@@ -145,7 +145,7 @@ class PaymentRequest
         $this->reference = $reference;
     }
 
-	/**
+    /**
      * @return \PHPSC\PagSeguro\ValueObject\Sender
      */
     public function getSender()
@@ -153,7 +153,7 @@ class PaymentRequest
         return $this->sender;
     }
 
-	/**
+    /**
      * @param \PHPSC\PagSeguro\ValueObject\Sender $sender
      */
     protected function setSender(Sender $sender = null)
@@ -161,7 +161,7 @@ class PaymentRequest
         $this->sender = $sender;
     }
 
-	/**
+    /**
      * @return \PHPSC\PagSeguro\ValueObject\Shipping
      */
     public function getShipping()
@@ -169,7 +169,7 @@ class PaymentRequest
         return $this->shipping;
     }
 
-	/**
+    /**
      * @param \PHPSC\PagSeguro\ValueObject\Shipping $shipping
      */
     protected function setShipping(Shipping $shipping = null)
@@ -177,7 +177,7 @@ class PaymentRequest
         $this->shipping = $shipping;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getExtraAmount()
@@ -185,7 +185,7 @@ class PaymentRequest
         return $this->extraAmount;
     }
 
-	/**
+    /**
      * @param number $extraAmount
      */
     protected function setExtraAmount($extraAmount)
@@ -193,7 +193,7 @@ class PaymentRequest
         $this->extraAmount = $extraAmount;
     }
 
-	/**
+    /**
      * @return string
      */
     public function getRedirectUrl()
@@ -201,7 +201,7 @@ class PaymentRequest
         return $this->redirectUrl;
     }
 
-	/**
+    /**
      * @param string $redirectUrl
      */
     protected function setRedirectUrl($redirectUrl)
@@ -209,7 +209,7 @@ class PaymentRequest
         $this->redirectUrl = $redirectUrl;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getMaxUses()
@@ -217,7 +217,7 @@ class PaymentRequest
         return $this->maxUses;
     }
 
-	/**
+    /**
      * @param number $maxUses
      */
     protected function setMaxUses($maxUses)
@@ -225,7 +225,7 @@ class PaymentRequest
         $this->maxUses = $maxUses;
     }
 
-	/**
+    /**
      * @return number
      */
     public function getMaxAge()
@@ -233,7 +233,7 @@ class PaymentRequest
         return $this->maxAge;
     }
 
-	/**
+    /**
      * @param number $maxAge
      */
     protected function setMaxAge($maxAge)

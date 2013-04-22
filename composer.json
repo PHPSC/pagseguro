@@ -14,7 +14,8 @@
         "CC-BY-SA-2.5"
     ],
     "require": {
-        "php": ">=5.3"
+        "php": ">=5.3",
+        "guzzle/guzzle": ">=3.4"
     },
     "autoload": {
         "psr-0": {

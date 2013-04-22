@@ -23,7 +23,7 @@ class Credentials
         $this->setToken($token);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getEmail()
@@ -31,7 +31,7 @@ class Credentials
         return $this->email;
     }
 
-	/**
+    /**
      * @param string $email
      */
     protected function setEmail($email)
@@ -39,7 +39,7 @@ class Credentials
         $this->email = substr($email, 0, 60);
     }
 
-	/**
+    /**
      * @return string
      */
     public function getToken()
@@ -47,7 +47,7 @@ class Credentials
         return $this->token;
     }
 
-	/**
+    /**
      * @param string $token
      */
     protected function setToken($token)
