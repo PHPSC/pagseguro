@@ -6,20 +6,19 @@ use SimpleXMLElement;
 class PagSeguroException extends \RuntimeException
 {
     /**
-     * @param string $xml
-     * @return \PHPSC\PagSeguro\Error\PagSeguroException
+     * @param SimpleXMLElement $xml
+     * @return PagSeguroException
      */
-    public static function createFromXml($xml)
+    public static function createFromXml(SimpleXMLElement $xml)
     {
         $message = 'Some errors occurred:';
-        $obj = new SimpleXMLElement($xml);
 
-        foreach ($obj->error as $erro) {
+        foreach ($xml->error as $error) {
             $message .= PHP_EOL
-                        . '[' . (string) $erro->code . '] '
-                        . (string) $erro->message;
+                        . '[' . (string) $error->code . '] '
+                        . (string) $error->message;
         }
 
-        return new PagSeguroException($message);
+        return new static($message);
     }
 }

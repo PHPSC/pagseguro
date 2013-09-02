@@ -45,11 +45,7 @@ class Client
                 $response = $event['response'];
 
                 if ($response->getStatusCode() == 400) {
-                    $error = PagSeguroException::createFromXml(
-                        $response->getBody(true)
-                    );
-
-                    throw new $error;
+                    throw PagSeguroException::createFromXml($response->xml());
                 }
 
                 throw new HttpException(
