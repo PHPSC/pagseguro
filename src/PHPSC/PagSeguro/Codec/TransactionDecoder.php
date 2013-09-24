@@ -28,7 +28,6 @@ class TransactionDecoder
             (int) $obj->status,
             new DateTime((string) $obj->date),
             new DateTime((string) $obj->lastEventDate),
-            isset($obj->escrowEndDate) ? new DateTime((string) $obj->escrowEndDate) : null,
             new PaymentMethod(
                 (int) $obj->paymentMethod->type,
                 (int) $obj->paymentMethod->code
@@ -41,7 +40,8 @@ class TransactionDecoder
             (int) $obj->installmentCount,
             $this->createItems($obj->items),
             $this->createSender($obj->sender),
-            $this->createShipping($obj->shipping)
+            $this->createShipping($obj->shipping),
+            isset($obj->escrowEndDate) ? new DateTime((string) $obj->escrowEndDate) : null
         );
     }
 

@@ -97,7 +97,6 @@ class Transaction
         $status,
         DateTime $date,
         DateTime $lastEventDate,
-        DateTime $escrowEndDate = null,
         PaymentMethod $paymentMethod,
         $grossAmount,
         $discountAmount,
@@ -107,7 +106,8 @@ class Transaction
         $installmentCount,
         array $items,
         Sender $sender,
-        Shipping $shipping
+        Shipping $shipping,
+        DateTime $escrowEndDate = null
     ) {
         $this->setCode($code);
         $this->setReference($reference);
