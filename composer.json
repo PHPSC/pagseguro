@@ -1,25 +1,31 @@
 {
-    "name": "phpsc/pagseguro",
-    "description": "Client para integração com API do Pagseguro",
-    "type": "library",
-    "authors": [{
-            "name": "Luís Otávio Cobucci Oblonczyk",
-            "email": "lcobucci@gmail.com"
-        }
-    ],
-    "keywords": [
-        "API", "Pagseguro", "Pagamento", "Notificacao"
-    ],
-    "license": [
-        "CC-BY-SA-2.5"
-    ],
-    "require": {
-        "php": ">=5.3",
-        "guzzle/guzzle": ">=3.4"
-    },
-    "autoload": {
-        "psr-0": {
-            "PHPSC\\PagSeguro": "src/"
-        }
-    }
+	"name" : "phpsc/pagseguro",
+	"description" : "Client para integração com API do Pagseguro",
+	"type" : "library",
+	"authors" : [{
+			"name" : "Luís Otávio Cobucci Oblonczyk",
+			"email" : "lcobucci@gmail.com"
+		}
+	],
+	"keywords" : [
+		"API",
+		"Pagseguro",
+		"Pagamento",
+		"Notificacao"
+	],
+	"license" : [
+		"CC-BY-SA-2.5"
+	],
+	"require" : {
+		"guzzle/guzzle" : ">=3.4",
+		"php" : ">=5.3"
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "*"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"PHPSC\\PagSeguro" : "src/"
+		}
+	}
 }
