@@ -9,8 +9,8 @@ use PHPSC\PagSeguro\ValueObject\Item;
 class PaymentEncoder
 {
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Credentials $credentials
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param Credentials $credentials
+     * @param PaymentRequest $request
      * @return string
      */
     public function encode(Credentials $credentials, PaymentRequest $request)
@@ -31,7 +31,7 @@ class PaymentEncoder
     }
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Credentials $credentials
+     * @param Credentials $credentials
      * @return array
      */
     protected function createElement(Credentials $credentials)
@@ -44,7 +44,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param PaymentRequest $request
      */
     protected function appendCurrency(array &$data, PaymentRequest $request)
     {
@@ -53,7 +53,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param PaymentRequest $request
      */
     protected function appendItems(array &$data, PaymentRequest $request)
     {
@@ -64,7 +64,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Item $item
+     * @param Item $item
      */
     protected function appendItem(array &$data, $index, Item $item)
     {
@@ -84,7 +84,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param PaymentRequest $request
      */
     protected function appendReference(array &$data, PaymentRequest $request)
     {
@@ -95,7 +95,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param PaymentRequest $request
      */
     protected function appendSender(array &$data, PaymentRequest $request)
     {
@@ -117,7 +117,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param PaymentRequest $request
      */
     protected function appendShipping(array &$data, PaymentRequest $request)
     {
@@ -134,7 +134,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Address $address
+     * @param Address $address
      */
     protected function appendAddress(array &$data, Address $address)
     {
@@ -171,7 +171,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param PaymentRequest $request
      */
     protected function appendExtraAmount(array &$data, PaymentRequest $request)
     {
@@ -182,7 +182,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param PaymentRequest $request
      */
     protected function appendRedirectUrl(array &$data, PaymentRequest $request)
     {
@@ -193,7 +193,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param PaymentRequest $request
      */
     protected function appendMaxUses(array &$data, PaymentRequest $request)
     {
@@ -204,7 +204,7 @@ class PaymentEncoder
 
     /**
      * @param array $data
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
+     * @param PaymentRequest $request
      */
     protected function appendMaxAge(array &$data, PaymentRequest $request)
     {

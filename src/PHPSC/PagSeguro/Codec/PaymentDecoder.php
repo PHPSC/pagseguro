@@ -9,7 +9,7 @@ class PaymentDecoder
 {
     /**
      * @param string $xml
-     * @return \PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse
+     * @return PaymentResponse
      */
     public function decode($xml)
     {

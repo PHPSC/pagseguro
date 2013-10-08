@@ -26,22 +26,22 @@ class Transaction
     private $status;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $date;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $lastEventDate;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $escrowEndDate;
 
     /**
-     * @var \PHPSC\PagSeguro\ValueObject\PaymentMethod
+     * @var PaymentMethod
      */
     private $paymentMethod;
 
@@ -81,12 +81,12 @@ class Transaction
     private $items;
 
     /**
-     * @var \PHPSC\PagSeguro\ValueObject\Sender
+     * @var Sender
      */
     private $sender;
 
     /**
-     * @var \PHPSC\PagSeguro\ValueObject\Shipping
+     * @var Shipping
      */
     private $shipping;
 
@@ -193,7 +193,7 @@ class Transaction
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDate()
     {
@@ -201,7 +201,7 @@ class Transaction
     }
 
     /**
-     * @param \DateTime $date
+     * @param DateTime $date
      */
     protected function setDate(DateTime $date)
     {
@@ -209,7 +209,7 @@ class Transaction
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getLastEventDate()
     {
@@ -217,7 +217,7 @@ class Transaction
     }
 
     /**
-     * @param \DateTime $lastEventDate
+     * @param DateTime $lastEventDate
      */
     protected function setLastEventDate(DateTime $lastEventDate)
     {
@@ -225,7 +225,7 @@ class Transaction
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getEscrowEndDate()
     {
@@ -233,7 +233,7 @@ class Transaction
     }
 
     /**
-     * @param \DateTime $escrowEndDate
+     * @param DateTime $escrowEndDate
      */
     protected function setEscrowEndDate(DateTime $escrowEndDate = null)
     {
@@ -241,7 +241,7 @@ class Transaction
     }
 
     /**
-     * @return \PHPSC\PagSeguro\ValueObject\PaymentMethod
+     * @return PaymentMethod
      */
     public function getPaymentMethod()
     {
@@ -249,7 +249,7 @@ class Transaction
     }
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\PaymentMethod $paymentMethod
+     * @param PaymentMethod $paymentMethod
      */
     protected function setPaymentMethod(PaymentMethod $paymentMethod)
     {
@@ -353,7 +353,7 @@ class Transaction
     }
 
     /**
-     * @return multitype:\PHPSC\PagSeguro\ValueObject\Item
+     * @return array
      */
     public function getItems()
     {
@@ -361,7 +361,7 @@ class Transaction
     }
 
     /**
-     * @param multitype:\PHPSC\PagSeguro\ValueObject\Item $items
+     * @param array $items
      */
     protected function setItems(array $items)
     {
@@ -369,7 +369,7 @@ class Transaction
     }
 
     /**
-     * @return \PHPSC\PagSeguro\ValueObject\Sender
+     * @return Sender
      */
     public function getSender()
     {
@@ -377,15 +377,15 @@ class Transaction
     }
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Sender $sender
+     * @param Sender $sender
      */
-    protected function setSender($sender)
+    protected function setSender(Sender $sender)
     {
         $this->sender = $sender;
     }
 
     /**
-     * @return \PHPSC\PagSeguro\ValueObject\Shipping
+     * @return Shipping
      */
     public function getShipping()
     {
@@ -393,9 +393,9 @@ class Transaction
     }
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Shipping $shipping
+     * @param Shipping $shipping
      */
-    protected function setShipping($shipping)
+    protected function setShipping(Shipping $shipping)
     {
         $this->shipping = $shipping;
     }

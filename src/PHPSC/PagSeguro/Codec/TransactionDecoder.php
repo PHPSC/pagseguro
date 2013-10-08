@@ -15,7 +15,7 @@ class TransactionDecoder
 {
     /**
      * @param string $xml
-     * @return \PHPSC\PagSeguro\ValueObject\Transaction
+     * @return Transaction
      */
     public function decode($xml)
     {
@@ -46,8 +46,8 @@ class TransactionDecoder
     }
 
     /**
-     * @param \SimpleXMLElement $itemsNode
-     * @return multitype:\PHPSC\PagSeguro\ValueObject\Item
+     * @param SimpleXMLElement $itemsNode
+     * @return array
      */
     protected function createItems(SimpleXMLElement $itemsNode)
     {
@@ -68,8 +68,8 @@ class TransactionDecoder
     }
 
     /**
-     * @param \SimpleXMLElement $sender
-     * @return \PHPSC\PagSeguro\ValueObject\Sender
+     * @param SimpleXMLElement $sender
+     * @return Sender
      */
     protected function createSender(SimpleXMLElement $sender)
     {
@@ -90,8 +90,8 @@ class TransactionDecoder
     }
 
     /**
-     * @param \SimpleXMLElement $shipping
-     * @return \PHPSC\PagSeguro\ValueObject\Shipping
+     * @param SimpleXMLElement $shipping
+     * @return Shipping
      */
     protected function createShipping(SimpleXMLElement $shipping)
     {

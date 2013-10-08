@@ -3,6 +3,7 @@ namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Codec\TransactionDecoder;
 use PHPSC\PagSeguro\ValueObject\Credentials;
+use PHPSC\PagSeguro\ValueObject\Transaction;
 use PHPSC\PagSeguro\Http\Client;
 
 class NotificationService
@@ -13,24 +14,24 @@ class NotificationService
     const ENDPOINT = 'https://ws.pagseguro.uol.com.br/v2/transactions/notifications';
 
     /**
-     * @var \PHPSC\PagSeguro\ValueObject\Credentials
+     * @var Credentials
      */
     private $credentials;
 
     /**
-     * @var \PHPSC\PagSeguro\Http\Client
+     * @var Client
      */
     private $client;
 
     /**
-     * @var \PHPSC\PagSeguro\Codec\TransactionDecoder
+     * @var TransactionDecoder
      */
     private $decoder;
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Credentials $credentials
-     * @param \PHPSC\PagSeguro\Http\Client $client
-     * @param \PHPSC\PagSeguro\Codec\TransactionDecoder $decoder
+     * @param Credentials $credentials
+     * @param Client $client
+     * @param TransactionDecoder $decoder
      */
     public function __construct(
         Credentials $credentials,
@@ -44,7 +45,7 @@ class NotificationService
 
     /**
      * @param string $code
-     * @return \PHPSC\PagSeguro\ValueObject\Transaction
+     * @return Transaction
      */
     public function getByCode($code)
     {

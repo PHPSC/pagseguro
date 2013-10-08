@@ -14,14 +14,14 @@ class Sender
     private $name;
 
     /**
-     * @var \PHPSC\PagSeguro\ValueObject\Phone
+     * @var Phone
      */
     private $phone;
 
     /**
      * @param string $email
      * @param string $name
-     * @param \PHPSC\PagSeguro\ValueObject\Phone $phone
+     * @param Phone $phone
      */
     public function __construct(
         $email,
@@ -69,7 +69,7 @@ class Sender
     }
 
     /**
-     * @return \PHPSC\PagSeguro\ValueObject\Phone
+     * @return Phone
      */
     public function getPhone()
     {
@@ -77,7 +77,7 @@ class Sender
     }
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Phone $phone
+     * @param Phone $phone
      */
     protected function setPhone(Phone $phone = null)
     {

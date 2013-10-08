@@ -12,7 +12,7 @@ class PaymentRequest
     private $currency;
 
     /**
-     * @var multitype:\PHPSC\PagSeguro\ValueObject\Item
+     * @var array
      */
     private $items;
 
@@ -22,12 +22,12 @@ class PaymentRequest
     private $reference;
 
     /**
-     * @var \PHPSC\PagSeguro\ValueObject\Sender
+     * @var Sender
      */
     private $sender;
 
     /**
-     * @var \PHPSC\PagSeguro\ValueObject\Shipping
+     * @var Shipping
      */
     private $shipping;
 
@@ -52,10 +52,10 @@ class PaymentRequest
     private $maxAge;
 
     /**
-     * @param multitype:\PHPSC\PagSeguro\ValueObject\Item $items
+     * @param array $items
      * @param string $reference
-     * @param \PHPSC\PagSeguro\ValueObject\Sender $sender
-     * @param \PHPSC\PagSeguro\ValueObject\Shipping $shipping
+     * @param Sender $sender
+     * @param Shipping $shipping
      * @param float $extraAmount
      * @param string $redirectUrl
      * @param int $maxUses
@@ -146,7 +146,7 @@ class PaymentRequest
     }
 
     /**
-     * @return \PHPSC\PagSeguro\ValueObject\Sender
+     * @return Sender
      */
     public function getSender()
     {
@@ -154,7 +154,7 @@ class PaymentRequest
     }
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Sender $sender
+     * @param Sender $sender
      */
     protected function setSender(Sender $sender = null)
     {
@@ -162,7 +162,7 @@ class PaymentRequest
     }
 
     /**
-     * @return \PHPSC\PagSeguro\ValueObject\Shipping
+     * @return Shipping
      */
     public function getShipping()
     {
@@ -170,7 +170,7 @@ class PaymentRequest
     }
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Shipping $shipping
+     * @param Shipping $shipping
      */
     protected function setShipping(Shipping $shipping = null)
     {

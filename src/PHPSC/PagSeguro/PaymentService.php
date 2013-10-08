@@ -16,30 +16,30 @@ class PaymentService
     const ENDPOINT = 'https://ws.pagseguro.uol.com.br/v2/checkout';
 
     /**
-     * @var \PHPSC\PagSeguro\ValueObject\Credentials
+     * @var Credentials
      */
     private $credentials;
 
     /**
-     * @var \PHPSC\PagSeguro\Http\Client
+     * @var Client
      */
     private $client;
 
     /**
-     * @var \PHPSC\PagSeguro\Codec\PaymentEncoder
+     * @var PaymentEncoder
      */
     private $encoder;
 
     /**
-     * @var \PHPSC\PagSeguro\Codec\PaymentDecoder
+     * @var PaymentDecoder
      */
     private $decoder;
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Credentials $credentials
-     * @param \PHPSC\PagSeguro\Http\Client $client
-     * @param \PHPSC\PagSeguro\Codec\PaymentEncoder $encoder
-     * @param \PHPSC\PagSeguro\Codec\PaymentDecoder $decoder
+     * @param Credentials $credentials
+     * @param Client $client
+     * @param PaymentEncoder $encoder
+     * @param PaymentDecoder $decoder
      */
     public function __construct(
         Credentials $credentials,
@@ -54,8 +54,8 @@ class PaymentService
     }
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest $request
-     * @return \PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse
+     * @param PaymentRequest $request
+     * @return PaymentResponse
      */
     public function send(PaymentRequest $request)
     {

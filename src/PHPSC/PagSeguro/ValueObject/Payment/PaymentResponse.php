@@ -16,13 +16,13 @@ class PaymentResponse
     private $code;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $date;
 
     /**
      * @param string $code
-     * @param \DateTime $date
+     * @param DateTime $date
      */
     public function __construct($code, DateTime $date)
     {
@@ -47,7 +47,7 @@ class PaymentResponse
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDate()
     {
@@ -55,7 +55,7 @@ class PaymentResponse
     }
 
     /**
-     * @param \DateTime $date
+     * @param DateTime $date
      */
     protected function setDate(DateTime $date)
     {
