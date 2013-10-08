@@ -64,9 +64,6 @@ class Client
             'curl.options' => array(
                 CURLOPT_CONNECTTIMEOUT => 10,
                 CURLOPT_SSL_VERIFYPEER => false,
-                CURLOPT_HTTPHEADER => array(
-                    'Content-Type: application/x-www-form-urlencoded; charset=UTF-8'
-                )
             )
         );
     }
@@ -81,7 +78,12 @@ class Client
         $request = $this->client->post(
             $url,
             null,
-            $fields ? http_build_query($fields, '', '&') : null
+            $fields ? http_build_query($fields, '', '&') : null,
+            array(
+                'headers' => array(
+                    'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
+                )
+            )
         );
 
         $response = $request->send();
