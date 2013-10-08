@@ -36,10 +36,10 @@ O uso básico é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-0 registrado
 
-use \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
-use \PHPSC\PagSeguro\ValueObject\Credentials;
-use \PHPSC\PagSeguro\ValueObject\Item;
-use \PHPSC\PagSeguro\PaymentService;
+use PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
+use PHPSC\PagSeguro\ValueObject\Credentials;
+use PHPSC\PagSeguro\ValueObject\Item;
+use PHPSC\PagSeguro\PaymentService;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
@@ -73,7 +73,8 @@ try {
 ```
 ### Notificações
 
-Este serviço é responsável por buscar o status de uma transação, ele deve ser utilizado para acompanhar a alteração do status de pagamento de uma venda. Seu fluxo básico é:
+Este serviço é responsável por buscar uma transação a partir do código da notificação, ele 
+deve ser utilizado para acompanhar a alteração do status de pagamento de uma venda. Seu fluxo básico é:
 
     Loja                                  PagSeguro
      |                                        |
@@ -93,10 +94,8 @@ O uso básico é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-0 registrado
 
-use \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
-use \PHPSC\PagSeguro\ValueObject\Credentials;
-use \PHPSC\PagSeguro\ValueObject\Item;
-use \PHPSC\PagSeguro\NotificationService;
+use PHPSC\PagSeguro\ValueObject\Credentials;
+use PHPSC\PagSeguro\NotificationService;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
@@ -109,6 +108,46 @@ try {
     $transaction = $service->getByCode( // Solicita os detalhes da transação
     	'CODIGO DA NOTIFICAÇÃO ENVIADO PELO PAGSEGURO'
 	);
+
+    var_dump($transaction); // Exibe na tela a transação atualizada
+} catch (Exception $error) { // Caso ocorreu algum erro
+    echo $error->getMessage(); // Exibe na tela a mensagem de erro
+}
+```
+### Consultas
+
+Este serviço é responsável por buscar uma transação a partir do código da transação, ele 
+deve ser utilizado para buscar os dados de pagamento de uma venda. Seu fluxo básico é:
+
+    Loja                                  PagSeguro
+     |                                        |
+     |----- (A) solicita dados -------------->|
+     |                                        |
+     |<---- (B) envia resposta ---------------|
+     
+* (A) A loja busca a transação a partir do código da transação (recebido na solicitação de pagamento)
+* (B) PagSeguro envia resposta da requisição com os detalhes da transação
+
+O uso básico é:
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-0 registrado
+
+use PHPSC\PagSeguro\ValueObject\Credentials;
+use PHPSC\PagSeguro\ConsultationService;
+
+$credentials = new Credentials(
+    'EMAIL CADASTRADO NO PAGSEGURO',
+    'TOKEN DE ACESSO À API'
+);
+
+$service = new ConsultationService($credentials); // Cria instância do serviço
+
+try {
+    $transaction = $service->getByCode( // Solicita os detalhes da transação
+        'CODIGO DA TRANSAÇÃO'
+    );
 
     var_dump($transaction); // Exibe na tela a transação atualizada
 } catch (Exception $error) { // Caso ocorreu algum erro
