@@ -8,13 +8,11 @@ use DateTime;
 class PaymentDecoder
 {
     /**
-     * @param string $xml
+     * @param SimpleXMLElement $obj
      * @return PaymentResponse
      */
-    public function decode($xml)
+    public function decode(SimpleXMLElement $obj)
     {
-        $obj = new SimpleXMLElement($xml);
-
         return new PaymentResponse(
             (string) $obj->code,
             new DateTime((string) $obj->date)

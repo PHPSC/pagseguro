@@ -74,7 +74,7 @@ class Client
     /**
      * @param string $url
      * @param array $fields
-     * @return string
+     * @return SimpleXMLElement
      */
     public function post($url, array $fields = null)
     {
@@ -86,18 +86,18 @@ class Client
 
         $response = $request->send();
 
-        return $response->getBody(true);
+        return $response->xml();
     }
 
     /**
      * @param string $url
-     * @return string
+     * @return SimpleXMLElement
      */
     public function get($url)
     {
         $request = $this->client->get($url);
         $response = $request->send();
 
-        return $response->getBody(true);
+        return $response->xml();
     }
 }

@@ -14,13 +14,11 @@ use DateTime;
 class TransactionDecoder
 {
     /**
-     * @param string $xml
+     * @param SimpleXMLElement $obj
      * @return Transaction
      */
-    public function decode($xml)
+    public function decode(SimpleXMLElement $obj)
     {
-        $obj = new SimpleXMLElement($xml);
-
         return new Transaction(
             (string) $obj->code,
             isset($obj->reference) ? (string) $obj->reference : null,
