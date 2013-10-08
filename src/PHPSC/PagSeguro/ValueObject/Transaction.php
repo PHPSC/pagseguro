@@ -6,6 +6,41 @@ use DateTime;
 class Transaction
 {
     /**
+     * @var int
+     */
+    const WAITING_PAYMENT = 1;
+
+    /**
+     * @var int
+     */
+    const UNDER_ANALYSIS = 2;
+
+    /**
+     * @var int
+     */
+    const PAID = 3;
+
+    /**
+     * @var int
+     */
+    const AVAILABLE = 4;
+
+    /**
+     * @var int
+     */
+    const UNDER_CONTEST = 5;
+
+    /**
+     * @var int
+     */
+    const RETURNED = 6;
+
+    /**
+     * @var int
+     */
+    const CANCELLED = 7;
+
+    /**
      * @var string
      */
     private $code;
@@ -90,6 +125,25 @@ class Transaction
      */
     private $shipping;
 
+    /**
+     * @param string $code
+     * @param string $reference
+     * @param int $type
+     * @param int $status
+     * @param DateTime $date
+     * @param DateTime $lastEventDate
+     * @param PaymentMethod $paymentMethod
+     * @param float $grossAmount
+     * @param float $discountAmount
+     * @param float $feeAmount
+     * @param float $netAmount
+     * @param float $extraAmount
+     * @param int $installmentCount
+     * @param array $items
+     * @param Sender $sender
+     * @param Shipping $shipping
+     * @param DateTime $escrowEndDate
+     */
     public function __construct(
         $code,
         $reference,
@@ -190,6 +244,62 @@ class Transaction
     protected function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isWaitingPayment()
+    {
+        return $this->getStatus() === static::WAITING_PAYMENT;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isUnderAnalysis()
+    {
+        return $this->getStatus() === static::UNDER_ANALYSIS;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPaid()
+    {
+        return $this->getStatus() === static::PAID;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAvailable()
+    {
+        return $this->getStatus() === static::AVAILABLE;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isUnderContest()
+    {
+        return $this->getStatus() === static::UNDER_CONTEST;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isReturned()
+    {
+        return $this->getStatus() === static::RETURNED;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCancelled()
+    {
+        return $this->getStatus() === static::CANCELLED;
     }
 
     /**
