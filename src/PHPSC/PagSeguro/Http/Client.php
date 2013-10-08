@@ -1,7 +1,6 @@
 <?php
 namespace PHPSC\PagSeguro\Http;
 
-use PHPSC\PagSeguro\Error\ConnectionException;
 use PHPSC\PagSeguro\Error\PagSeguroException;
 use PHPSC\PagSeguro\Error\HttpException;
 use Guzzle\Http\Client as HttpClient;
@@ -18,26 +17,26 @@ class Client
     private $client;
 
     /**
-     * @param int $timeout
-     * @param boolean $verifySSL
+     * @param HttpClient $client
+     * @param array $clientConfig
      */
     public function __construct(
-        $timeout = 10,
-        $verifySSL = false,
-        $charset = 'UTF-8'
+        HttpClient $client = null,
+        array $clientConfig = array()
     ) {
-        $this->client = new HttpClient(
-            '',
-            array(
-                'curl.options' => array(
-                    CURLOPT_CONNECTTIMEOUT => $timeout,
-                    CURLOPT_SSL_VERIFYPEER => $verifySSL,
-                    CURLOPT_HTTPHEADER => array(
-                        'Content-Type: application/x-www-form-urlencoded; charset=' . $charset
-                    )
-                )
-            )
-        );
+        $this->client = $client ?: new HttpClient();
+
+        $this->configureClient($clientConfig);
+    }
+
+    /**
+     * @param array $config
+     * @throws HttpException
+     */
+    protected function configureClient(array $config)
+    {
+        $this->client->getConfig()->merge($this->getDefaultConfiguration());
+        $this->client->getConfig()->merge($config);
 
         $this->client->getEventDispatcher()->addListener(
             'request.error',
@@ -53,6 +52,22 @@ class Client
                     . $response->getBody(true)
                 );
             }
+        );
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDefaultConfiguration()
+    {
+        return array(
+            'curl.options' => array(
+                CURLOPT_CONNECTTIMEOUT => 10,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/x-www-form-urlencoded; charset=UTF-8'
+                )
+            )
         );
     }
 
