@@ -1,12 +1,13 @@
 <?php
-namespace PHPSC\PagSeguro;
+
+namespace PHPSC\PagSeguro\Service;
 
 use PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse;
-use \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
-use \PHPSC\PagSeguro\ValueObject\Credentials;
-use \PHPSC\PagSeguro\Codec\PaymentEncoder;
-use \PHPSC\PagSeguro\Codec\PaymentDecoder;
-use \PHPSC\PagSeguro\Http\Client;
+use PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
+use PHPSC\PagSeguro\ValueObject\Credentials;
+use PHPSC\PagSeguro\Codec\PaymentEncoder;
+use PHPSC\PagSeguro\Codec\PaymentDecoder;
+use PHPSC\PagSeguro\Http\Client;
 
 class PaymentService
 {

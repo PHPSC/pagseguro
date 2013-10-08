@@ -1,5 +1,6 @@
 <?php
-namespace PHPSC\PagSeguro;
+
+namespace PHPSC\PagSeguro\Service;
 
 use PHPSC\PagSeguro\Codec\TransactionDecoder;
 use PHPSC\PagSeguro\ValueObject\Credentials;
