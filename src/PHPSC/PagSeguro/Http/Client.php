@@ -62,7 +62,6 @@ class Client
     {
         return array(
             'curl.options' => array(
-                CURLOPT_CONNECTTIMEOUT => 10,
                 CURLOPT_SSL_VERIFYPEER => false,
             )
         );
