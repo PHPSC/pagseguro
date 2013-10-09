@@ -18,26 +18,20 @@ class Client
 
     /**
      * @param HttpClient $client
-     * @param array $clientConfig
      */
     public function __construct(
-        HttpClient $client = null,
-        array $clientConfig = array()
+        HttpClient $client = null
     ) {
         $this->client = $client ?: new HttpClient();
 
-        $this->configureClient($clientConfig);
+        $this->configureListener();
     }
 
     /**
-     * @param array $config
      * @throws HttpException
      */
-    protected function configureClient(array $config)
+    protected function configureListener()
     {
-        $this->client->getConfig()->merge($this->getDefaultConfiguration());
-        $this->client->getConfig()->merge($config);
-
         $this->client->getEventDispatcher()->addListener(
             'request.error',
             function (Event $event) {
@@ -56,18 +50,6 @@ class Client
     }
 
     /**
-     * @return array
-     */
-    protected function getDefaultConfiguration()
-    {
-        return array(
-            'curl.options' => array(
-                CURLOPT_SSL_VERIFYPEER => false,
-            )
-        );
-    }
-
-    /**
      * @param string $url
      * @param array $fields
      * @return SimpleXMLElement
@@ -79,6 +61,7 @@ class Client
             null,
             $fields ? http_build_query($fields, '', '&') : null,
             array(
+                'verify' => false,
                 'headers' => array(
                     'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
                 )
@@ -96,7 +79,12 @@ class Client
      */
     public function get($url)
     {
-        $request = $this->client->get($url);
+        $request = $this->client->get(
+            $url,
+            null,
+            array('verify' => false)
+        );
+
         $response = $request->send();
 
         return $response->xml();
