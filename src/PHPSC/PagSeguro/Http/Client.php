@@ -35,6 +35,10 @@ class Client
         $this->client->getEventDispatcher()->addListener(
             'request.error',
             function (Event $event) {
+                if ($event['request']->getHost() != 'ws.pagseguro.uol.com.br') {
+                    return ;
+                }
+
                 $response = $event['response'];
 
                 if ($response->getStatusCode() == 400) {
