@@ -119,3 +119,7 @@ try {
 ### Licença de uso
 
 Esta biblioteca segue os termos de uso da [Creative Commons Attribution-ShareAlike 2.5](http://creativecommons.org/licenses/by-sa/2.5)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PHPSC/pagseguro/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
