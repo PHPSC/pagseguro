@@ -126,6 +126,7 @@ class PaymentEncoder
         }
 
         $data['shippingType'] = $request->getShipping()->getType();
+        $data['shippingCost'] = $request->getShipping()->getCost();
 
         if ($request->getShipping()->getAddress()) {
             $this->appendAddress($data, $request->getShipping()->getAddress());
