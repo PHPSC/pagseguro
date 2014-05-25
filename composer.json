@@ -17,7 +17,7 @@
 		"CC-BY-SA-2.5"
 	],
 	"require" : {
-		"guzzle/guzzle" : ">=3.4",
+		"guzzle/guzzle" : "~3.8",
 		"php" : ">=5.3"
 	},
 	"require-dev" : {
