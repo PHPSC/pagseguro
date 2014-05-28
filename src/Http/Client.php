@@ -3,6 +3,7 @@ namespace PHPSC\PagSeguro\Http;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
+use PHPSC\PagSeguro\BaseService;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -30,7 +31,7 @@ class Client
      */
     public function handleError(Event $event)
     {
-        if ($event['request']->getHost() != 'ws.pagseguro.uol.com.br') {
+        if (!in_array($event['request']->getHost(), array(BaseService::HOST, BaseService::SANDBOX_HOST))) {
             return ;
         }
 

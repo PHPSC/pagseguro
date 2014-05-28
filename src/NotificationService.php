@@ -11,7 +11,7 @@ class NotificationService extends BaseService
     /**
      * @var string
      */
-    const ENDPOINT = 'https://ws.pagseguro.uol.com.br/v2/transactions/notifications';
+    const ENDPOINT = '/v2/transactions/notifications';
 
     /**
      * @var TransactionDecoder

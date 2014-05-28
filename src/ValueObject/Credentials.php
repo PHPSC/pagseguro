@@ -14,13 +14,20 @@ class Credentials
     private $token;
 
     /**
+     * @var string
+     */
+    private $sandboxToken;
+
+    /**
      * @param string $email
      * @param string $token
+     * @param string $sandboxToken
      */
-    public function __construct($email, $token)
+    public function __construct($email, $token, $sandboxToken = null)
     {
         $this->setEmail($email);
         $this->setToken($token);
+        $this->setSandboxToken($sandboxToken);
     }
 
     /**
@@ -53,5 +60,23 @@ class Credentials
     protected function setToken($token)
     {
         $this->token = substr($token, 0, 32);
+    }
+
+    /**
+     * @return string
+     */
+    public function getSandboxToken()
+    {
+        return $this->sandboxToken;
+    }
+
+    /**
+     * @param string $sandboxToken
+     */
+    protected function setSandboxToken($sandboxToken)
+    {
+        if (!empty($sandboxToken)) {
+            $this->sandboxToken = substr($sandboxToken, 0, 32);
+        }
     }
 }

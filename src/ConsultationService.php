@@ -11,7 +11,7 @@ class ConsultationService extends BaseService
     /**
      * @var string
      */
-    const ENDPOINT = 'https://ws.pagseguro.uol.com.br/v2/transactions';
+    const ENDPOINT = '/v2/transactions';
 
     /**
      * @var TransactionDecoder

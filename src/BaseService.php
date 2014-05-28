@@ -6,6 +6,10 @@ use PHPSC\PagSeguro\Http\Client;
 
 abstract class BaseService
 {
+    const HOST = 'ws.pagseguro.uol.com.br';
+
+    const SANDBOX_HOST = 'ws.sandbox.pagseguro.uol.com.br';
+
     /**
      * @var Credentials
      */
@@ -17,6 +21,11 @@ abstract class BaseService
     private $client;
 
     /**
+     * @var boolean
+     */
+    private $sandbox;
+
+    /**
      * @param Credentials $credentials
      * @param Client $client
      */
@@ -26,28 +35,53 @@ abstract class BaseService
     ) {
         $this->credentials = $credentials;
         $this->client = $client ?: new Client();
+        $this->sandbox = false;
     }
 
-    protected function get($url, array $params = array())
+    /**
+     * @param boolean $sandbox
+     */
+    public function setSandbox($sandbox)
     {
-        $params = array_merge($params, $this->getCredentials());
-        $url = $url . '?' . http_build_query($params);
-
-        return $this->client->get($url);
+        $this->sandbox = (boolean) $sandbox;
     }
 
-    protected function post($url, array $params = array())
+    /**
+     * @return boolean
+     */
+    public function isSandbox()
+    {
+        return $this->sandbox;
+    }
+
+    protected function get($resource, array $params = array())
     {
         $params = array_merge($params, $this->getCredentials());
 
-        return $this->client->post($url, $params);
+        return $this->client->get($this->buildUri($resource) . '?' . http_build_query($params));
+    }
+
+    protected function post($resource, array $params = array())
+    {
+        $params = array_merge($params, $this->getCredentials());
+
+        return $this->client->post($this->buildUri($resource), $params);
+    }
+
+    protected function buildUri($resource)
+    {
+        if ($this->isSandbox()) {
+            return 'https://' . static::SANDBOX_HOST . $resource;
+        }
+
+        return 'https://' . static::HOST . $resource;
     }
 
     protected function getCredentials()
     {
         return array(
-        	'email' => $this->credentials->getEmail(),
-        	'token' => $this->credentials->getToken()
+            'email' => $this->credentials->getEmail(),
+            'token' => $this->isSandbox() ? $this->credentials->getSandboxToken() : $this->credentials->getToken()
         );
     }
 }

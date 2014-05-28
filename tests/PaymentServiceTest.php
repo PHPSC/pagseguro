@@ -59,7 +59,7 @@ class PaymentServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->decoder->expects($this->once())
                       ->method('decode')
-                      ->with($xml)
+                      ->with($xml, false)
                       ->willReturn($response);
 
         $service = new PaymentService($this->credentials, $this->client, $this->encoder, $this->decoder);

@@ -13,7 +13,7 @@ class PaymentService extends BaseService
     /**
      * @var string
      */
-    const ENDPOINT = 'https://ws.pagseguro.uol.com.br/v2/checkout';
+    const ENDPOINT = '/v2/checkout';
 
     /**
      * @var PaymentEncoder
@@ -49,6 +49,9 @@ class PaymentService extends BaseService
      */
     public function checkout(PaymentRequest $request)
     {
-        return $this->decoder->decode($this->post(static::ENDPOINT, $this->encoder->encode($request)));
+        return $this->decoder->decode(
+            $this->post(static::ENDPOINT, $this->encoder->encode($request)),
+            $this->isSandbox()
+        );
     }
 }

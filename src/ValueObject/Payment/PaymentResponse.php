@@ -8,7 +8,17 @@ class PaymentResponse
     /**
      * @var string
      */
-    const REDIRECT_URL = 'https://pagseguro.uol.com.br/v2/checkout/payment.html';
+    const HOST = 'pagseguro.uol.com.br';
+
+    /**
+     * @var string
+     */
+    const SANDBOX_HOST = 'sandbox.pagseguro.uol.com.br';
+
+    /**
+     * @var string
+     */
+    const RESOURCE = '/v2/checkout/payment.html';
 
     /**
      * @var string
@@ -21,13 +31,20 @@ class PaymentResponse
     private $date;
 
     /**
+     * @var boolean
+     */
+    private $sandbox;
+
+    /**
      * @param string $code
      * @param DateTime $date
+     * @param boolean $sandbox
      */
-    public function __construct($code, DateTime $date)
+    public function __construct($code, DateTime $date, $sandbox = false)
     {
         $this->setCode($code);
         $this->setDate($date);
+        $this->sandbox = $sandbox;
     }
 
     /**
@@ -67,6 +84,10 @@ class PaymentResponse
      */
     public function getRedirectionUrl()
     {
-        return static::REDIRECT_URL . '?code=' . $this->getCode();
+        if ($this->sandbox) {
+            return 'https://' . static::SANDBOX_HOST . static::RESOURCE . '?code=' . $this->getCode();
+        }
+
+        return 'https://' . static::HOST . static::RESOURCE . '?code=' . $this->getCode();
     }
 }

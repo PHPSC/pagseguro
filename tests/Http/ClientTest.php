@@ -7,6 +7,7 @@ use Guzzle\Http\Message\Response;
 use Guzzle\Http\Message\Request;
 use PHPSC\PagSeguro\Http\Client;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use PHPSC\PagSeguro\BaseService;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -98,7 +99,7 @@ XML;
 
         $this->request->expects($this->any())
                       ->method('getHost')
-                      ->willReturn('ws.pagseguro.uol.com.br');
+                      ->willReturn(BaseService::HOST);
 
         $this->response->expects($this->any())
                        ->method('getStatusCode')
@@ -123,7 +124,7 @@ XML;
 
         $this->request->expects($this->any())
                       ->method('getHost')
-                      ->willReturn('ws.pagseguro.uol.com.br');
+                      ->willReturn(BaseService::SANDBOX_HOST);
 
         $this->response->expects($this->any())
                        ->method('getStatusCode')
