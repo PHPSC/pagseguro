@@ -3,8 +3,6 @@ namespace PHPSC\PagSeguro\Http;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
-use PHPSC\PagSeguro\Error\HttpException;
-use PHPSC\PagSeguro\Error\PagSeguroException;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
