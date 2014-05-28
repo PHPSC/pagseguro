@@ -8,6 +8,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
     public function testRealCase01()
     {
         $shipping = new Shipping(Shipping::TYPE_PAC);
+
         $this->assertEquals(Shipping::TYPE_PAC, $shipping->getType());
         $this->assertNull($shipping->getAddress());
         $this->assertNull($shipping->getCost());
@@ -15,11 +16,9 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
 
     public function testRealCase02()
     {
-        $mockAddress = $this->getMockBuilder('PHPSC\PagSeguro\ValueObject\Address')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $address = $this->getMock('PHPSC\PagSeguro\ValueObject\Address', [], [], '', false);
 
-        $shipping = new Shipping(Shipping::TYPE_PAC, $mockAddress);
+        $shipping = new Shipping(Shipping::TYPE_PAC, $address);
         $this->assertEquals(Shipping::TYPE_PAC, $shipping->getType());
         $this->assertInstanceOf('PHPSC\PagSeguro\ValueObject\Address', $shipping->getAddress());
         $this->assertNull($shipping->getCost());
@@ -28,6 +27,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
     public function testRealCase03()
     {
         $shipping = new Shipping(Shipping::TYPE_PAC, null, 10);
+
         $this->assertEquals(Shipping::TYPE_PAC, $shipping->getType());
         $this->assertNull($shipping->getAddress());
         $this->assertNotInstanceOf('PHPSC\PagSeguro\ValueObject\Address', $shipping->getAddress());
@@ -36,11 +36,9 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
 
     public function testRealCase04()
     {
-        $mockAddress = $this->getMockBuilder('PHPSC\PagSeguro\ValueObject\Address')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $address = $this->getMock('PHPSC\PagSeguro\ValueObject\Address', [], [], '', false);
 
-        $shipping = new Shipping(Shipping::TYPE_PAC, $mockAddress, 15);
+        $shipping = new Shipping(Shipping::TYPE_PAC, $address, 15);
         $this->assertEquals(Shipping::TYPE_PAC, $shipping->getType());
         $this->assertInstanceOf('PHPSC\PagSeguro\ValueObject\Address', $shipping->getAddress());
         $this->assertEquals(15, $shipping->getCost());
