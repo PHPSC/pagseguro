@@ -24,7 +24,7 @@ class Shipping
     private $type;
 
     /**
-     * @var \PHPSC\PagSeguro\ValueObject\Address
+     * @var Address
      */
     private $address;
 
@@ -35,7 +35,7 @@ class Shipping
 
     /**
      * @param int $type
-     * @param \PHPSC\PagSeguro\ValueObject\Address $address
+     * @param Address $address
      * @param float $cost
      */
     public function __construct($type, Address $address = null, $cost = null)
@@ -65,7 +65,7 @@ class Shipping
     }
 
     /**
-     * @return \PHPSC\PagSeguro\ValueObject\Address
+     * @return Address
      */
     public function getAddress()
     {
@@ -73,7 +73,7 @@ class Shipping
     }
 
     /**
-     * @param \PHPSC\PagSeguro\ValueObject\Address $address
+     * @param Address $address
      */
     protected function setAddress(Address $address = null)
     {

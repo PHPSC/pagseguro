@@ -1,7 +1,6 @@
 <?php
 namespace PHPSC\PagSeguro\Http;
 
-use PHPSC\PagSeguro\Error\ConnectionException;
 use PHPSC\PagSeguro\Error\PagSeguroException;
 use PHPSC\PagSeguro\Error\HttpException;
 use Guzzle\Http\Client as HttpClient;
@@ -18,30 +17,28 @@ class Client
     private $client;
 
     /**
-     * @param int $timeout
-     * @param boolean $verifySSL
+     * @param HttpClient $client
      */
     public function __construct(
-        $timeout = 10,
-        $verifySSL = false,
-        $charset = 'UTF-8'
+        HttpClient $client = null
     ) {
-        $this->client = new HttpClient(
-            '',
-            array(
-                'curl.options' => array(
-                    CURLOPT_CONNECTTIMEOUT => $timeout,
-                    CURLOPT_SSL_VERIFYPEER => $verifySSL,
-                    CURLOPT_HTTPHEADER => array(
-                        'Content-Type: application/x-www-form-urlencoded; charset=' . $charset
-                    )
-                )
-            )
-        );
+        $this->client = $client ?: new HttpClient();
 
+        $this->configureListener();
+    }
+
+    /**
+     * @throws HttpException
+     */
+    protected function configureListener()
+    {
         $this->client->getEventDispatcher()->addListener(
             'request.error',
             function (Event $event) {
+                if ($event['request']->getHost() != 'ws.pagseguro.uol.com.br') {
+                    return ;
+                }
+
                 $response = $event['response'];
 
                 if ($response->getStatusCode() == 400) {
@@ -59,30 +56,41 @@ class Client
     /**
      * @param string $url
      * @param array $fields
-     * @return string
+     * @return SimpleXMLElement
      */
     public function post($url, array $fields = null)
     {
         $request = $this->client->post(
             $url,
             null,
-            $fields ? http_build_query($fields, '', '&') : null
+            $fields ? http_build_query($fields, '', '&') : null,
+            array(
+                'verify' => false,
+                'headers' => array(
+                    'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
+                )
+            )
         );
 
         $response = $request->send();
 
-        return $response->getBody(true);
+        return $response->xml();
     }
 
     /**
      * @param string $url
-     * @return string
+     * @return SimpleXMLElement
      */
     public function get($url)
     {
-        $request = $this->client->get($url);
+        $request = $this->client->get(
+            $url,
+            null,
+            array('verify' => false)
+        );
+
         $response = $request->send();
 
-        return $response->getBody(true);
+        return $response->xml();
     }
 }

@@ -14,13 +14,11 @@ use DateTime;
 class TransactionDecoder
 {
     /**
-     * @param string $xml
-     * @return \PHPSC\PagSeguro\ValueObject\Transaction
+     * @param SimpleXMLElement $obj
+     * @return Transaction
      */
-    public function decode($xml)
+    public function decode(SimpleXMLElement $obj)
     {
-        $obj = new SimpleXMLElement($xml);
-
         return new Transaction(
             (string) $obj->code,
             isset($obj->reference) ? (string) $obj->reference : null,
@@ -28,7 +26,6 @@ class TransactionDecoder
             (int) $obj->status,
             new DateTime((string) $obj->date),
             new DateTime((string) $obj->lastEventDate),
-            isset($obj->escrowEndDate) ? new DateTime((string) $obj->escrowEndDate) : null,
             new PaymentMethod(
                 (int) $obj->paymentMethod->type,
                 (int) $obj->paymentMethod->code
@@ -41,13 +38,14 @@ class TransactionDecoder
             (int) $obj->installmentCount,
             $this->createItems($obj->items),
             $this->createSender($obj->sender),
-            $this->createShipping($obj->shipping)
+            $this->createShipping($obj->shipping),
+            isset($obj->escrowEndDate) ? new DateTime((string) $obj->escrowEndDate) : null
         );
     }
 
     /**
-     * @param \SimpleXMLElement $itemsNode
-     * @return multitype:\PHPSC\PagSeguro\ValueObject\Item
+     * @param SimpleXMLElement $itemsNode
+     * @return array
      */
     protected function createItems(SimpleXMLElement $itemsNode)
     {
@@ -68,8 +66,8 @@ class TransactionDecoder
     }
 
     /**
-     * @param \SimpleXMLElement $sender
-     * @return \PHPSC\PagSeguro\ValueObject\Sender
+     * @param SimpleXMLElement $sender
+     * @return Sender
      */
     protected function createSender(SimpleXMLElement $sender)
     {
@@ -90,8 +88,8 @@ class TransactionDecoder
     }
 
     /**
-     * @param \SimpleXMLElement $shipping
-     * @return \PHPSC\PagSeguro\ValueObject\Shipping
+     * @param SimpleXMLElement $shipping
+     * @return Shipping
      */
     protected function createShipping(SimpleXMLElement $shipping)
     {

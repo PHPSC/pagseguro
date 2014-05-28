@@ -51,6 +51,7 @@ class Address
      * @param string $street
      * @param string $number
      * @param string $complement
+     * @param string $country
      */
     public function __construct(
         $state = null,

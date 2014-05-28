@@ -6,12 +6,12 @@ use PHPSC\PagSeguro\ValueObject\Credentials;
 use PHPSC\PagSeguro\ValueObject\Transaction;
 use PHPSC\PagSeguro\Http\Client;
 
-class NotificationService
+class ConsultationService
 {
     /**
      * @var string
      */
-    const ENDPOINT = 'https://ws.pagseguro.uol.com.br/v2/transactions/notifications';
+    const ENDPOINT = 'https://ws.pagseguro.uol.com.br/v2/transactions';
 
     /**
      * @var Credentials
