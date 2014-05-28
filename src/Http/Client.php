@@ -1,10 +1,10 @@
 <?php
 namespace PHPSC\PagSeguro\Http;
 
-use PHPSC\PagSeguro\Error\PagSeguroException;
-use PHPSC\PagSeguro\Error\HttpException;
-use Guzzle\Http\Client as HttpClient;
 use Guzzle\Common\Event;
+use Guzzle\Http\Client as HttpClient;
+use PHPSC\PagSeguro\Error\HttpException;
+use PHPSC\PagSeguro\Error\PagSeguroException;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -19,43 +19,39 @@ class Client
     /**
      * @param HttpClient $client
      */
-    public function __construct(
-        HttpClient $client = null
-    ) {
+    public function __construct(HttpClient $client = null)
+    {
         $this->client = $client ?: new HttpClient();
-
-        $this->configureListener();
+        $this->client->getEventDispatcher()->addListener('request.error', array($this, 'handleError'));
     }
 
     /**
-     * @throws HttpException
+     * @param Event $event
+     *
+     * @throws HttpException|PagSeguroException
      */
-    protected function configureListener()
+    public function handleError(Event $event)
     {
-        $this->client->getEventDispatcher()->addListener(
-            'request.error',
-            function (Event $event) {
-                if ($event['request']->getHost() != 'ws.pagseguro.uol.com.br') {
-                    return ;
-                }
+        if ($event['request']->getHost() != 'ws.pagseguro.uol.com.br') {
+            return ;
+        }
 
-                $response = $event['response'];
+        $response = $event['response'];
 
-                if ($response->getStatusCode() == 400) {
-                    throw PagSeguroException::createFromXml($response->xml());
-                }
+        if ($response->getStatusCode() == 400) {
+            throw PagSeguroException::createFromXml($response->xml());
+        }
 
-                throw new HttpException(
-                    '[' . $response->getStatusCode() . '] A HTTP error has occurred: '
-                    . $response->getBody(true)
-                );
-            }
+        throw new HttpException(
+            '[' . $response->getStatusCode() . '] A HTTP error has occurred: '
+            . $response->getBody(true)
         );
     }
 
     /**
      * @param string $url
      * @param array $fields
+     *
      * @return SimpleXMLElement
      */
     public function post($url, array $fields = null)
@@ -63,7 +59,7 @@ class Client
         $request = $this->client->post(
             $url,
             null,
-            $fields ? http_build_query($fields, '', '&') : null,
+            $fields ? http_build_query($fields) : null,
             array(
                 'verify' => false,
                 'headers' => array(
@@ -72,13 +68,12 @@ class Client
             )
         );
 
-        $response = $request->send();
-
-        return $response->xml();
+        return $request->send()->xml();
     }
 
     /**
      * @param string $url
+     *
      * @return SimpleXMLElement
      */
     public function get($url)
@@ -89,8 +84,6 @@ class Client
             array('verify' => false)
         );
 
-        $response = $request->send();
-
-        return $response->xml();
+        return $request->send()->xml();
     }
 }
