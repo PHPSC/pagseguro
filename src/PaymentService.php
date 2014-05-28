@@ -51,7 +51,7 @@ class PaymentService extends BaseService
     {
         return $this->decoder->decode(
             $this->post(static::ENDPOINT, $this->encoder->encode($request)),
-            $this->isSandbox()
+            $this->useSandbox()
         );
     }
 }

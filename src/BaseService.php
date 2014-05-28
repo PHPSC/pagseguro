@@ -6,8 +6,14 @@ use PHPSC\PagSeguro\Http\Client;
 
 abstract class BaseService
 {
+    /**
+     * @var string
+     */
     const HOST = 'ws.pagseguro.uol.com.br';
 
+    /**
+     * @var string
+     */
     const SANDBOX_HOST = 'ws.sandbox.pagseguro.uol.com.br';
 
     /**
@@ -49,11 +55,42 @@ abstract class BaseService
     /**
      * @return boolean
      */
-    public function isSandbox()
+    public function useSandbox()
     {
         return $this->sandbox;
     }
 
+    /**
+     * @param string $resource
+     *
+     * @return string
+     */
+    public function buildUri($resource)
+    {
+        if ($this->useSandbox()) {
+            return 'https://' . static::SANDBOX_HOST . $resource;
+        }
+
+        return 'https://' . static::HOST . $resource;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCredentials()
+    {
+        return array(
+            'email' => $this->credentials->getEmail(),
+            'token' => $this->useSandbox() ? $this->credentials->getSandboxToken() : $this->credentials->getToken()
+        );
+    }
+
+    /**
+     * @param string $resource
+     * @param array $params
+     *
+     * @return \SimpleXMLElement
+     */
     protected function get($resource, array $params = array())
     {
         $params = array_merge($params, $this->getCredentials());
@@ -61,27 +98,16 @@ abstract class BaseService
         return $this->client->get($this->buildUri($resource) . '?' . http_build_query($params));
     }
 
+    /**
+     * @param string $resource
+     * @param array $params
+     *
+     * @return \SimpleXMLElement
+     */
     protected function post($resource, array $params = array())
     {
         $params = array_merge($params, $this->getCredentials());
 
         return $this->client->post($this->buildUri($resource), $params);
-    }
-
-    protected function buildUri($resource)
-    {
-        if ($this->isSandbox()) {
-            return 'https://' . static::SANDBOX_HOST . $resource;
-        }
-
-        return 'https://' . static::HOST . $resource;
-    }
-
-    protected function getCredentials()
-    {
-        return array(
-            'email' => $this->credentials->getEmail(),
-            'token' => $this->isSandbox() ? $this->credentials->getSandboxToken() : $this->credentials->getToken()
-        );
     }
 }
