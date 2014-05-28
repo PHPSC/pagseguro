@@ -9,12 +9,12 @@ abstract class BaseService
     /**
      * @var Credentials
      */
-    protected $credentials;
+    private $credentials;
 
     /**
      * @var Client
      */
-    protected $client;
+    private $client;
 
     /**
      * @param Credentials $credentials
@@ -26,5 +26,28 @@ abstract class BaseService
     ) {
         $this->credentials = $credentials;
         $this->client = $client ?: new Client();
+    }
+
+    protected function get($url, array $params = array())
+    {
+        $params = array_merge($params, $this->getCredentials());
+        $url = $url . '?' . http_build_query($params);
+
+        return $this->client->get($url);
+    }
+
+    protected function post($url, array $params = array())
+    {
+        $params = array_merge($params, $this->getCredentials());
+
+        return $this->client->post($url, $params);
+    }
+
+    protected function getCredentials()
+    {
+        return array(
+        	'email' => $this->credentials->getEmail(),
+        	'token' => $this->credentials->getToken()
+        );
     }
 }

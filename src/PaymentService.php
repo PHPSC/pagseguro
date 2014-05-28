@@ -49,12 +49,6 @@ class PaymentService extends BaseService
      */
     public function checkout(PaymentRequest $request)
     {
-        $params = $this->encoder->encode($request);
-        $params['email'] = $this->credentials->getEmail();
-        $params['token'] = $this->credentials->getToken();
-
-        $content = $this->client->post(static::ENDPOINT, $params);
-
-        return $this->decoder->decode($content);
+        return $this->decoder->decode($this->post(static::ENDPOINT, $this->encoder->encode($request)));
     }
 }

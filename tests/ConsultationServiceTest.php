@@ -40,7 +40,7 @@ class ConsultationServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->client->expects($this->once())
                      ->method('get')
-                     ->with('https://ws.pagseguro.uol.com.br/v2/transactions/1?email=a@a.com&token=t')
+                     ->with('https://ws.pagseguro.uol.com.br/v2/transactions/1?email=a%40a.com&token=t')
                      ->willReturn($xml);
 
         $this->decoder->expects($this->once())

@@ -39,12 +39,6 @@ class NotificationService extends BaseService
      */
     public function getByCode($code)
     {
-        $content = $this->client->get(
-            static::ENDPOINT . '/' . $code
-            . '?email=' . $this->credentials->getEmail()
-            . '&token=' . $this->credentials->getToken()
-        );
-
-        return $this->decoder->decode($content);
+        return $this->decoder->decode($this->get(static::ENDPOINT . '/' . $code));
     }
 }

@@ -45,15 +45,16 @@ class PaymentServiceTest extends \PHPUnit_Framework_TestCase
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
         $request = $this->getMock('PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest', [], [], '', false);
         $response = $this->getMock('PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse', [], [], '', false);
+        $params = array('email' => 'a@a.com', 'token' => 't', 'testing' => true);
 
         $this->encoder->expects($this->once())
                       ->method('encode')
                       ->with($request)
-                      ->willReturn(array('email' => 'a@a.com', 'token' => 't'));
+                      ->willReturn(array('testing' => true));
 
         $this->client->expects($this->once())
                      ->method('post')
-                     ->with('https://ws.pagseguro.uol.com.br/v2/checkout', array('email' => 'a@a.com', 'token' => 't'))
+                     ->with('https://ws.pagseguro.uol.com.br/v2/checkout', $params)
                      ->willReturn($xml);
 
         $this->decoder->expects($this->once())
