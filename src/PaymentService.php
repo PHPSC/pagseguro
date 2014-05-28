@@ -57,7 +57,7 @@ class PaymentService
      * @param PaymentRequest $request
      * @return PaymentResponse
      */
-    public function send(PaymentRequest $request)
+    public function checkout(PaymentRequest $request)
     {
         $content = $this->client->post(
             static::ENDPOINT,
