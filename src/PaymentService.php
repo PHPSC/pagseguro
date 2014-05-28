@@ -59,10 +59,11 @@ class PaymentService
      */
     public function checkout(PaymentRequest $request)
     {
-        $content = $this->client->post(
-            static::ENDPOINT,
-            $this->encoder->encode($this->credentials, $request)
-        );
+        $params = $this->encoder->encode($request);
+        $params['email'] = $this->credentials->getEmail();
+        $params['token'] = $this->credentials->getToken();
+
+        $content = $this->client->post(static::ENDPOINT, $params);
 
         return $this->decoder->decode($content);
     }

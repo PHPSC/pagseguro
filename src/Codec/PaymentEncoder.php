@@ -2,20 +2,18 @@
 namespace PHPSC\PagSeguro\Codec;
 
 use PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
-use PHPSC\PagSeguro\ValueObject\Credentials;
 use PHPSC\PagSeguro\ValueObject\Address;
 use PHPSC\PagSeguro\ValueObject\Item;
 
 class PaymentEncoder
 {
     /**
-     * @param Credentials $credentials
      * @param PaymentRequest $request
      * @return string
      */
-    public function encode(Credentials $credentials, PaymentRequest $request)
+    public function encode(PaymentRequest $request)
     {
-        $data = $this->createElement($credentials);
+        $data = array();
 
         $this->appendCurrency($data, $request);
         $this->appendItems($data, $request);
@@ -28,18 +26,6 @@ class PaymentEncoder
         $this->appendMaxAge($data, $request);
 
         return $data;
-    }
-
-    /**
-     * @param Credentials $credentials
-     * @return array
-     */
-    protected function createElement(Credentials $credentials)
-    {
-        return array(
-            'email' => $credentials->getEmail(),
-            'token' => $credentials->getToken()
-        );
     }
 
     /**

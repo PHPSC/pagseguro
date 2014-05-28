@@ -40,7 +40,7 @@ class PaymentServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function checkoutShouldDoAPostRequest()
+    public function checkoutShouldDoAPostRequestAddingCredentialsData()
     {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
         $request = $this->getMock('PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest', [], [], '', false);
@@ -48,7 +48,7 @@ class PaymentServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->encoder->expects($this->once())
                       ->method('encode')
-                      ->with($this->credentials, $request)
+                      ->with($request)
                       ->willReturn(array('email' => 'a@a.com', 'token' => 't'));
 
         $this->client->expects($this->once())
