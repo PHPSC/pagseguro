@@ -16,7 +16,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
 
     public function testRealCase02()
     {
-        $address = $this->getMock('PHPSC\PagSeguro\ValueObject\Address', [], [], '', false);
+        $address = $this->getMock('PHPSC\PagSeguro\ValueObject\Address', array(), array(), '', false);
 
         $shipping = new Shipping(Shipping::TYPE_PAC, $address);
         $this->assertEquals(Shipping::TYPE_PAC, $shipping->getType());
@@ -36,7 +36,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
 
     public function testRealCase04()
     {
-        $address = $this->getMock('PHPSC\PagSeguro\ValueObject\Address', [], [], '', false);
+        $address = $this->getMock('PHPSC\PagSeguro\ValueObject\Address', array(), array(), '', false);
 
         $shipping = new Shipping(Shipping::TYPE_PAC, $address, 15);
         $this->assertEquals(Shipping::TYPE_PAC, $shipping->getType());

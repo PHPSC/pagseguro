@@ -32,9 +32,9 @@ class PaymentServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = new Credentials('a@a.com', 't');
-        $this->client = $this->getMock('PHPSC\PagSeguro\Http\Client', [], [], '', false);
-        $this->encoder = $this->getMock('PHPSC\PagSeguro\Codec\PaymentEncoder', [], [], '', false);
-        $this->decoder = $this->getMock('PHPSC\PagSeguro\Codec\PaymentDecoder', [], [], '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Http\Client', array(), array(), '', false);
+        $this->encoder = $this->getMock('PHPSC\PagSeguro\Codec\PaymentEncoder', array(), array(), '', false);
+        $this->decoder = $this->getMock('PHPSC\PagSeguro\Codec\PaymentDecoder', array(), array(), '', false);
     }
 
     /**
@@ -43,8 +43,8 @@ class PaymentServiceTest extends \PHPUnit_Framework_TestCase
     public function checkoutShouldDoAPostRequestAddingCredentialsData()
     {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
-        $request = $this->getMock('PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest', [], [], '', false);
-        $response = $this->getMock('PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse', [], [], '', false);
+        $request = $this->getMock('PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest', array(), array(), '', false);
+        $response = $this->getMock('PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse', array(), array(), '', false);
         $params = array('email' => 'a@a.com', 'token' => 't', 'testing' => true);
 
         $this->encoder->expects($this->once())

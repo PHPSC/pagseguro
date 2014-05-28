@@ -28,9 +28,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->httpClient = $this->getMock('Guzzle\Http\Client', [], [], '', false);
-        $this->request = $this->getMock('Guzzle\Http\Message\Request', [], [], '', false);
-        $this->response = $this->getMock('Guzzle\Http\Message\Response', [], [], '', false);
+        $this->httpClient = $this->getMock('Guzzle\Http\Client', array(), array(), '', false);
+        $this->request = $this->getMock('Guzzle\Http\Message\Request', array(), array(), '', false);
+        $this->response = $this->getMock('Guzzle\Http\Message\Response', array(), array(), '', false);
 
         $this->httpClient->expects($this->any())
                          ->method('getEventDispatcher')

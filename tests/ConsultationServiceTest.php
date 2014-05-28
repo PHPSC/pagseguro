@@ -26,8 +26,8 @@ class ConsultationServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = new Credentials('a@a.com', 't');
-        $this->client = $this->getMock('PHPSC\PagSeguro\Http\Client', [], [], '', false);
-        $this->decoder = $this->getMock('PHPSC\PagSeguro\Codec\TransactionDecoder', [], [], '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Http\Client', array(), array(), '', false);
+        $this->decoder = $this->getMock('PHPSC\PagSeguro\Codec\TransactionDecoder', array(), array(), '', false);
     }
 
     /**
@@ -36,7 +36,7 @@ class ConsultationServiceTest extends \PHPUnit_Framework_TestCase
     public function getByCodeShouldDoAGetRequestAddingCredentialsData()
     {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
-        $transaction = $this->getMock('PHPSC\PagSeguro\ValueObject\Transaction', [], [], '', false);
+        $transaction = $this->getMock('PHPSC\PagSeguro\ValueObject\Transaction', array(), array(), '', false);
 
         $this->client->expects($this->once())
                      ->method('get')
