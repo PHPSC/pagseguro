@@ -6,22 +6,12 @@ use PHPSC\PagSeguro\ValueObject\Credentials;
 use PHPSC\PagSeguro\ValueObject\Transaction;
 use PHPSC\PagSeguro\Http\Client;
 
-class ConsultationService
+class ConsultationService extends BaseService
 {
     /**
      * @var string
      */
     const ENDPOINT = 'https://ws.pagseguro.uol.com.br/v2/transactions';
-
-    /**
-     * @var Credentials
-     */
-    private $credentials;
-
-    /**
-     * @var Client
-     */
-    private $client;
 
     /**
      * @var TransactionDecoder
@@ -38,8 +28,8 @@ class ConsultationService
         Client $client = null,
         TransactionDecoder $decoder = null
     ) {
-        $this->credentials = $credentials;
-        $this->client = $client ?: new Client();
+        parent::__construct($credentials, $client);
+
         $this->decoder = $decoder ?: new TransactionDecoder();
     }
 

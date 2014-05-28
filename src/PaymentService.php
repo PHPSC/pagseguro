@@ -8,22 +8,12 @@ use \PHPSC\PagSeguro\Codec\PaymentEncoder;
 use \PHPSC\PagSeguro\Codec\PaymentDecoder;
 use \PHPSC\PagSeguro\Http\Client;
 
-class PaymentService
+class PaymentService extends BaseService
 {
     /**
      * @var string
      */
     const ENDPOINT = 'https://ws.pagseguro.uol.com.br/v2/checkout';
-
-    /**
-     * @var Credentials
-     */
-    private $credentials;
-
-    /**
-     * @var Client
-     */
-    private $client;
 
     /**
      * @var PaymentEncoder
@@ -47,8 +37,8 @@ class PaymentService
         PaymentEncoder $encoder = null,
         PaymentDecoder $decoder = null
     ) {
-        $this->credentials = $credentials;
-        $this->client = $client ?: new Client();
+        parent::__construct($credentials, $client);
+
         $this->encoder = $encoder ?: new PaymentEncoder();
         $this->decoder = $decoder ?: new PaymentDecoder();
     }
