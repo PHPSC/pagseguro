@@ -1,7 +1,7 @@
 API PagSeguro
 =============
 
-API de integração com o PagSeguro para PHP 5.3+, deve ser utilizado um Autoloader compatível com a PSR-0.
+API de integração com o PagSeguro para PHP 5.3+, deve ser utilizado um Autoloader compatível com a PSR-4.
 
 Instalação
 ----------
@@ -34,7 +34,7 @@ O uso básico é:
 
 ```php
 <?php
-// Consideramos que já existe um autoloader compatível com a PSR-0 registrado
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
 use PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
 use PHPSC\PagSeguro\ValueObject\Credentials;
@@ -43,13 +43,15 @@ use PHPSC\PagSeguro\PaymentService;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
-    'TOKEN DE ACESSO À API'
+    'TOKEN DE ACESSO À API',
+    'TOKEN DE ACESSO À API (sandbox)' // obrigatório caso queira utilizar no ambiente de testes
 );
 
 $service = new PaymentService($credentials); // cria instância do serviço de pagamentos
+$service->setSandbox(true); // marca para utilizar o ambiente de testes
 
 try {
-    $response = $service->send( // Envia a solicitação de pagamento
+    $response = $service->checkout( // Envia a solicitação de pagamento
         new PaymentRequest(
             array( // Coleção de itens a serem pagos (O limite de itens é definido pelo webservice da Pagseguro)
                 new Item(
@@ -92,17 +94,19 @@ O uso básico é:
 
 ```php
 <?php
-// Consideramos que já existe um autoloader compatível com a PSR-0 registrado
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
 use PHPSC\PagSeguro\ValueObject\Credentials;
 use PHPSC\PagSeguro\NotificationService;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
-    'TOKEN DE ACESSO À API'
+    'TOKEN DE ACESSO À API',
+    'TOKEN DE ACESSO À API (sandbox)' // obrigatório caso queira utilizar no ambiente de testes
 );
 
 $service = new NotificationService($credentials); // Cria instância do serviço
+$service->setSandbox(true); // marca para utilizar o ambiente de testes
 
 try {
     $transaction = $service->getByCode( // Solicita os detalhes da transação
@@ -132,17 +136,19 @@ O uso básico é:
 
 ```php
 <?php
-// Consideramos que já existe um autoloader compatível com a PSR-0 registrado
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
 use PHPSC\PagSeguro\ValueObject\Credentials;
 use PHPSC\PagSeguro\ConsultationService;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
-    'TOKEN DE ACESSO À API'
+    'TOKEN DE ACESSO À API',
+    'TOKEN DE ACESSO À API (sandbox)' // obrigatório caso queira utilizar no ambiente de testes
 );
 
 $service = new ConsultationService($credentials); // Cria instância do serviço
+$service->setSandbox(true); // marca para utilizar o ambiente de testes
 
 try {
     $transaction = $service->getByCode( // Solicita os detalhes da transação
