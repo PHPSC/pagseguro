@@ -17,11 +17,12 @@
 		"CC-BY-SA-2.5"
 	],
 	"require" : {
-		"guzzle/guzzle" : "~3.8",
-		"php" : ">=5.3"
+		"php" : ">=5.3",
+		"guzzle/guzzle" : "~3.8"
 	},
 	"require-dev" : {
-		"phpunit/phpunit" : "*"
+		"phpunit/phpunit" : "*",
+                "squizlabs/php_codesniffer": "~1.5"
 	},
     "autoload" : {
         "psr-4" : {
