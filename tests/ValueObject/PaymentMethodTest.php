@@ -1,5 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\ValueObject;
+namespace PHPSC\PagSeguro\Test\ValueObject;
+
+use PHPSC\PagSeguro\ValueObject\PaymentMethod;
 
 class PaymentMethodTest extends \PHPUnit_Framework_TestCase
 {

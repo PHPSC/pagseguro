@@ -23,9 +23,10 @@
 	"require-dev" : {
 		"phpunit/phpunit" : "*"
 	},
-	"autoload" : {
-		"psr-0" : {
-			"PHPSC\\PagSeguro" : "src/"
-		}
-	}
+    "autoload" : {
+        "psr-4" : {
+            "PHPSC\\PagSeguro\\" : "src",
+            "PHPSC\\PagSeguro\\Test\\" : "test"
+        }
+    }
 }
