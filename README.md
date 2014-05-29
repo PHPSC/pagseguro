@@ -36,10 +36,10 @@ O uso básico é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
-use PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
-use PHPSC\PagSeguro\ValueObject\Credentials;
-use PHPSC\PagSeguro\ValueObject\Item;
-use PHPSC\PagSeguro\PaymentService;
+use PHPSC\PagSeguro\Checkout\Checkout;
+use PHPSC\PagSeguro\Checkout\CheckoutService;
+use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Item;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
@@ -47,11 +47,11 @@ $credentials = new Credentials(
     false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
 );
 
-$service = new PaymentService($credentials); // cria instância do serviço de pagamentos
+$service = new CheckoutService($credentials); // cria instância do serviço de pagamentos
 
 try {
     $response = $service->checkout( // Envia a solicitação de pagamento
-        new PaymentRequest(
+        new Checkout(
             array( // Coleção de itens a serem pagos (O limite de itens é definido pelo webservice da Pagseguro)
                 new Item(
                 	'1', // ID do item
@@ -95,8 +95,8 @@ O uso básico é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
-use PHPSC\PagSeguro\ValueObject\Credentials;
-use PHPSC\PagSeguro\NotificationService;
+use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Transaction\NotificationService;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
@@ -136,8 +136,8 @@ O uso básico é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
-use PHPSC\PagSeguro\ValueObject\Credentials;
-use PHPSC\PagSeguro\ConsultationService;
+use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Transaction\ConsultationService;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
