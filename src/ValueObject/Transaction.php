@@ -3,6 +3,7 @@ namespace PHPSC\PagSeguro\ValueObject;
 
 use DateTime;
 use PHPSC\PagSeguro\Customer\Shipping;
+use PHPSC\PagSeguro\Customer\Sender;
 
 class Transaction
 {
