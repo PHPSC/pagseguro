@@ -1,12 +1,12 @@
 <?php
 namespace PHPSC\PagSeguro;
 
-use PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse;
-use \PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
-use \PHPSC\PagSeguro\Credentials;
-use \PHPSC\PagSeguro\Codec\PaymentEncoder;
-use \PHPSC\PagSeguro\Codec\PaymentDecoder;
-use \PHPSC\PagSeguro\Http\Client;
+use PHPSC\PagSeguro\Checkout\Response;
+use PHPSC\PagSeguro\Checkout\Checkout;
+use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Checkout\Encoder;
+use PHPSC\PagSeguro\Checkout\Decoder;
+use PHPSC\PagSeguro\Http\Client;
 
 class PaymentService extends BaseService
 {
@@ -16,41 +16,42 @@ class PaymentService extends BaseService
     const ENDPOINT = '/v2/checkout';
 
     /**
-     * @var PaymentEncoder
+     * @var Encoder
      */
     private $encoder;
 
     /**
-     * @var PaymentDecoder
+     * @var Decoder
      */
     private $decoder;
 
     /**
      * @param Credentials $credentials
      * @param Client $client
-     * @param PaymentEncoder $encoder
-     * @param PaymentDecoder $decoder
+     * @param Encoder $encoder
+     * @param Decoder $decoder
      */
     public function __construct(
         Credentials $credentials,
         Client $client = null,
-        PaymentEncoder $encoder = null,
-        PaymentDecoder $decoder = null
+        Encoder $encoder = null,
+        Decoder $decoder = null
     ) {
         parent::__construct($credentials, $client);
 
-        $this->encoder = $encoder ?: new PaymentEncoder();
-        $this->decoder = $decoder ?: new PaymentDecoder();
+        $this->encoder = $encoder ?: new Encoder();
+        $this->decoder = $decoder ?: new Decoder();
     }
 
     /**
-     * @param PaymentRequest $request
-     * @return PaymentResponse
+     * @param Checkout $checkout
+     *
+     * @return Response
      */
-    public function checkout(PaymentRequest $request)
+    public function checkout(Checkout $checkout)
     {
         return $this->decoder->decode(
-            $this->post(static::ENDPOINT, $this->encoder->encode($request)),
+            $this->post(static::ENDPOINT, $this->encoder->encode($checkout)),
             $this->isSandbox()
         );
     }

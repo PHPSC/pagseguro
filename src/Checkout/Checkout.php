@@ -1,10 +1,10 @@
 <?php
-namespace PHPSC\PagSeguro\ValueObject\Payment;
+namespace PHPSC\PagSeguro\Checkout;
 
 use PHPSC\PagSeguro\Customer\Shipping;
 use PHPSC\PagSeguro\Customer\Sender;
 
-class PaymentRequest
+class Checkout
 {
     /**
      * @var string

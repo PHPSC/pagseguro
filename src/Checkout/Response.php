@@ -1,9 +1,9 @@
 <?php
-namespace PHPSC\PagSeguro\ValueObject\Payment;
+namespace PHPSC\PagSeguro\Checkout;
 
 use DateTime;
 
-class PaymentResponse
+class Response
 {
     /**
      * @var string

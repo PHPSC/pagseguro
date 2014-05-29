@@ -1,21 +1,20 @@
 <?php
-namespace PHPSC\PagSeguro\Codec;
+namespace PHPSC\PagSeguro\Checkout;
 
-use PHPSC\PagSeguro\ValueObject\Payment\PaymentResponse;
-use SimpleXMLElement;
 use DateTime;
+use SimpleXMLElement;
 
-class PaymentDecoder
+class Decoder
 {
     /**
      * @param SimpleXMLElement $obj
      * @param boolean $sandbox
      *
-     * @return PaymentResponse
+     * @return Response
      */
     public function decode(SimpleXMLElement $obj, $sandbox)
     {
-        return new PaymentResponse(
+        return new Response(
             (string) $obj->code,
             new DateTime((string) $obj->date),
             $sandbox
