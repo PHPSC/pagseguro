@@ -1,10 +1,10 @@
 <?php
-namespace PHPSC\PagSeguro\Test;
+namespace PHPSC\PagSeguro\Test\Transaction;
 
-use PHPSC\PagSeguro\Http\Client;
-use PHPSC\PagSeguro\Transaction\Decoder;
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\ConsultationService;
+use PHPSC\PagSeguro\Http\Client;
+use PHPSC\PagSeguro\Transaction\ConsultationService;
+use PHPSC\PagSeguro\Transaction\Decoder;
 
 class ConsultationServiceTest extends \PHPUnit_Framework_TestCase
 {
