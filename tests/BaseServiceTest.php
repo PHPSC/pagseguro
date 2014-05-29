@@ -6,60 +6,35 @@ use PHPSC\PagSeguro\ValueObject\Credentials;
 class BaseServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Credentials
-     */
-    protected $credentials;
-
-    /**
      * @var Client|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $client;
 
     protected function setUp()
     {
-        $this->credentials = new Credentials('a@a.com', 't', 'st');
         $this->client = $this->getMock('PHPSC\PagSeguro\Http\Client', array(), array(), '', false);
     }
 
     /**
      * @test
+     * @dataProvider credentials
      */
-    public function constructMustSetSandboxAsFalse()
+    public function isSandboxMustReturnCredentialsConfiguration(Credentials $credentials)
     {
         $service = $this->getMockForAbstractClass(
             'PHPSC\PagSeguro\BaseService',
-            array($this->credentials, $this->client)
+            array($credentials, $this->client)
         );
 
-        $this->assertAttributeEquals(false, 'sandbox', $service);
+        $this->assertEquals($credentials->isSandbox(), $service->isSandbox());
     }
 
-    /**
-     * @test
-     */
-    public function setSandboxMustChangeTheAttribute()
+    public function credentials()
     {
-        $service = $this->getMockForAbstractClass(
-            'PHPSC\PagSeguro\BaseService',
-            array($this->credentials, $this->client)
+        return array(
+        	array(new Credentials('a@a.com', 't')),
+            array(new Credentials('a@a.com', 't', true))
         );
-
-        $service->setSandbox(true);
-
-        $this->assertAttributeEquals(true, 'sandbox', $service);
-    }
-
-    /**
-     * @test
-     */
-    public function useSandboxMustReturnAttributeValue()
-    {
-        $service = $this->getMockForAbstractClass(
-            'PHPSC\PagSeguro\BaseService',
-            array($this->credentials, $this->client)
-        );
-
-        $this->assertFalse($service->useSandbox());
     }
 
     /**
@@ -69,7 +44,7 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getMockForAbstractClass(
             'PHPSC\PagSeguro\BaseService',
-            array($this->credentials, $this->client)
+            array(new Credentials('a@a.com', 't'), $this->client)
         );
 
         $this->assertEquals('https://ws.pagseguro.uol.com.br/1', $service->buildUri('/1'));
@@ -82,10 +57,8 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getMockForAbstractClass(
             'PHPSC\PagSeguro\BaseService',
-            array($this->credentials, $this->client)
+            array(new Credentials('a@a.com', 't', true), $this->client)
         );
-
-        $service->setSandbox(true);
 
         $this->assertEquals('https://ws.sandbox.pagseguro.uol.com.br/1', $service->buildUri('/1'));
     }
@@ -93,28 +66,13 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getCredentialsMustReturnProdutionDataWhenNotUsingSandbox()
+    public function getCredentialsMustReturnAnArrayWithCredentialsData()
     {
         $service = $this->getMockForAbstractClass(
             'PHPSC\PagSeguro\BaseService',
-            array($this->credentials, $this->client)
+            array(new Credentials('a@a.com', 't'), $this->client)
         );
 
         $this->assertEquals(array('email' => 'a@a.com', 'token' => 't'), $service->getCredentials());
-    }
-
-    /**
-     * @test
-     */
-    public function getCredentialsMustReturnTestDataWhenUsingSandbox()
-    {
-        $service = $this->getMockForAbstractClass(
-            'PHPSC\PagSeguro\BaseService',
-            array($this->credentials, $this->client)
-        );
-
-        $service->setSandbox(true);
-
-        $this->assertEquals(array('email' => 'a@a.com', 'token' => 'st'), $service->getCredentials());
     }
 }

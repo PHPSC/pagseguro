@@ -14,23 +14,21 @@ class Credentials
     private $token;
 
     /**
-     * @var string
+     * @var boolean
      */
-    private $sandboxToken;
+    private $sandbox;
 
     /**
      * @param string $email
      * @param string $token
-     * @param string $sandboxToken
+     * @param boolean $sandbox
      */
-    public function __construct($email, $token, $sandboxToken = null)
+    public function __construct($email, $token, $sandbox = false)
     {
         $this->setEmail($email);
         $this->setToken($token);
 
-        if (!empty($sandboxToken)) {
-            $this->setSandboxToken($sandboxToken);
-        }
+        $this->sandbox = (boolean) $sandbox;
     }
 
     /**
@@ -66,18 +64,10 @@ class Credentials
     }
 
     /**
-     * @return string
+     * @return boolean
      */
-    public function getSandboxToken()
+    public function isSandbox()
     {
-        return $this->sandboxToken;
-    }
-
-    /**
-     * @param string $sandboxToken
-     */
-    protected function setSandboxToken($sandboxToken)
-    {
-        $this->sandboxToken = substr($sandboxToken, 0, 32);
+        return $this->sandbox;
     }
 }

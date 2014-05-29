@@ -27,11 +27,6 @@ abstract class BaseService
     private $client;
 
     /**
-     * @var boolean
-     */
-    private $sandbox;
-
-    /**
      * @param Credentials $credentials
      * @param Client $client
      */
@@ -41,23 +36,14 @@ abstract class BaseService
     ) {
         $this->credentials = $credentials;
         $this->client = $client ?: new Client();
-        $this->sandbox = false;
-    }
-
-    /**
-     * @param boolean $sandbox
-     */
-    public function setSandbox($sandbox)
-    {
-        $this->sandbox = (boolean) $sandbox;
     }
 
     /**
      * @return boolean
      */
-    public function useSandbox()
+    public function isSandbox()
     {
-        return $this->sandbox;
+        return $this->credentials->isSandbox();
     }
 
     /**
@@ -67,7 +53,7 @@ abstract class BaseService
      */
     public function buildUri($resource)
     {
-        if ($this->useSandbox()) {
+        if ($this->isSandbox()) {
             return 'https://' . static::SANDBOX_HOST . $resource;
         }
 
@@ -81,7 +67,7 @@ abstract class BaseService
     {
         return array(
             'email' => $this->credentials->getEmail(),
-            'token' => $this->useSandbox() ? $this->credentials->getSandboxToken() : $this->credentials->getToken()
+            'token' => $this->credentials->getToken()
         );
     }
 

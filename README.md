@@ -44,11 +44,10 @@ use PHPSC\PagSeguro\PaymentService;
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
     'TOKEN DE ACESSO À API',
-    'TOKEN DE ACESSO À API (sandbox)' // obrigatório caso queira utilizar no ambiente de testes
+    false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
 );
 
 $service = new PaymentService($credentials); // cria instância do serviço de pagamentos
-$service->setSandbox(true); // marca para utilizar o ambiente de testes
 
 try {
     $response = $service->checkout( // Envia a solicitação de pagamento
@@ -102,11 +101,10 @@ use PHPSC\PagSeguro\NotificationService;
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
     'TOKEN DE ACESSO À API',
-    'TOKEN DE ACESSO À API (sandbox)' // obrigatório caso queira utilizar no ambiente de testes
+    false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
 );
 
 $service = new NotificationService($credentials); // Cria instância do serviço
-$service->setSandbox(true); // marca para utilizar o ambiente de testes
 
 try {
     $transaction = $service->getByCode( // Solicita os detalhes da transação
@@ -144,11 +142,10 @@ use PHPSC\PagSeguro\ConsultationService;
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
     'TOKEN DE ACESSO À API',
-    'TOKEN DE ACESSO À API (sandbox)' // obrigatório caso queira utilizar no ambiente de testes
+    false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
 );
 
 $service = new ConsultationService($credentials); // Cria instância do serviço
-$service->setSandbox(true); // marca para utilizar o ambiente de testes
 
 try {
     $transaction = $service->getByCode( // Solicita os detalhes da transação
