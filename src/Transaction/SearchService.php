@@ -4,15 +4,10 @@ namespace PHPSC\PagSeguro\Transaction;
 use PHPSC\PagSeguro\BaseService;
 use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\TransactionLocatingService;
+use PHPSC\PagSeguro\TransactionSearchService;
 
-class LocatingService extends BaseService implements TransactionLocatingService
+class SearchService extends BaseService implements TransactionSearchService
 {
-    /**
-     * @var string
-     */
-    const TRANSACTIONS = '/v2/transactions';
-
     /**
      * @var string
      */
@@ -45,7 +40,7 @@ class LocatingService extends BaseService implements TransactionLocatingService
      */
     public function getByCode($code)
     {
-        return $this->decoder->decode($this->get(static::TRANSACTIONS . '/' . $code));
+        return $this->decoder->decode($this->get(static::ENDPOINT . '/' . $code));
     }
 
     /**

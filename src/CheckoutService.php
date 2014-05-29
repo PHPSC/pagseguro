@@ -7,6 +7,11 @@ use PHPSC\PagSeguro\Checkout\Response;
 interface CheckoutService
 {
     /**
+     * @var string
+     */
+    const ENDPOINT = '/v2/checkout';
+
+    /**
      * @param Checkout $checkout
      *
      * @return Response

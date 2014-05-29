@@ -9,11 +9,6 @@ use PHPSC\PagSeguro\Credentials;
 class CheckoutService extends BaseService implements CheckoutServiceInterface
 {
     /**
-     * @var string
-     */
-    const ENDPOINT = '/v2/checkout';
-
-    /**
      * @var Encoder
      */
     private $encoder;

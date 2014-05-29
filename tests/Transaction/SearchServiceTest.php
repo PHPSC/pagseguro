@@ -4,9 +4,9 @@ namespace PHPSC\PagSeguro\Test\Transaction;
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Transaction\Decoder;
-use PHPSC\PagSeguro\Transaction\LocatingService;
+use PHPSC\PagSeguro\Transaction\SearchService;
 
-class LocatingServiceTest extends \PHPUnit_Framework_TestCase
+class SearchServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Credentials
@@ -48,7 +48,7 @@ class LocatingServiceTest extends \PHPUnit_Framework_TestCase
                       ->with($xml)
                       ->willReturn($transaction);
 
-        $service = new LocatingService($this->credentials, $this->client, $this->decoder);
+        $service = new SearchService($this->credentials, $this->client, $this->decoder);
 
         $this->assertSame($transaction, $service->getByCode(1));
     }
@@ -71,7 +71,7 @@ class LocatingServiceTest extends \PHPUnit_Framework_TestCase
                       ->with($xml)
                       ->willReturn($transaction);
 
-        $service = new LocatingService($this->credentials, $this->client, $this->decoder);
+        $service = new SearchService($this->credentials, $this->client, $this->decoder);
 
         $this->assertSame($transaction, $service->getByNotification(1));
     }
