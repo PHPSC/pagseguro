@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\ValueObject;
+namespace PHPSC\PagSeguro;
 
 class Credentials
 {

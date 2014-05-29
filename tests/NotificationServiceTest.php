@@ -3,7 +3,7 @@ namespace PHPSC\PagSeguro\Test;
 
 use PHPSC\PagSeguro\Http\Client;
 use PHPSC\PagSeguro\Codec\TransactionDecoder;
-use PHPSC\PagSeguro\ValueObject\Credentials;
+use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\NotificationService;
 
 class NotificationServiceTest extends \PHPUnit_Framework_TestCase
