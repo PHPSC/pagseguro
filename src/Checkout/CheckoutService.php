@@ -1,14 +1,12 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Checkout;
 
-use PHPSC\PagSeguro\Checkout\Response;
-use PHPSC\PagSeguro\Checkout\Checkout;
+use PHPSC\PagSeguro\BaseService;
+use PHPSC\PagSeguro\CheckoutService as CheckoutServiceInterface;
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Checkout\Encoder;
-use PHPSC\PagSeguro\Checkout\Decoder;
 use PHPSC\PagSeguro\Http\Client;
 
-class PaymentService extends BaseService
+class CheckoutService extends BaseService implements CheckoutServiceInterface
 {
     /**
      * @var string

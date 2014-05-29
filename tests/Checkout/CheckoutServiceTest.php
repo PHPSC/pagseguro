@@ -1,13 +1,13 @@
 <?php
 namespace PHPSC\PagSeguro\Test;
 
+use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Checkout\Encoder;
 use PHPSC\PagSeguro\Checkout\Decoder;
+use PHPSC\PagSeguro\Checkout\CheckoutService;
 use PHPSC\PagSeguro\Http\Client;
-use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\PaymentService;
 
-class PaymentServiceTest extends \PHPUnit_Framework_TestCase
+class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Credentials
@@ -62,7 +62,7 @@ class PaymentServiceTest extends \PHPUnit_Framework_TestCase
                       ->with($xml, false)
                       ->willReturn($response);
 
-        $service = new PaymentService($this->credentials, $this->client, $this->encoder, $this->decoder);
+        $service = new CheckoutService($this->credentials, $this->client, $this->encoder, $this->decoder);
 
         $this->assertSame($response, $service->checkout($checkout));
     }
