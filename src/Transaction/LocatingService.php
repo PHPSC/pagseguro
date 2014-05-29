@@ -2,16 +2,21 @@
 namespace PHPSC\PagSeguro\Transaction;
 
 use PHPSC\PagSeguro\BaseService;
-use PHPSC\PagSeguro\ConsultationService as ConsultationServiceInterface;
 use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\TransactionLocatingService;
 
-class ConsultationService extends BaseService implements ConsultationServiceInterface
+class LocatingService extends BaseService implements TransactionLocatingService
 {
     /**
      * @var string
      */
-    const ENDPOINT = '/v2/transactions';
+    const TRANSACTIONS = '/v2/transactions';
+
+    /**
+     * @var string
+     */
+    const NOTIFICATIONS = '/v2/transactions/notifications';
 
     /**
      * @var Decoder
@@ -40,6 +45,16 @@ class ConsultationService extends BaseService implements ConsultationServiceInte
      */
     public function getByCode($code)
     {
-        return $this->decoder->decode($this->get(static::ENDPOINT . '/' . $code));
+        return $this->decoder->decode($this->get(static::TRANSACTIONS . '/' . $code));
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return Transaction
+     */
+    public function getByNotification($code)
+    {
+        return $this->decoder->decode($this->get(static::NOTIFICATIONS . '/' . $code));
     }
 }

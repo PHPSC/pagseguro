@@ -72,7 +72,7 @@ try {
     echo $error->getMessage(); // Exibe na tela a mensagem de erro
 }
 ```
-### Notificações
+### Notificações de compras
 
 Este serviço é responsável por buscar uma transação a partir do código da notificação, ele 
 deve ser utilizado para acompanhar a alteração do status de pagamento de uma venda. Seu fluxo básico é:
@@ -96,7 +96,7 @@ O uso básico é:
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Transaction\NotificationService;
+use PHPSC\PagSeguro\Transaction\LocatingService;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
@@ -104,10 +104,10 @@ $credentials = new Credentials(
     false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
 );
 
-$service = new NotificationService($credentials); // Cria instância do serviço
+$service = new LocatingService($credentials); // Cria instância do serviço
 
 try {
-    $transaction = $service->getByCode( // Solicita os detalhes da transação
+    $transaction = $service->getByNotification( // Solicita os detalhes da transação
     	'CODIGO DA NOTIFICAÇÃO ENVIADO PELO PAGSEGURO'
 	);
 
@@ -116,7 +116,7 @@ try {
     echo $error->getMessage(); // Exibe na tela a mensagem de erro
 }
 ```
-### Consultas
+### Consultas de compras
 
 Este serviço é responsável por buscar uma transação a partir do código da transação, ele 
 deve ser utilizado para buscar os dados de pagamento de uma venda. Seu fluxo básico é:
@@ -137,7 +137,7 @@ O uso básico é:
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Transaction\ConsultationService;
+use PHPSC\PagSeguro\Transaction\LocatingService;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
@@ -145,7 +145,7 @@ $credentials = new Credentials(
     false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
 );
 
-$service = new ConsultationService($credentials); // Cria instância do serviço
+$service = new LocatingService($credentials); // Cria instância do serviço
 
 try {
     $transaction = $service->getByCode( // Solicita os detalhes da transação
