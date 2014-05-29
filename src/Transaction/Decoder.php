@@ -6,6 +6,7 @@ use PHPSC\PagSeguro\Customer\Address;
 use PHPSC\PagSeguro\Customer\Phone;
 use PHPSC\PagSeguro\Customer\Sender;
 use PHPSC\PagSeguro\Customer\Shipping;
+use PHPSC\PagSeguro\Item;
 use SimpleXMLElement;
 
 class Decoder

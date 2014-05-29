@@ -2,7 +2,7 @@
 namespace PHPSC\PagSeguro\Checkout;
 
 use PHPSC\PagSeguro\Customer\Address;
-use PHPSC\PagSeguro\Transaction\Item;
+use PHPSC\PagSeguro\Item;
 
 class Encoder
 {

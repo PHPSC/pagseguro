@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Transaction;
+namespace PHPSC\PagSeguro;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
