@@ -2,10 +2,10 @@
 namespace PHPSC\PagSeguro\Test;
 
 use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Checkout\Encoder;
 use PHPSC\PagSeguro\Checkout\Decoder;
 use PHPSC\PagSeguro\Checkout\CheckoutService;
-use PHPSC\PagSeguro\Http\Client;
 
 class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +32,7 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = new Credentials('a@a.com', 't');
-        $this->client = $this->getMock('PHPSC\PagSeguro\Http\Client', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Client', array(), array(), '', false);
         $this->encoder = $this->getMock('PHPSC\PagSeguro\Checkout\Encoder', array(), array(), '', false);
         $this->decoder = $this->getMock('PHPSC\PagSeguro\Checkout\Decoder', array(), array(), '', false);
     }

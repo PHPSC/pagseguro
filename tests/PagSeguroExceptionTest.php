@@ -1,7 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Http;
+namespace PHPSC\PagSeguro\Test;
 
-use PHPSC\PagSeguro\Http\PagSeguroException;
+use PHPSC\PagSeguro\PagSeguroException;
 use SimpleXMLElement;
 
 class PagSeguroExceptionTest extends \PHPUnit_Framework_TestCase
@@ -33,7 +33,7 @@ MESSAGE;
 
         $exception = PagSeguroException::createFromXml(simplexml_load_string($xml));
 
-        $this->assertInstanceOf('PHPSC\PagSeguro\Http\PagSeguroException', $exception);
+        $this->assertInstanceOf('PHPSC\PagSeguro\PagSeguroException', $exception);
         $this->assertEquals($message, $exception->getMessage());
     }
 }

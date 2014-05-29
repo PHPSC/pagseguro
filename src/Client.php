@@ -1,9 +1,8 @@
 <?php
-namespace PHPSC\PagSeguro\Http;
+namespace PHPSC\PagSeguro;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
-use PHPSC\PagSeguro\BaseService;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -27,7 +26,7 @@ class Client
     /**
      * @param Event $event
      *
-     * @throws HttpException|PagSeguroException
+     * @throws PagSeguroException
      */
     public function handleError(Event $event)
     {
@@ -41,7 +40,7 @@ class Client
             throw PagSeguroException::createFromXml($response->xml());
         }
 
-        throw new HttpException(
+        throw new PagSeguroException(
             '[' . $response->getStatusCode() . '] A HTTP error has occurred: '
             . $response->getBody(true)
         );

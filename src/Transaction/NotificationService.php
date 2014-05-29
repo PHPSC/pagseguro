@@ -3,8 +3,8 @@ namespace PHPSC\PagSeguro\Transaction;
 
 use PHPSC\PagSeguro\BaseService;
 use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\NotificationService as NotificationServiceInterface;
-use PHPSC\PagSeguro\Http\Client;
 
 class NotificationService extends BaseService implements NotificationServiceInterface
 {

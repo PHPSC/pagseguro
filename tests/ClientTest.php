@@ -1,13 +1,13 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Http;
+namespace PHPSC\PagSeguro\Test;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Message\Request;
-use PHPSC\PagSeguro\Http\Client;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use PHPSC\PagSeguro\BaseService;
+use PHPSC\PagSeguro\Client;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -81,7 +81,7 @@ XML;
 
     /**
      * @test
-     * @expectedException PHPSC\PagSeguro\Http\PagSeguroException
+     * @expectedException PHPSC\PagSeguro\PagSeguroException
      */
     public function handleErrorShouldRaisePagSeguroExceptionWhenStatusCodeIs400()
     {
@@ -114,7 +114,7 @@ XML;
 
     /**
      * @test
-     * @expectedException PHPSC\PagSeguro\Http\HttpException
+     * @expectedException PHPSC\PagSeguro\PagSeguroException
      * @expectedExceptionMessage [401] A HTTP error has occurred: Unauthorized
      */
     public function handleErrorShouldRaiseHttpExceptionWhenStatusCodeIsNot400()

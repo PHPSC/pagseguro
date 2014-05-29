@@ -3,8 +3,8 @@ namespace PHPSC\PagSeguro\Checkout;
 
 use PHPSC\PagSeguro\BaseService;
 use PHPSC\PagSeguro\CheckoutService as CheckoutServiceInterface;
+use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Http\Client;
 
 class CheckoutService extends BaseService implements CheckoutServiceInterface
 {

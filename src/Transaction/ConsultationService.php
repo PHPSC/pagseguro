@@ -3,8 +3,8 @@ namespace PHPSC\PagSeguro\Transaction;
 
 use PHPSC\PagSeguro\BaseService;
 use PHPSC\PagSeguro\ConsultationService as ConsultationServiceInterface;
+use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Http\Client;
 
 class ConsultationService extends BaseService implements ConsultationServiceInterface
 {

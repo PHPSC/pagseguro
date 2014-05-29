@@ -2,7 +2,7 @@
 namespace PHPSC\PagSeguro\Test\Transaction;
 
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Http\Client;
+use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Transaction\Decoder;
 use PHPSC\PagSeguro\Transaction\NotificationService;
 
@@ -26,7 +26,7 @@ class NotificationServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = new Credentials('a@a.com', 't');
-        $this->client = $this->getMock('PHPSC\PagSeguro\Http\Client', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Client', array(), array(), '', false);
         $this->decoder = $this->getMock('PHPSC\PagSeguro\Transaction\Decoder', array(), array(), '', false);
     }
 

@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Http;
+namespace PHPSC\PagSeguro;
 
 use SimpleXMLElement;
 

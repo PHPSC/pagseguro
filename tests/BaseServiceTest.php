@@ -12,7 +12,7 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->client = $this->getMock('PHPSC\PagSeguro\Http\Client', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Client', array(), array(), '', false);
     }
 
     /**

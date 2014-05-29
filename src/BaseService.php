@@ -2,7 +2,6 @@
 namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Http\Client;
 
 abstract class BaseService
 {
