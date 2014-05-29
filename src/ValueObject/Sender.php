@@ -1,6 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro\ValueObject;
 
+use PHPSC\PagSeguro\Customer\Phone;
+
 class Sender
 {
     /**
