@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\ValueObject;
+namespace PHPSC\PagSeguro\Transaction;
 
 class PaymentMethod
 {
@@ -19,8 +19,8 @@ class PaymentMethod
      */
     public function __construct($type, $code)
     {
-        $this->type = $type;
-        $this->code = $code;
+        $this->type = (int) $type;
+        $this->code = (int) $code;
     }
 
     /**

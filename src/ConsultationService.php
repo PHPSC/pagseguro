@@ -3,7 +3,7 @@ namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Codec\TransactionDecoder;
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\ValueObject\Transaction;
+use PHPSC\PagSeguro\Transaction\Transaction;
 use PHPSC\PagSeguro\Http\Client;
 
 class ConsultationService extends BaseService

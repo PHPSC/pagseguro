@@ -36,7 +36,7 @@ class ConsultationServiceTest extends \PHPUnit_Framework_TestCase
     public function getByCodeShouldDoAGetRequestAddingCredentialsData()
     {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
-        $transaction = $this->getMock('PHPSC\PagSeguro\ValueObject\Transaction', array(), array(), '', false);
+        $transaction = $this->getMock('PHPSC\PagSeguro\Transaction\Transaction', array(), array(), '', false);
 
         $this->client->expects($this->once())
                      ->method('get')

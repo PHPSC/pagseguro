@@ -3,7 +3,7 @@ namespace PHPSC\PagSeguro\Codec;
 
 use PHPSC\PagSeguro\ValueObject\Payment\PaymentRequest;
 use PHPSC\PagSeguro\Customer\Address;
-use PHPSC\PagSeguro\ValueObject\Item;
+use PHPSC\PagSeguro\Transaction\Item;
 
 class PaymentEncoder
 {

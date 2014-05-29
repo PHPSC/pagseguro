@@ -1,13 +1,13 @@
 <?php
 namespace PHPSC\PagSeguro\Codec;
 
-use PHPSC\PagSeguro\ValueObject\PaymentMethod;
-use PHPSC\PagSeguro\ValueObject\Transaction;
+use PHPSC\PagSeguro\Transaction\PaymentMethod;
+use PHPSC\PagSeguro\Transaction\Transaction;
 use PHPSC\PagSeguro\Customer\Shipping;
 use PHPSC\PagSeguro\Customer\Address;
 use PHPSC\PagSeguro\Customer\Sender;
 use PHPSC\PagSeguro\Customer\Phone;
-use PHPSC\PagSeguro\ValueObject\Item;
+use PHPSC\PagSeguro\Transaction\Item;
 use SimpleXMLElement;
 use DateTime;
 

@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\ValueObject;
+namespace PHPSC\PagSeguro\Transaction;
 
 use DateTime;
 use PHPSC\PagSeguro\Customer\Shipping;
