@@ -1,7 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\ValueObject\Payment;
 
-use PHPSC\PagSeguro\ValueObject\Shipping;
+use PHPSC\PagSeguro\Customer\Shipping;
 use PHPSC\PagSeguro\ValueObject\Sender;
 
 class PaymentRequest

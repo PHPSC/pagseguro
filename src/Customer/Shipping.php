@@ -1,7 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\ValueObject;
-
-use PHPSC\PagSeguro\Customer\Address;
+namespace PHPSC\PagSeguro\Customer;
 
 class Shipping
 {

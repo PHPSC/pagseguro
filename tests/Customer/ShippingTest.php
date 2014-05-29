@@ -1,7 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\Test\ValueObject;
+namespace PHPSC\PagSeguro\Test\Customer;
 
-use PHPSC\PagSeguro\ValueObject\Shipping;
+use PHPSC\PagSeguro\Customer\Shipping;
 
 class ShippingTest extends \PHPUnit_Framework_TestCase
 {
