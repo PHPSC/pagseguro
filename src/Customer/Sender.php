@@ -28,8 +28,9 @@ class Sender
         $name = null,
         Phone $phone = null
     ) {
-        $this->phone = $phone;
         $this->setEmail($email);
+
+        $this->phone = $phone;
 
         if ($name !== null) {
             $this->setName($name);

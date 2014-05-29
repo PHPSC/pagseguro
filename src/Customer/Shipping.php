@@ -1,6 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
+use InvalidArgumentException;
+
 class Shipping
 {
     /**
@@ -40,7 +42,7 @@ class Shipping
      */
     public function __construct($type, Address $address = null, $cost = null)
     {
-        $this->type = (int) $type;
+        $this->setType($type);
         $this->address = $address;
 
         if ($cost !== null) {
@@ -54,6 +56,15 @@ class Shipping
     public function getType()
     {
         return $this->type;
+    }
+
+    protected function setType($type)
+    {
+        if (!in_array($type, array(static::TYPE_PAC, static::TYPE_SEDEX, static::TYPE_UNKNOWN))) {
+            throw new InvalidArgumentException('Invalid shipping type informed');
+        }
+
+        $this->type = (int) $type;
     }
 
     /**
