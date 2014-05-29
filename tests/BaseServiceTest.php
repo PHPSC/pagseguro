@@ -32,7 +32,7 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
     public function credentials()
     {
         return array(
-        	array(new Credentials('a@a.com', 't')),
+            array(new Credentials('a@a.com', 't')),
             array(new Credentials('a@a.com', 't', true))
         );
     }
