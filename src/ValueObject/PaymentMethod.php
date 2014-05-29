@@ -19,8 +19,8 @@ class PaymentMethod
      */
     public function __construct($type, $code)
     {
-        $this->setType($type);
-        $this->setCode($code);
+        $this->type = $type;
+        $this->code = $code;
     }
 
     /**
@@ -32,26 +32,10 @@ class PaymentMethod
     }
 
     /**
-     * @param number $type
-     */
-    protected function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
      * @return number
      */
     public function getCode()
     {
         return $this->code;
-    }
-
-    /**
-     * @param number $code
-     */
-    protected function setCode($code)
-    {
-        $this->code = $code;
     }
 }

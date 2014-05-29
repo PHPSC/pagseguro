@@ -163,23 +163,23 @@ class Transaction
         Shipping $shipping,
         DateTime $escrowEndDate = null
     ) {
-        $this->setCode($code);
-        $this->setReference($reference);
-        $this->setType($type);
-        $this->setStatus($status);
-        $this->setDate($date);
-        $this->setLastEventDate($lastEventDate);
-        $this->setEscrowEndDate($escrowEndDate);
-        $this->setPaymentMethod($paymentMethod);
-        $this->setGrossAmount($grossAmount);
-        $this->setDiscountAmount($discountAmount);
-        $this->setFeeAmount($feeAmount);
-        $this->setNetAmount($netAmount);
-        $this->setExtraAmount($extraAmount);
-        $this->setInstallmentCount($installmentCount);
-        $this->setItems($items);
-        $this->setSender($sender);
-        $this->setShipping($shipping);
+        $this->code = $code;
+        $this->reference = $reference;
+        $this->type = $type;
+        $this->status = $status;
+        $this->date = $date;
+        $this->lastEventDate = $lastEventDate;
+        $this->escrowEndDate = $escrowEndDate;
+        $this->paymentMethod = $paymentMethod;
+        $this->grossAmount = $grossAmount;
+        $this->discountAmount = $discountAmount;
+        $this->feeAmount = $feeAmount;
+        $this->netAmount = $netAmount;
+        $this->extraAmount = $extraAmount;
+        $this->installmentCount = $installmentCount;
+        $this->items = $items;
+        $this->sender = $sender;
+        $this->shipping = $shipping;
     }
 
     /**
@@ -191,27 +191,11 @@ class Transaction
     }
 
     /**
-     * @param string $code
-     */
-    protected function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
      * @return string
      */
     public function getReference()
     {
         return $this->reference;
-    }
-
-    /**
-     * @param string $reference
-     */
-    protected function setReference($reference)
-    {
-        $this->reference = $reference;
     }
 
     /**
@@ -223,27 +207,11 @@ class Transaction
     }
 
     /**
-     * @param number $type
-     */
-    protected function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
      * @return number
      */
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * @param number $status
-     */
-    protected function setStatus($status)
-    {
-        $this->status = $status;
     }
 
     /**
@@ -311,27 +279,11 @@ class Transaction
     }
 
     /**
-     * @param DateTime $date
-     */
-    protected function setDate(DateTime $date)
-    {
-        $this->date = $date;
-    }
-
-    /**
      * @return DateTime
      */
     public function getLastEventDate()
     {
         return $this->lastEventDate;
-    }
-
-    /**
-     * @param DateTime $lastEventDate
-     */
-    protected function setLastEventDate(DateTime $lastEventDate)
-    {
-        $this->lastEventDate = $lastEventDate;
     }
 
     /**
@@ -343,27 +295,11 @@ class Transaction
     }
 
     /**
-     * @param DateTime $escrowEndDate
-     */
-    protected function setEscrowEndDate(DateTime $escrowEndDate = null)
-    {
-        $this->escrowEndDate = $escrowEndDate;
-    }
-
-    /**
      * @return PaymentMethod
      */
     public function getPaymentMethod()
     {
         return $this->paymentMethod;
-    }
-
-    /**
-     * @param PaymentMethod $paymentMethod
-     */
-    protected function setPaymentMethod(PaymentMethod $paymentMethod)
-    {
-        $this->paymentMethod = $paymentMethod;
     }
 
     /**
@@ -375,27 +311,11 @@ class Transaction
     }
 
     /**
-     * @param number $grossAmount
-     */
-    protected function setGrossAmount($grossAmount)
-    {
-        $this->grossAmount = $grossAmount;
-    }
-
-    /**
      * @return number
      */
     public function getDiscountAmount()
     {
         return $this->discountAmount;
-    }
-
-    /**
-     * @param number $discountAmount
-     */
-    protected function setDiscountAmount($discountAmount)
-    {
-        $this->discountAmount = $discountAmount;
     }
 
     /**
@@ -407,27 +327,11 @@ class Transaction
     }
 
     /**
-     * @param number $feeAmount
-     */
-    protected function setFeeAmount($feeAmount)
-    {
-        $this->feeAmount = $feeAmount;
-    }
-
-    /**
      * @return number
      */
     public function getNetAmount()
     {
         return $this->netAmount;
-    }
-
-    /**
-     * @param number $netAmount
-     */
-    protected function setNetAmount($netAmount)
-    {
-        $this->netAmount = $netAmount;
     }
 
     /**
@@ -439,27 +343,11 @@ class Transaction
     }
 
     /**
-     * @param number $extraAmount
-     */
-    protected function setExtraAmount($extraAmount)
-    {
-        $this->extraAmount = $extraAmount;
-    }
-
-    /**
      * @return number
      */
     public function getInstallmentCount()
     {
         return $this->installmentCount;
-    }
-
-    /**
-     * @param number $installmentCount
-     */
-    protected function setInstallmentCount($installmentCount)
-    {
-        $this->installmentCount = $installmentCount;
     }
 
     /**
@@ -471,14 +359,6 @@ class Transaction
     }
 
     /**
-     * @param array $items
-     */
-    protected function setItems(array $items)
-    {
-        $this->items = $items;
-    }
-
-    /**
      * @return Sender
      */
     public function getSender()
@@ -487,26 +367,10 @@ class Transaction
     }
 
     /**
-     * @param Sender $sender
-     */
-    protected function setSender(Sender $sender)
-    {
-        $this->sender = $sender;
-    }
-
-    /**
      * @return Shipping
      */
     public function getShipping()
     {
         return $this->shipping;
-    }
-
-    /**
-     * @param Shipping $shipping
-     */
-    protected function setShipping(Shipping $shipping)
-    {
-        $this->shipping = $shipping;
     }
 }

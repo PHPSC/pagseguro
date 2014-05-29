@@ -71,30 +71,16 @@ class PaymentRequest
         $maxUses = null,
         $maxAge = null
     ) {
-        $this->setCurrency('BRL');
-        $this->setItems($items);
-        $this->setSender($sender);
-        $this->setShipping($shipping);
-
-        if ($reference !== null) {
-            $this->setReference($reference);
-        }
-
-        if ($extraAmount !== null) {
-            $this->setExtraAmount($extraAmount);
-        }
-
-        if ($redirectUrl !== null) {
-            $this->setRedirectUrl($redirectUrl);
-        }
-
-        if ($maxUses !== null) {
-            $this->setMaxUses($maxUses);
-        }
-
-        if ($maxAge !== null) {
-            $this->setMaxAge($maxAge);
-        }
+        $this->currency = 'BRL';
+        $this->reference = $reference;
+        $this->items = $items;
+        $this->sender = $sender;
+        $this->shipping = $shipping;
+        $this->extraAmount = $extraAmount;
+        $this->reference = $reference;
+        $this->redirectUrl = $redirectUrl;
+        $this->maxUses = $maxUses;
+        $this->maxAge = $maxAge;
     }
 
     /**
@@ -106,27 +92,11 @@ class PaymentRequest
     }
 
     /**
-     * @param string $currency
-     */
-    protected function setCurrency($currency)
-    {
-        $this->currency = $currency;
-    }
-
-    /**
      * @return array
      */
     public function getItems()
     {
         return $this->items;
-    }
-
-    /**
-     * @param array $items
-     */
-    protected function setItems(array $items)
-    {
-        $this->items = $items;
     }
 
     /**
@@ -138,27 +108,11 @@ class PaymentRequest
     }
 
     /**
-     * @param string $reference
-     */
-    protected function setReference($reference)
-    {
-        $this->reference = $reference;
-    }
-
-    /**
      * @return Sender
      */
     public function getSender()
     {
         return $this->sender;
-    }
-
-    /**
-     * @param Sender $sender
-     */
-    protected function setSender(Sender $sender = null)
-    {
-        $this->sender = $sender;
     }
 
     /**
@@ -170,27 +124,11 @@ class PaymentRequest
     }
 
     /**
-     * @param Shipping $shipping
-     */
-    protected function setShipping(Shipping $shipping = null)
-    {
-        $this->shipping = $shipping;
-    }
-
-    /**
      * @return number
      */
     public function getExtraAmount()
     {
         return $this->extraAmount;
-    }
-
-    /**
-     * @param number $extraAmount
-     */
-    protected function setExtraAmount($extraAmount)
-    {
-        $this->extraAmount = $extraAmount;
     }
 
     /**
@@ -202,14 +140,6 @@ class PaymentRequest
     }
 
     /**
-     * @param string $redirectUrl
-     */
-    protected function setRedirectUrl($redirectUrl)
-    {
-        $this->redirectUrl = $redirectUrl;
-    }
-
-    /**
      * @return number
      */
     public function getMaxUses()
@@ -218,26 +148,10 @@ class PaymentRequest
     }
 
     /**
-     * @param number $maxUses
-     */
-    protected function setMaxUses($maxUses)
-    {
-        $this->maxUses = $maxUses;
-    }
-
-    /**
      * @return number
      */
     public function getMaxAge()
     {
         return $this->maxAge;
-    }
-
-    /**
-     * @param number $maxAge
-     */
-    protected function setMaxAge($maxAge)
-    {
-        $this->maxAge = $maxAge;
     }
 }

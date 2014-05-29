@@ -28,7 +28,7 @@ class Sender
         $name = null,
         Phone $phone = null
     ) {
-        $this->setPhone($phone);
+        $this->phone = $phone;
         $this->setEmail($email);
 
         if ($name !== null) {
@@ -74,13 +74,5 @@ class Sender
     public function getPhone()
     {
         return $this->phone;
-    }
-
-    /**
-     * @param Phone $phone
-     */
-    protected function setPhone(Phone $phone = null)
-    {
-        $this->phone = $phone;
     }
 }

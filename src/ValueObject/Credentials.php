@@ -27,7 +27,10 @@ class Credentials
     {
         $this->setEmail($email);
         $this->setToken($token);
-        $this->setSandboxToken($sandboxToken);
+
+        if (!empty($sandboxToken)) {
+            $this->setSandboxToken($sandboxToken);
+        }
     }
 
     /**
@@ -75,8 +78,6 @@ class Credentials
      */
     protected function setSandboxToken($sandboxToken)
     {
-        if (!empty($sandboxToken)) {
-            $this->sandboxToken = substr($sandboxToken, 0, 32);
-        }
+        $this->sandboxToken = substr($sandboxToken, 0, 32);
     }
 }

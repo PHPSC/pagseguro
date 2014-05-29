@@ -40,11 +40,11 @@ class Shipping
      */
     public function __construct($type, Address $address = null, $cost = null)
     {
-        $this->setType($type);
-        $this->setAddress($address);
+        $this->type = (int) $type;
+        $this->address = $address;
 
         if ($cost !== null) {
-            $this->setCost($cost);
+            $this->cost = (float) $cost;
         }
     }
 
@@ -57,14 +57,6 @@ class Shipping
     }
 
     /**
-     * @param number $type
-     */
-    protected function setType($type)
-    {
-        $this->type = (int) $type;
-    }
-
-    /**
      * @return Address
      */
     public function getAddress()
@@ -73,26 +65,10 @@ class Shipping
     }
 
     /**
-     * @param Address $address
-     */
-    protected function setAddress(Address $address = null)
-    {
-        $this->address = $address;
-    }
-
-    /**
      * @return number
      */
     public function getCost()
     {
         return $this->cost;
-    }
-
-    /**
-     * @param number $cost
-     */
-    protected function setCost($cost)
-    {
-        $this->cost = (float) $cost;
     }
 }
