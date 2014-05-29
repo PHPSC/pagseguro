@@ -8,21 +8,6 @@ class Response
     /**
      * @var string
      */
-    const HOST = 'pagseguro.uol.com.br';
-
-    /**
-     * @var string
-     */
-    const SANDBOX_HOST = 'sandbox.pagseguro.uol.com.br';
-
-    /**
-     * @var string
-     */
-    const RESOURCE = '/v2/checkout/payment.html';
-
-    /**
-     * @var string
-     */
     private $code;
 
     /**
@@ -31,20 +16,20 @@ class Response
     private $date;
 
     /**
-     * @var boolean
+     * @var string
      */
-    private $sandbox;
+    private $uri;
 
     /**
      * @param string $code
      * @param DateTime $date
-     * @param boolean $sandbox
+     * @param string $uri
      */
-    public function __construct($code, DateTime $date, $sandbox = false)
+    public function __construct($code, DateTime $date, $uri)
     {
-        $this->setCode($code);
-        $this->setDate($date);
-        $this->sandbox = $sandbox;
+        $this->code = $code;
+        $this->date = $date;
+        $this->uri = $uri;
     }
 
     /**
@@ -56,14 +41,6 @@ class Response
     }
 
     /**
-     * @param string $code
-     */
-    protected function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
      * @return DateTime
      */
     public function getDate()
@@ -72,22 +49,10 @@ class Response
     }
 
     /**
-     * @param DateTime $date
-     */
-    protected function setDate(DateTime $date)
-    {
-        $this->date = $date;
-    }
-
-    /**
      * @return string
      */
     public function getRedirectionUrl()
     {
-        if ($this->sandbox) {
-            return 'https://' . static::SANDBOX_HOST . static::RESOURCE . '?code=' . $this->getCode();
-        }
-
-        return 'https://' . static::HOST . static::RESOURCE . '?code=' . $this->getCode();
+        return $this->uri . '?code=' . $this->getCode();
     }
 }
