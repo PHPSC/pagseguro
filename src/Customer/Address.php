@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\ValueObject;
+namespace PHPSC\PagSeguro\Customer;
 
 class Address
 {
@@ -63,7 +63,7 @@ class Address
         $complement = null,
         $country = 'BRA'
     ) {
-        $this->setCountry($country);
+        $this->country = (string) $country;
 
         if ($state !== null) {
             $this->setState($state);
@@ -100,14 +100,6 @@ class Address
     public function getCountry()
     {
         return $this->country;
-    }
-
-    /**
-     * @param string $country
-     */
-    protected function setCountry($country)
-    {
-        $this->country = (string) $country;
     }
 
     /**
