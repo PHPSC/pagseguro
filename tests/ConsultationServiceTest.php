@@ -2,7 +2,7 @@
 namespace PHPSC\PagSeguro\Test;
 
 use PHPSC\PagSeguro\Http\Client;
-use PHPSC\PagSeguro\Codec\TransactionDecoder;
+use PHPSC\PagSeguro\Transaction\Decoder;
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\ConsultationService;
 
@@ -19,7 +19,7 @@ class ConsultationServiceTest extends \PHPUnit_Framework_TestCase
     protected $client;
 
     /**
-     * @var TransactionDecoder|\PHPUnit_Framework_MockObject_MockObject
+     * @var Decoder|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $decoder;
 
@@ -27,7 +27,7 @@ class ConsultationServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->credentials = new Credentials('a@a.com', 't');
         $this->client = $this->getMock('PHPSC\PagSeguro\Http\Client', array(), array(), '', false);
-        $this->decoder = $this->getMock('PHPSC\PagSeguro\Codec\TransactionDecoder', array(), array(), '', false);
+        $this->decoder = $this->getMock('PHPSC\PagSeguro\Transaction\Decoder', array(), array(), '', false);
     }
 
     /**
