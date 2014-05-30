@@ -2,10 +2,11 @@
 namespace PHPSC\PagSeguro\Transaction;
 
 use DateTime;
+use PHPSC\PagSeguro\Charge;
 use PHPSC\PagSeguro\Customer\Shipping;
 use PHPSC\PagSeguro\Customer\Sender;
 
-class Transaction
+class Transaction extends Charge
 {
     /**
      * @var int
@@ -43,34 +44,9 @@ class Transaction
     const CANCELLED = 7;
 
     /**
-     * @var string
-     */
-    private $code;
-
-    /**
-     * @var string
-     */
-    private $reference;
-
-    /**
      * @var int
      */
     private $type;
-
-    /**
-     * @var int
-     */
-    private $status;
-
-    /**
-     * @var DateTime
-     */
-    private $date;
-
-    /**
-     * @var DateTime
-     */
-    private $lastEventDate;
 
     /**
      * @var DateTime
@@ -116,11 +92,6 @@ class Transaction
      * @var array
      */
     private $items;
-
-    /**
-     * @var Sender
-     */
-    private $sender;
 
     /**
      * @var Shipping
@@ -185,38 +156,6 @@ class Transaction
     }
 
     /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReference()
-    {
-        return $this->reference;
-    }
-
-    /**
-     * @return number
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return number
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
      * @return boolean
      */
     public function isWaitingPayment()
@@ -270,22 +209,6 @@ class Transaction
     public function isCancelled()
     {
         return $this->getStatus() === static::CANCELLED;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getLastEventDate()
-    {
-        return $this->lastEventDate;
     }
 
     /**
@@ -358,14 +281,6 @@ class Transaction
     public function getItems()
     {
         return $this->items;
-    }
-
-    /**
-     * @return Sender
-     */
-    public function getSender()
-    {
-        return $this->sender;
     }
 
     /**
