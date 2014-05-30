@@ -1,19 +1,14 @@
 <?php
 namespace PHPSC\PagSeguro\Test;
 
+use DateTime;
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Checkout\Encoder;
-use PHPSC\PagSeguro\Checkout\Decoder;
 use PHPSC\PagSeguro\Checkout\CheckoutService;
 
 class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Credentials
-     */
-    protected $credentials;
-
     /**
      * @var Client|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -24,27 +19,28 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected $encoder;
 
-    /**
-     * @var Decoder|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $decoder;
-
     protected function setUp()
     {
-        $this->credentials = new Credentials('a@a.com', 't');
         $this->client = $this->getMock('PHPSC\PagSeguro\Client', array(), array(), '', false);
         $this->encoder = $this->getMock('PHPSC\PagSeguro\Checkout\Encoder', array(), array(), '', false);
-        $this->decoder = $this->getMock('PHPSC\PagSeguro\Checkout\Decoder', array(), array(), '', false);
     }
 
     /**
      * @test
+     * @dataProvider environments
      */
-    public function checkoutShouldDoAPostRequestAddingCredentialsData()
+    public function checkoutShouldDoAPostRequestReturningDataAccordingWithEnvironment($sandbox, $wsUri, $redirectUri)
     {
-        $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
+        $data = <<<'XML'
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<checkout>
+    <code>8CF4BE7DCECEF0F004A6DFA0A8243412</code>
+    <date>2014-05-29T03:11:28.000-03:00</date>
+</checkout>
+XML;
+
+        $xml = simplexml_load_string($data);
         $checkout = $this->getMock('PHPSC\PagSeguro\Checkout\Checkout', array(), array(), '', false);
-        $response = $this->getMock('PHPSC\PagSeguro\Checkout\Response', array(), array(), '', false);
         $params = array('email' => 'a@a.com', 'token' => 't', 'testing' => true);
 
         $this->encoder->expects($this->once())
@@ -54,16 +50,31 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->client->expects($this->once())
                      ->method('post')
-                     ->with('https://ws.pagseguro.uol.com.br/v2/checkout', $params)
+                     ->with($wsUri, $params)
                      ->willReturn($xml);
 
-        $this->decoder->expects($this->once())
-                      ->method('decode')
-                      ->with($xml, false)
-                      ->willReturn($response);
+        $service = new CheckoutService(new Credentials('a@a.com', 't', $sandbox), $this->client, $this->encoder);
+        $response = $service->checkout($checkout);
 
-        $service = new CheckoutService($this->credentials, $this->client, $this->encoder, $this->decoder);
+        $this->assertInstanceOf('PHPSC\PagSeguro\Checkout\Response', $response);
+        $this->assertAttributeEquals('8CF4BE7DCECEF0F004A6DFA0A8243412', 'code', $response);
+        $this->assertAttributeEquals(new DateTime('2014-05-29T03:11:28.000-03:00'), 'date', $response);
+        $this->assertAttributeEquals($redirectUri, 'uri', $response);
+    }
 
-        $this->assertSame($response, $service->checkout($checkout));
+    public function environments()
+    {
+        return array(
+            array(
+                false,
+                'https://ws.pagseguro.uol.com.br/v2/checkout',
+                'https://pagseguro.uol.com.br/v2/checkout/payment.html'
+            ),
+            array(
+                true,
+                'https://ws.sandbox.pagseguro.uol.com.br/v2/checkout',
+                'https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html'
+            )
+        );
     }
 }
