@@ -1,24 +1,37 @@
 <?php
 namespace PHPSC\PagSeguro;
 
-use SimpleXMLElement;
+use Guzzle\Http\Message\Response;
 
 class PagSeguroException extends \RuntimeException
 {
     /**
-     * @param SimpleXMLElement $xml
+     * @param Response $response
      *
      * @return PagSeguroException
      */
-    public static function createFromXml(SimpleXMLElement $xml)
+    public static function create(Response $response)
     {
-        $message = 'Some errors occurred:';
+        return new static(static::createMessage($response));
+    }
 
-        foreach ($xml->error as $error) {
-            $message .= PHP_EOL . '[' . (string) $error->code . '] '
-                        . (string) $error->message;
+    /**
+     * @param Response $response
+     *
+     * @return string
+     */
+    protected static function createMessage(Response $response)
+    {
+        if ($response->getStatusCode() != 400) {
+            return  '[' . $response->getStatusCode() . '] A HTTP error has occurred: ' . $response->getBody(true);
         }
 
-        return new static($message);
+        $message = 'Some errors occurred:';
+
+        foreach ($response->xml()->error as $error) {
+            $message .= PHP_EOL . '[' . (string) $error->code . '] ' . (string) $error->message;
+        }
+
+        return $message;
     }
 }

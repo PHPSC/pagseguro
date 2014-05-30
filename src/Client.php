@@ -34,16 +34,7 @@ class Client
             return ;
         }
 
-        $response = $event['response'];
-
-        if ($response->getStatusCode() == 400) {
-            throw PagSeguroException::createFromXml($response->xml());
-        }
-
-        throw new PagSeguroException(
-            '[' . $response->getStatusCode() . '] A HTTP error has occurred: '
-            . $response->getBody(true)
-        );
+        throw PagSeguroException::create($event['response']);
     }
 
     /**
@@ -76,11 +67,7 @@ class Client
      */
     public function get($url)
     {
-        $request = $this->client->get(
-            $url,
-            null,
-            array('verify' => false)
-        );
+        $request = $this->client->get($url, null, array('verify' => false));
 
         return $request->send()->xml();
     }

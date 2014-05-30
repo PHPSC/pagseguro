@@ -83,41 +83,7 @@ XML;
      * @test
      * @expectedException PHPSC\PagSeguro\PagSeguroException
      */
-    public function handleErrorShouldRaisePagSeguroExceptionWhenStatusCodeIs400()
-    {
-        $client = new Client($this->httpClient);
-        $event = new Event(array('request' => $this->request, 'response' => $this->response));
-        $xml = <<<'XML'
-<?xml version="1.0" encoding="UTF-8"?>
-<errors>
-    <error>
-        <code>11004</code>
-        <message>Currency is required.</message>
-    </error>
-</errors>
-XML;
-
-        $this->request->expects($this->any())
-                      ->method('getHost')
-                      ->willReturn(BaseService::HOST);
-
-        $this->response->expects($this->any())
-                       ->method('getStatusCode')
-                       ->willReturn(400);
-
-        $this->response->expects($this->any())
-                       ->method('xml')
-                       ->willReturn(simplexml_load_string($xml));
-
-        $client->handleError($event);
-    }
-
-    /**
-     * @test
-     * @expectedException PHPSC\PagSeguro\PagSeguroException
-     * @expectedExceptionMessage [401] A HTTP error has occurred: Unauthorized
-     */
-    public function handleErrorShouldRaiseHttpExceptionWhenStatusCodeIsNot400()
+    public function handleErrorShouldRaiseExceptionWhenHostIsFromPagSeguro()
     {
         $client = new Client($this->httpClient);
         $event = new Event(array('request' => $this->request, 'response' => $this->response));
