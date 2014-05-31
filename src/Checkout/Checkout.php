@@ -2,8 +2,8 @@
 namespace PHPSC\PagSeguro\Checkout;
 
 use InvalidArgumentException;
-use PHPSC\PagSeguro\Customer\Shipping;
-use PHPSC\PagSeguro\Customer\Customer;
+use PHPSC\PagSeguro\Shipping;
+use PHPSC\PagSeguro\Customer;
 use PHPSC\PagSeguro\Item;
 use PHPSC\PagSeguro\XmlSerializable;
 use SimpleXMLElement;

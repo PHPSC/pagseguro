@@ -2,10 +2,10 @@
 namespace PHPSC\PagSeguro\Transaction;
 
 use DateTime;
-use PHPSC\PagSeguro\Customer\Address;
-use PHPSC\PagSeguro\Customer\Phone;
-use PHPSC\PagSeguro\Customer\Customer;
-use PHPSC\PagSeguro\Customer\Shipping;
+use PHPSC\PagSeguro\Address;
+use PHPSC\PagSeguro\Phone;
+use PHPSC\PagSeguro\Customer;
+use PHPSC\PagSeguro\Shipping;
 use PHPSC\PagSeguro\Item;
 use SimpleXMLElement;
 

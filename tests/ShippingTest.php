@@ -1,7 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Customer;
+namespace PHPSC\PagSeguro\Test;
 
-use PHPSC\PagSeguro\Customer\Shipping;
+use PHPSC\PagSeguro\Shipping;
 
 class ShippingTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,7 +43,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      */
     public function constructorMustBeAbleToReceiveTypeAndAddress()
     {
-        $address = $this->getMock('PHPSC\PagSeguro\Customer\Address', array(), array(), '', false);
+        $address = $this->getMock('PHPSC\PagSeguro\Address', array(), array(), '', false);
         $shipping = new Shipping(Shipping::TYPE_PAC, $address);
 
         $this->assertAttributeEquals(Shipping::TYPE_PAC, 'type', $shipping);
@@ -56,7 +56,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      */
     public function constructorMustBeAbleToReceiveAllArguments()
     {
-        $address = $this->getMock('PHPSC\PagSeguro\Customer\Address', array(), array(), '', false);
+        $address = $this->getMock('PHPSC\PagSeguro\Address', array(), array(), '', false);
         $shipping = new Shipping(Shipping::TYPE_PAC, $address, '10.31');
 
         $this->assertAttributeEquals(Shipping::TYPE_PAC, 'type', $shipping);
@@ -69,7 +69,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      */
     public function getterShouldReturnConfiguredData()
     {
-        $address = $this->getMock('PHPSC\PagSeguro\Customer\Address', array(), array(), '', false);
+        $address = $this->getMock('PHPSC\PagSeguro\Address', array(), array(), '', false);
         $shipping = new Shipping(Shipping::TYPE_PAC, $address, '10.31');
 
         $this->assertEquals(Shipping::TYPE_PAC, $shipping->getType());

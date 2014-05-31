@@ -2,8 +2,8 @@
 namespace PHPSC\PagSeguro\Transaction;
 
 use DateTime;
-use PHPSC\PagSeguro\Customer\Shipping;
-use PHPSC\PagSeguro\Customer\Customer;
+use PHPSC\PagSeguro\Shipping;
+use PHPSC\PagSeguro\Customer;
 
 class Transaction
 {

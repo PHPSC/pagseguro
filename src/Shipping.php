@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Customer;
+namespace PHPSC\PagSeguro;
 
 use InvalidArgumentException;
 use PHPSC\PagSeguro\XmlSerializable;
