@@ -18,7 +18,7 @@ class Encoder
         $this->appendCurrency($data, $checkout);
         $this->appendItems($data, $checkout);
         $this->appendReference($data, $checkout);
-        $this->appendSender($data, $checkout);
+        $this->appendCustomer($data, $checkout);
         $this->appendShipping($data, $checkout);
         $this->appendExtraAmount($data, $checkout);
         $this->appendRedirectUrl($data, $checkout);
@@ -83,21 +83,21 @@ class Encoder
      * @param array $data
      * @param Checkout $checkout
      */
-    protected function appendSender(array &$data, Checkout $checkout)
+    protected function appendCustomer(array &$data, Checkout $checkout)
     {
-        if (!$checkout->getSender()) {
+        if (!$checkout->getCustomer()) {
             return ;
         }
 
-        $data['senderEmail'] = $checkout->getSender()->getEmail();
+        $data['senderEmail'] = $checkout->getCustomer()->getEmail();
 
-        if ($checkout->getSender()->getName()) {
-            $data['senderName'] = $checkout->getSender()->getName();
+        if ($checkout->getCustomer()->getName()) {
+            $data['senderName'] = $checkout->getCustomer()->getName();
         }
 
-        if ($checkout->getSender()->getPhone()) {
-            $data['senderAreaCode'] = $checkout->getSender()->getPhone()->getAreaCode();
-            $data['senderPhone'] = $checkout->getSender()->getPhone()->getNumber();
+        if ($checkout->getCustomer()->getPhone()) {
+            $data['senderAreaCode'] = $checkout->getCustomer()->getPhone()->getAreaCode();
+            $data['senderPhone'] = $checkout->getCustomer()->getPhone()->getNumber();
         }
     }
 

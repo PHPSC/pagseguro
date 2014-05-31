@@ -31,9 +31,9 @@ abstract class Charge
     protected $lastEventDate;
 
     /**
-     * @var Sender
+     * @var Customer
      */
-    protected $sender;
+    protected $customer;
 
     /**
      * @return string
@@ -84,10 +84,10 @@ abstract class Charge
     }
 
     /**
-     * @return Sender
+     * @return Customer
      */
-    public function getSender()
+    public function getCustomer()
     {
-        return $this->sender;
+        return $this->customer;
     }
 }

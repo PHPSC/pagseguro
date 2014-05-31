@@ -4,7 +4,7 @@ namespace PHPSC\PagSeguro\Transaction;
 use DateTime;
 use PHPSC\PagSeguro\Charge;
 use PHPSC\PagSeguro\Customer\Shipping;
-use PHPSC\PagSeguro\Customer\Sender;
+use PHPSC\PagSeguro\Customer\Customer;
 
 class Transaction extends Charge
 {
@@ -113,7 +113,7 @@ class Transaction extends Charge
      * @param float $extraAmount
      * @param int $installmentCount
      * @param array $items
-     * @param Sender $sender
+     * @param Customer $customer
      * @param Shipping $shipping
      * @param DateTime $escrowEndDate
      */
@@ -132,7 +132,7 @@ class Transaction extends Charge
         $extraAmount,
         $installmentCount,
         array $items,
-        Sender $sender,
+        Customer $customer,
         Shipping $shipping,
         DateTime $escrowEndDate = null
     ) {
@@ -151,7 +151,7 @@ class Transaction extends Charge
         $this->extraAmount = $extraAmount;
         $this->installmentCount = $installmentCount;
         $this->items = $items;
-        $this->sender = $sender;
+        $this->customer = $customer;
         $this->shipping = $shipping;
     }
 

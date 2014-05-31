@@ -2,7 +2,7 @@
 namespace PHPSC\PagSeguro\Checkout;
 
 use PHPSC\PagSeguro\Customer\Shipping;
-use PHPSC\PagSeguro\Customer\Sender;
+use PHPSC\PagSeguro\Customer\Customer;
 
 class Checkout
 {
@@ -22,9 +22,9 @@ class Checkout
     private $reference;
 
     /**
-     * @var Sender
+     * @var Customer
      */
-    private $sender;
+    private $customer;
 
     /**
      * @var Shipping
@@ -54,7 +54,7 @@ class Checkout
     /**
      * @param array $items
      * @param string $reference
-     * @param Sender $sender
+     * @param Customer $customer
      * @param Shipping $shipping
      * @param float $extraAmount
      * @param string $redirectUrl
@@ -64,7 +64,7 @@ class Checkout
     public function __construct(
         array $items,
         $reference = null,
-        Sender $sender = null,
+        Customer $customer = null,
         Shipping $shipping = null,
         $extraAmount = null,
         $redirectUrl = null,
@@ -74,7 +74,7 @@ class Checkout
         $this->currency = 'BRL';
         $this->reference = $reference;
         $this->items = $items;
-        $this->sender = $sender;
+        $this->customer = $customer;
         $this->shipping = $shipping;
         $this->extraAmount = $extraAmount;
         $this->reference = $reference;
@@ -108,11 +108,11 @@ class Checkout
     }
 
     /**
-     * @return Sender
+     * @return Customer
      */
-    public function getSender()
+    public function getCustomer()
     {
-        return $this->sender;
+        return $this->customer;
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
-class Sender
+class Customer
 {
     /**
      * @var string

@@ -4,7 +4,7 @@ namespace PHPSC\PagSeguro\Transaction;
 use DateTime;
 use PHPSC\PagSeguro\Customer\Address;
 use PHPSC\PagSeguro\Customer\Phone;
-use PHPSC\PagSeguro\Customer\Sender;
+use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\Customer\Shipping;
 use PHPSC\PagSeguro\Item;
 use SimpleXMLElement;
@@ -36,7 +36,7 @@ class Decoder
             (float) $obj->extraAmount,
             (int) $obj->installmentCount,
             $this->createItems($obj->items),
-            $this->createSender($obj->sender),
+            $this->createCustomer($obj->sender),
             $this->createShipping($obj->shipping),
             isset($obj->escrowEndDate) ? new DateTime((string) $obj->escrowEndDate) : null
         );
@@ -65,23 +65,23 @@ class Decoder
     }
 
     /**
-     * @param SimpleXMLElement $sender
-     * @return Sender
+     * @param SimpleXMLElement $customer
+     * @return Customer
      */
-    protected function createSender(SimpleXMLElement $sender)
+    protected function createCustomer(SimpleXMLElement $customer)
     {
         $phone = null;
 
-        if ($sender->phone) {
+        if ($customer->phone) {
             $phone = new Phone(
-                (string) $sender->phone->areaCode,
-                (string) $sender->phone->number
+                (string) $customer->phone->areaCode,
+                (string) $customer->phone->number
             );
         }
 
-        return new Sender(
-            (string) $sender->email,
-            isset($sender->name) ? (string) $sender->name : null,
+        return new Customer(
+            (string) $customer->email,
+            isset($customer->name) ? (string) $customer->name : null,
             $phone
         );
     }
