@@ -2,7 +2,6 @@
 namespace PHPSC\PagSeguro;
 
 use InvalidArgumentException;
-use PHPSC\PagSeguro\XmlSerializable;
 use SimpleXMLElement;
 
 class Shipping implements XmlSerializable
@@ -88,12 +87,8 @@ class Shipping implements XmlSerializable
     /**
      * {@inheritdoc}
      */
-    public function xmlSerialize(SimpleXMLElement $parent = null)
+    public function xmlSerialize(SimpleXMLElement $parent)
     {
-        if ($parent === null) {
-            throw new InvalidArgumentException('Shipping must have a parent node');
-        }
-
         $shipping = $parent->addChild('shipping');
         $shipping->addChild('type', $this->type);
 

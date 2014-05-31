@@ -1,7 +1,6 @@
 <?php
 namespace PHPSC\PagSeguro;
 
-use InvalidArgumentException;
 use SimpleXMLElement;
 
 /**
@@ -168,12 +167,8 @@ class Item implements XmlSerializable
     /**
      * {@inheritdoc}
      */
-    public function xmlSerialize(SimpleXMLElement $parent = null)
+    public function xmlSerialize(SimpleXMLElement $parent)
     {
-        if ($parent === null) {
-            throw new InvalidArgumentException('Item must have a parent node');
-        }
-
         $item = $parent->addChild('item');
 
         foreach ($this as $name => $value) {

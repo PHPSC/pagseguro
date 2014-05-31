@@ -1,8 +1,6 @@
 <?php
 namespace PHPSC\PagSeguro;
 
-use InvalidArgumentException;
-use PHPSC\PagSeguro\XmlSerializable;
 use SimpleXMLElement;
 
 class Customer implements XmlSerializable
@@ -84,12 +82,8 @@ class Customer implements XmlSerializable
     /**
      * {@inheritdoc}
      */
-    public function xmlSerialize(SimpleXMLElement $parent = null)
+    public function xmlSerialize(SimpleXMLElement $parent)
     {
-        if ($parent === null) {
-            throw new InvalidArgumentException('Customer must have a parent node');
-        }
-
         $customer = $parent->addChild('sender');
         $customer->addChild('email', $this->email);
 

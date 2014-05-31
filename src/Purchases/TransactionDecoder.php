@@ -1,15 +1,15 @@
 <?php
-namespace PHPSC\PagSeguro\Transaction;
+namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
 use PHPSC\PagSeguro\Address;
-use PHPSC\PagSeguro\Phone;
 use PHPSC\PagSeguro\Customer;
-use PHPSC\PagSeguro\Shipping;
 use PHPSC\PagSeguro\Item;
+use PHPSC\PagSeguro\Phone;
+use PHPSC\PagSeguro\Shipping;
 use SimpleXMLElement;
 
-class Decoder
+class TransactionDecoder
 {
     /**
      * @param SimpleXMLElement $obj

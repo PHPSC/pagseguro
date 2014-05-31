@@ -1,6 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro;
 
+use PHPSC\PagSeguro\Purchases\Transaction;
+
 interface SearchService
 {
     /**
@@ -11,7 +13,7 @@ interface SearchService
     /**
      * @param string $code
      *
-     * @return Charge
+     * @return Transaction
      */
     public function getByCode($code);
 }

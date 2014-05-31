@@ -1,32 +1,32 @@
 <?php
-namespace PHPSC\PagSeguro\Transaction;
+namespace PHPSC\PagSeguro\Purchases;
 
 use PHPSC\PagSeguro\BaseService;
 use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\NotificationService;
-use PHPSC\PagSeguro\SearchService as SearchServiceInterface;
+use PHPSC\PagSeguro\SearchService;
 
-class SearchService extends BaseService implements SearchServiceInterface, NotificationService
+class TransactionLocator extends BaseService implements SearchService, NotificationService
 {
     /**
-     * @var Decoder
+     * @var TransactionDecoder
      */
     private $decoder;
 
     /**
      * @param Credentials $credentials
      * @param Client $client
-     * @param Decoder $decoder
+     * @param TransactionDecoder $decoder
      */
     public function __construct(
         Credentials $credentials,
         Client $client = null,
-        Decoder $decoder = null
+        TransactionDecoder $decoder = null
     ) {
         parent::__construct($credentials, $client);
 
-        $this->decoder = $decoder ?: new Decoder();
+        $this->decoder = $decoder ?: new TransactionDecoder();
     }
 
     /**

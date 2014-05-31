@@ -1,9 +1,9 @@
 <?php
 namespace PHPSC\PagSeguro;
 
-use PHPSC\PagSeguro\Checkout\Checkout;
+use PHPSC\PagSeguro\Purchases\Order;
 
-interface CheckoutService
+interface OrderingService
 {
     /**
      * @var string
@@ -21,9 +21,19 @@ interface CheckoutService
     const ENDPOINT = '/v2/checkout';
 
     /**
-     * @param Checkout $checkout
+     * @param Order $order
+     * @param Customer $customer
+     * @param string $redirectTo
+     * @param int $maxUses
+     * @param int $maxAge
      *
      * @return Redirection
      */
-    public function checkout(Checkout $checkout);
+    public function checkout(
+        Order $order,
+        Customer $customer = null,
+        $redirectTo = null,
+        $maxUses = null,
+        $maxAge = null
+    );
 }

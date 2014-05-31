@@ -1,8 +1,6 @@
 <?php
 namespace PHPSC\PagSeguro;
 
-use InvalidArgumentException;
-use PHPSC\PagSeguro\XmlSerializable;
 use SimpleXMLElement;
 
 class Address implements XmlSerializable
@@ -199,12 +197,8 @@ class Address implements XmlSerializable
     /**
      * {@inheritdoc}
      */
-    public function xmlSerialize(SimpleXMLElement $parent = null)
+    public function xmlSerialize(SimpleXMLElement $parent)
     {
-        if ($parent === null) {
-            throw new InvalidArgumentException('Address must have a parent node');
-        }
-
         $address = $parent->addChild('address');
 
         foreach ($this as $name => $value) {

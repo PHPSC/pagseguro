@@ -1,8 +1,6 @@
 <?php
 namespace PHPSC\PagSeguro;
 
-use InvalidArgumentException;
-use PHPSC\PagSeguro\XmlSerializable;
 use SimpleXMLElement;
 
 class Phone implements XmlSerializable
@@ -62,12 +60,8 @@ class Phone implements XmlSerializable
     /**
      * {@inheritdoc}
      */
-    public function xmlSerialize(SimpleXMLElement $parent = null)
+    public function xmlSerialize(SimpleXMLElement $parent)
     {
-        if ($parent === null) {
-            throw new InvalidArgumentException('Phone must have a parent node');
-        }
-
         $phone = $parent->addChild('phone');
         $phone->addChild('areaCode', $this->areaCode);
         $phone->addChild('number', $this->number);

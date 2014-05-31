@@ -1,7 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro;
 
-use PHPSC\PagSeguro\Transaction\Transaction;
+use PHPSC\PagSeguro\Purchases\Transaction;
 
 interface NotificationService
 {
