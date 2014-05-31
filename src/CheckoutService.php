@@ -2,7 +2,6 @@
 namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Checkout\Checkout;
-use PHPSC\PagSeguro\Checkout\Response;
 
 interface CheckoutService
 {
@@ -24,7 +23,7 @@ interface CheckoutService
     /**
      * @param Checkout $checkout
      *
-     * @return Response
+     * @return Redirection
      */
     public function checkout(Checkout $checkout);
 }

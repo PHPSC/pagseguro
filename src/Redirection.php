@@ -1,9 +1,9 @@
 <?php
-namespace PHPSC\PagSeguro\Checkout;
+namespace PHPSC\PagSeguro;
 
 use DateTime;
 
-class Response
+class Redirection
 {
     /**
      * @var string

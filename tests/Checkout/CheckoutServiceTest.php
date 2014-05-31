@@ -42,12 +42,10 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
                      ->willReturn($xml);
 
         $service = new CheckoutService($credentials, $this->client);
-        $response = $service->checkout($checkout);
+        $redirection = $service->checkout($checkout);
 
-        $this->assertInstanceOf('PHPSC\PagSeguro\Checkout\Response', $response);
-        $this->assertAttributeEquals('8CF4BE7DCECEF0F004A6DFA0A8243412', 'code', $response);
-        $this->assertAttributeEquals(new DateTime('2014-05-29T03:11:28.000-03:00'), 'date', $response);
-        $this->assertAttributeEquals($redirectUri, 'uri', $response);
+        $this->assertInstanceOf('PHPSC\PagSeguro\Redirection', $redirection);
+        $this->assertAttributeEquals($redirectUri, 'uri', $redirection);
     }
 
     public function environments()
