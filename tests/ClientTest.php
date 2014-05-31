@@ -106,43 +106,21 @@ XML;
     /**
      * @test
      */
-    public function postShouldBuildParametersAsQueryStringWhenInformed()
+    public function postShouldSendTheBodyAsXml()
     {
         $client = new Client($this->httpClient);
-        $headers = array(
-            'verify' => false,
-            'headers' => array(
-                'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
-            )
-        );
+        $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout/>');
 
         $this->httpClient->expects($this->once())
                          ->method('post')
-                         ->with('/test', null, 'teste=1&teste2=2', $headers)
-                         ->willReturn($this->request);
+                         ->with(
+                             '/test',
+                             array('Content-Type' => 'application/xml; charset=UTF-8'),
+                             $xml->asXML(),
+                             array('verify' => false)
+                         )->willReturn($this->request);
 
-        $this->assertInstanceOf('SimpleXMLElement', $client->post('/test', array('teste' => 1, 'teste2' => 2)));
-    }
-
-    /**
-     * @test
-     */
-    public function postShouldSendNullParametersWhenTheyWerentInformed()
-    {
-        $client = new Client($this->httpClient);
-        $headers = array(
-            'verify' => false,
-            'headers' => array(
-                'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
-            )
-        );
-
-        $this->httpClient->expects($this->once())
-                         ->method('post')
-                         ->with('/test', null, null, $headers)
-                         ->willReturn($this->request);
-
-        $this->assertInstanceOf('SimpleXMLElement', $client->post('/test'));
+        $this->assertInstanceOf('SimpleXMLElement', $client->post('/test', $xml));
     }
 
     /**

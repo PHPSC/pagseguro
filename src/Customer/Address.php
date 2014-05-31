@@ -1,7 +1,11 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
-class Address
+use InvalidArgumentException;
+use PHPSC\PagSeguro\XmlSerializable;
+use SimpleXMLElement;
+
+class Address implements XmlSerializable
 {
     /**
      * @var string
@@ -51,43 +55,17 @@ class Address
      * @param string $street
      * @param string $number
      * @param string $complement
-     * @param string $country
      */
-    public function __construct(
-        $state = null,
-        $city = null,
-        $postalCode = null,
-        $district = null,
-        $street = null,
-        $number = null,
-        $complement = null,
-        $country = 'BRA'
-    ) {
-        $this->country = (string) $country;
+    public function __construct($state, $city, $postalCode, $district, $street, $number, $complement = null)
+    {
+        $this->country = 'BRA';
 
-        if ($state !== null) {
-            $this->setState($state);
-        }
-
-        if ($city !== null) {
-            $this->setCity($city);
-        }
-
-        if ($postalCode !== null) {
-            $this->setPostalCode($postalCode);
-        }
-
-        if ($district !== null) {
-            $this->setDistrict($district);
-        }
-
-        if ($street !== null) {
-            $this->setStreet($street);
-        }
-
-        if ($number !== null) {
-            $this->setNumber($number);
-        }
+        $this->setState($state);
+        $this->setCity($city);
+        $this->setPostalCode($postalCode);
+        $this->setDistrict($district);
+        $this->setStreet($street);
+        $this->setNumber($number);
 
         if ($complement !== null) {
             $this->setComplement($complement);
@@ -216,5 +194,25 @@ class Address
     protected function setComplement($complement)
     {
         $this->complement = substr((string) $complement, 0, 40);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function xmlSerialize(SimpleXMLElement $parent = null)
+    {
+        if ($parent === null) {
+            throw new InvalidArgumentException('Address must have a parent node');
+        }
+
+        $address = $parent->addChild('address');
+
+        foreach ($this as $name => $value) {
+            if ($value !== null) {
+                $address->addChild($name, $value);
+            }
+        }
+
+        return $address;
     }
 }

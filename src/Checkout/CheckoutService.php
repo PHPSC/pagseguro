@@ -4,32 +4,10 @@ namespace PHPSC\PagSeguro\Checkout;
 use DateTime;
 use PHPSC\PagSeguro\BaseService;
 use PHPSC\PagSeguro\CheckoutService as CheckoutServiceInterface;
-use PHPSC\PagSeguro\Client;
-use PHPSC\PagSeguro\Credentials;
 use SimpleXMLElement;
 
 class CheckoutService extends BaseService implements CheckoutServiceInterface
 {
-    /**
-     * @var Encoder
-     */
-    private $encoder;
-
-    /**
-     * @param Credentials $credentials
-     * @param Client $client
-     * @param Encoder $encoder
-     */
-    public function __construct(
-        Credentials $credentials,
-        Client $client = null,
-        Encoder $encoder = null
-    ) {
-        parent::__construct($credentials, $client);
-
-        $this->encoder = $encoder ?: new Encoder();
-    }
-
     /**
      * @param Checkout $checkout
      *
@@ -38,8 +16,7 @@ class CheckoutService extends BaseService implements CheckoutServiceInterface
     public function checkout(Checkout $checkout)
     {
         return $this->decode(
-            $this->post(static::ENDPOINT, $this->encoder->encode($checkout)),
-            $this->isSandbox()
+            $this->post(static::ENDPOINT, $checkout->xmlSerialize())
         );
     }
 

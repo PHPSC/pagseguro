@@ -2,8 +2,10 @@
 namespace PHPSC\PagSeguro\Customer;
 
 use InvalidArgumentException;
+use PHPSC\PagSeguro\XmlSerializable;
+use SimpleXMLElement;
 
-class Shipping
+class Shipping implements XmlSerializable
 {
     /**
      * @var int
@@ -81,5 +83,28 @@ class Shipping
     public function getCost()
     {
         return $this->cost;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function xmlSerialize(SimpleXMLElement $parent = null)
+    {
+        if ($parent === null) {
+            throw new InvalidArgumentException('Shipping must have a parent node');
+        }
+
+        $shipping = $parent->addChild('shipping');
+        $shipping->addChild('type', $this->type);
+
+        if ($this->address !== null) {
+            $this->address->xmlSerialize($shipping);
+        }
+
+        if ($this->cost !== null) {
+            $shipping->addChild('cost', $this->cost);
+        }
+
+        return $shipping;
     }
 }

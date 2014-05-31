@@ -1,10 +1,13 @@
 <?php
 namespace PHPSC\PagSeguro;
 
+use InvalidArgumentException;
+use SimpleXMLElement;
+
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class Item
+class Item implements XmlSerializable
 {
     /**
      * @var string
@@ -111,7 +114,7 @@ class Item
      */
     protected function setAmount($amount)
     {
-        $this->amount = round((float) $amount, 2);
+        $this->amount = number_format($amount, 2, '.', '');
     }
 
     /**
@@ -143,7 +146,7 @@ class Item
      */
     protected function setShippingCost($shippingCost)
     {
-        $this->shippingCost = round((float) $shippingCost, 2);
+        $this->shippingCost = number_format($shippingCost, 2, '.', '');
     }
 
     /**
@@ -160,5 +163,25 @@ class Item
     protected function setWeight($weight)
     {
         $this->weight = (int) $weight;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function xmlSerialize(SimpleXMLElement $parent = null)
+    {
+        if ($parent === null) {
+            throw new InvalidArgumentException('Item must have a parent node');
+        }
+
+        $item = $parent->addChild('item');
+
+        foreach ($this as $name => $value) {
+            if ($value !== null) {
+                $item->addChild($name, $value);
+            }
+        }
+
+        return $item;
     }
 }

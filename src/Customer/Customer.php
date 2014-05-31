@@ -1,7 +1,11 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
-class Customer
+use InvalidArgumentException;
+use PHPSC\PagSeguro\XmlSerializable;
+use SimpleXMLElement;
+
+class Customer implements XmlSerializable
 {
     /**
      * @var string
@@ -75,5 +79,28 @@ class Customer
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function xmlSerialize(SimpleXMLElement $parent = null)
+    {
+        if ($parent === null) {
+            throw new InvalidArgumentException('Customer must have a parent node');
+        }
+
+        $customer = $parent->addChild('sender');
+        $customer->addChild('email', $this->email);
+
+        if ($this->name !== null) {
+            $customer->addChild('name', $this->name);
+        }
+
+        if ($this->phone !== null) {
+            $this->phone->xmlSerialize($customer);
+        }
+
+        return $customer;
     }
 }

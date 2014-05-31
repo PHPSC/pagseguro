@@ -1,7 +1,11 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
-class Phone
+use InvalidArgumentException;
+use PHPSC\PagSeguro\XmlSerializable;
+use SimpleXMLElement;
+
+class Phone implements XmlSerializable
 {
     /**
      * @var string
@@ -53,5 +57,21 @@ class Phone
     protected function setNumber($number)
     {
         $this->number = substr($number, 0, 9);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function xmlSerialize(SimpleXMLElement $parent = null)
+    {
+        if ($parent === null) {
+            throw new InvalidArgumentException('Phone must have a parent node');
+        }
+
+        $phone = $parent->addChild('phone');
+        $phone->addChild('areaCode', $this->areaCode);
+        $phone->addChild('number', $this->number);
+
+        return $phone;
     }
 }

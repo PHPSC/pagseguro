@@ -3,6 +3,7 @@ namespace PHPSC\PagSeguro;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
+use SimpleXMLElement;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -39,22 +40,17 @@ class Client
 
     /**
      * @param string $url
-     * @param array $fields
+     * @param SimpleXMLElement $body
      *
      * @return SimpleXMLElement
      */
-    public function post($url, array $fields = null)
+    public function post($url, SimpleXMLElement $body)
     {
         $request = $this->client->post(
             $url,
-            null,
-            $fields ? http_build_query($fields) : null,
-            array(
-                'verify' => false,
-                'headers' => array(
-                    'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
-                )
-            )
+            array('Content-Type' => 'application/xml; charset=UTF-8'),
+            $body->asXML(),
+            array('verify' => false)
         );
 
         return $request->send()->xml();

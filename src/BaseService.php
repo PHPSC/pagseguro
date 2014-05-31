@@ -2,6 +2,7 @@
 namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Credentials;
+use SimpleXMLElement;
 
 abstract class BaseService
 {
@@ -47,10 +48,29 @@ abstract class BaseService
 
     /**
      * @param string $resource
+     * @param array $params
      *
      * @return string
      */
-    public function buildUri($resource)
+    public function buildUri($resource, array $params = array())
+    {
+        $params = array_merge(
+            $params,
+            array(
+                'email' => $this->credentials->getEmail(),
+                'token' => $this->credentials->getToken()
+            )
+        );
+
+        return $this->getBaseUri($resource) . '?' . http_build_query($params);
+    }
+
+    /**
+     * @param string $resource
+     *
+     * @return string
+     */
+    protected function getBaseUri($resource)
     {
         if ($this->isSandbox()) {
             return 'https://' . static::SANDBOX_HOST . $resource;
@@ -60,39 +80,24 @@ abstract class BaseService
     }
 
     /**
-     * @return array
-     */
-    public function getCredentials()
-    {
-        return array(
-            'email' => $this->credentials->getEmail(),
-            'token' => $this->credentials->getToken()
-        );
-    }
-
-    /**
      * @param string $resource
      * @param array $params
      *
-     * @return \SimpleXMLElement
+     * @return SimpleXMLElement
      */
     protected function get($resource, array $params = array())
     {
-        $params = array_merge($params, $this->getCredentials());
-
-        return $this->client->get($this->buildUri($resource) . '?' . http_build_query($params));
+        return $this->client->get($this->buildUri($resource, $params));
     }
 
     /**
      * @param string $resource
-     * @param array $params
+     * @param SimpleXMLElement $request
      *
-     * @return \SimpleXMLElement
+     * @return SimpleXMLElement
      */
-    protected function post($resource, array $params = array())
+    protected function post($resource, SimpleXMLElement $request)
     {
-        $params = array_merge($params, $this->getCredentials());
-
-        return $this->client->post($this->buildUri($resource), $params);
+        return $this->client->post($this->buildUri($resource), $request);
     }
 }

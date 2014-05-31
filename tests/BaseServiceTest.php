@@ -39,40 +39,43 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @dataProvider uris
      */
-    public function buildUriMustReturnProdutionUriWhenNotUsingSandbox()
-    {
+    public function buildUriMustCreateAnUriWithCredentialsAndParametersAsQueryString(
+        $expectedUri,
+        $resource,
+        Credentials $credentials,
+        array $params
+    ) {
         $service = $this->getMockForAbstractClass(
             'PHPSC\PagSeguro\BaseService',
-            array(new Credentials('a@a.com', 't'), $this->client)
+            array($credentials, $this->client)
         );
 
-        $this->assertEquals('https://ws.pagseguro.uol.com.br/1', $service->buildUri('/1'));
+        $this->assertEquals($expectedUri, $service->buildUri($resource, $params));
     }
 
-    /**
-     * @test
-     */
-    public function buildUriMustReturnTestUriWhenUsingSandbox()
+    public function uris()
     {
-        $service = $this->getMockForAbstractClass(
-            'PHPSC\PagSeguro\BaseService',
-            array(new Credentials('a@a.com', 't', true), $this->client)
+        return array(
+            array(
+                'https://ws.pagseguro.uol.com.br/1?email=a%40a.com&token=t',
+                '/1',
+                new Credentials('a@a.com', 't'),
+                array()
+            ),
+            array(
+                'https://ws.sandbox.pagseguro.uol.com.br/1?email=a%40a.com&token=t',
+                '/1',
+                new Credentials('a@a.com', 't', true),
+                array()
+            ),
+            array(
+                'https://ws.pagseguro.uol.com.br/1?test=123&email=a%40a.com&token=t',
+                '/1',
+                new Credentials('a@a.com', 't'),
+                array('test' => '123', 'email' => 'blabla')
+            )
         );
-
-        $this->assertEquals('https://ws.sandbox.pagseguro.uol.com.br/1', $service->buildUri('/1'));
-    }
-
-    /**
-     * @test
-     */
-    public function getCredentialsMustReturnAnArrayWithCredentialsData()
-    {
-        $service = $this->getMockForAbstractClass(
-            'PHPSC\PagSeguro\BaseService',
-            array(new Credentials('a@a.com', 't'), $this->client)
-        );
-
-        $this->assertEquals(array('email' => 'a@a.com', 'token' => 't'), $service->getCredentials());
     }
 }

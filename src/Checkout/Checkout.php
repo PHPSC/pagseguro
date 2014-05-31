@@ -1,10 +1,14 @@
 <?php
 namespace PHPSC\PagSeguro\Checkout;
 
+use InvalidArgumentException;
 use PHPSC\PagSeguro\Customer\Shipping;
 use PHPSC\PagSeguro\Customer\Customer;
+use PHPSC\PagSeguro\Item;
+use PHPSC\PagSeguro\XmlSerializable;
+use SimpleXMLElement;
 
-class Checkout
+class Checkout implements XmlSerializable
 {
     /**
      * @var string
@@ -12,7 +16,7 @@ class Checkout
     private $currency;
 
     /**
-     * @var array
+     * @var Item[]
      */
     private $items;
 
@@ -92,7 +96,7 @@ class Checkout
     }
 
     /**
-     * @return array
+     * @return Item[]
      */
     public function getItems()
     {
@@ -153,5 +157,35 @@ class Checkout
     public function getMaxAge()
     {
         return $this->maxAge;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function xmlSerialize(SimpleXMLElement $parent = null)
+    {
+        if ($parent !== null) {
+            throw new InvalidArgumentException('Checkout cannot have a parent element');
+        }
+
+        $checkout = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout />');
+        $checkout->addChild('currency', $this->getCurrency());
+
+        $items = $checkout->addChild('items');
+
+        /* @var $item Item */
+        foreach ($this->items as $item) {
+            $item->xmlSerialize($items);
+        }
+
+        if ($this->reference !== null) {
+            $checkout->addChild('reference', $this->reference);
+        }
+
+        if ($this->customer !== null) {
+            $this->customer->xmlSerialize($checkout);
+        }
+
+        return $checkout;
     }
 }
