@@ -52,4 +52,27 @@ class SearchServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($transaction, $service->getByCode(1));
     }
+
+    /**
+     * @test
+     */
+    public function getByNotificationShouldDoAGetRequestAddingCredentialsData()
+    {
+        $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
+        $transaction = $this->getMock('PHPSC\PagSeguro\Transaction\Transaction', array(), array(), '', false);
+
+        $this->client->expects($this->once())
+                     ->method('get')
+                     ->with('https://ws.pagseguro.uol.com.br/v2/transactions/notifications/1?email=a%40a.com&token=t')
+                     ->willReturn($xml);
+
+        $this->decoder->expects($this->once())
+                      ->method('decode')
+                      ->with($xml)
+                      ->willReturn($transaction);
+
+        $service = new SearchService($this->credentials, $this->client, $this->decoder);
+
+        $this->assertSame($transaction, $service->getByNotification(1));
+    }
 }

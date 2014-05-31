@@ -4,9 +4,10 @@ namespace PHPSC\PagSeguro\Transaction;
 use PHPSC\PagSeguro\BaseService;
 use PHPSC\PagSeguro\Client;
 use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\NotificationService;
 use PHPSC\PagSeguro\SearchService as SearchServiceInterface;
 
-class SearchService extends BaseService implements SearchServiceInterface
+class SearchService extends BaseService implements SearchServiceInterface, NotificationService
 {
     /**
      * @var Decoder
@@ -36,5 +37,13 @@ class SearchService extends BaseService implements SearchServiceInterface
     public function getByCode($code)
     {
         return $this->decoder->decode($this->get(static::ENDPOINT . '/' . $code));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getByNotification($code)
+    {
+        return $this->decoder->decode($this->get(static::ENDPOINT . '/notifications/' . $code));
     }
 }
