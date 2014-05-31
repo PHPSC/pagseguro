@@ -1,6 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro;
 
+use PHPSC\PagSeguro\Transaction\Transaction;
+
 interface NotificationService
 {
     const TYPE_TRANSACTION = 'transaction';
@@ -14,7 +16,7 @@ interface NotificationService
      * @param string $type
      * @param string $code
      *
-     * @return Charge
+     * @return Transaction
      */
     public function getByCode($type, $code);
 }
