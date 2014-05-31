@@ -102,8 +102,7 @@ class Decoder
                 (string) $shipping->address->district,
                 (string) $shipping->address->street,
                 (string) $shipping->address->number,
-                (string) $shipping->address->complement,
-                (string) $shipping->address->country
+                (string) $shipping->address->complement
             );
         }
 
