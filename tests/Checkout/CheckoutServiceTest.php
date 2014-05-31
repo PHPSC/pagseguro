@@ -22,8 +22,11 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider environments
      */
-    public function checkoutShouldDoAPostRequestReturningDataAccordingWithEnvironment($credentials, $wsUri, $redirectUri)
-    {
+    public function checkoutShouldDoAPostRequestReturningDataAccordingWithEnvironment(
+        Credentials $credentials,
+        $wsUri,
+        $redirectUri
+    ) {
         $xml = simplexml_load_string(
             '<?xml version="1.0" encoding="UTF-8"?>'
             . '<checkout>'
