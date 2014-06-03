@@ -1,12 +1,12 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Transaction;
+namespace PHPSC\PagSeguro\Test\Purchases;
 
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Client;
-use PHPSC\PagSeguro\Transaction\Decoder;
-use PHPSC\PagSeguro\Transaction\SearchService;
+use PHPSC\PagSeguro\Purchases\TransactionDecoder;
+use PHPSC\PagSeguro\Purchases\TransactionLocator;
 
-class SearchServiceTest extends \PHPUnit_Framework_TestCase
+class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Credentials
@@ -19,7 +19,7 @@ class SearchServiceTest extends \PHPUnit_Framework_TestCase
     protected $client;
 
     /**
-     * @var Decoder|\PHPUnit_Framework_MockObject_MockObject
+     * @var TransactionDecoder|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $decoder;
 
@@ -27,7 +27,7 @@ class SearchServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->credentials = new Credentials('a@a.com', 't');
         $this->client = $this->getMock('PHPSC\PagSeguro\Client', array(), array(), '', false);
-        $this->decoder = $this->getMock('PHPSC\PagSeguro\Transaction\Decoder', array(), array(), '', false);
+        $this->decoder = $this->getMock('PHPSC\PagSeguro\Purchases\TransactionDecoder', array(), array(), '', false);
     }
 
     /**
@@ -36,7 +36,7 @@ class SearchServiceTest extends \PHPUnit_Framework_TestCase
     public function getByCodeShouldDoAGetRequestAddingCredentialsData()
     {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
-        $transaction = $this->getMock('PHPSC\PagSeguro\Transaction\Transaction', array(), array(), '', false);
+        $transaction = $this->getMock('PHPSC\PagSeguro\Purchases\Transaction', array(), array(), '', false);
 
         $this->client->expects($this->once())
                      ->method('get')
@@ -48,7 +48,7 @@ class SearchServiceTest extends \PHPUnit_Framework_TestCase
                       ->with($xml)
                       ->willReturn($transaction);
 
-        $service = new SearchService($this->credentials, $this->client, $this->decoder);
+        $service = new TransactionLocator($this->credentials, $this->client, $this->decoder);
 
         $this->assertSame($transaction, $service->getByCode(1));
     }
@@ -71,7 +71,7 @@ class SearchServiceTest extends \PHPUnit_Framework_TestCase
                       ->with($xml)
                       ->willReturn($transaction);
 
-        $service = new SearchService($this->credentials, $this->client, $this->decoder);
+        $service = new TransactionLocator($this->credentials, $this->client, $this->decoder);
 
         $this->assertSame($transaction, $service->getByNotification(1));
     }

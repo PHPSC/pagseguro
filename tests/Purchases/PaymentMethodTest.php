@@ -1,7 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Transaction;
+namespace PHPSC\PagSeguro\Test\Purchases;
 
-use PHPSC\PagSeguro\Transaction\PaymentMethod;
+use PHPSC\PagSeguro\Purchases\PaymentMethod;
 
 class PaymentMethodTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,12 +1,10 @@
 <?php
-namespace PHPSC\PagSeguro\Test;
+namespace PHPSC\PagSeguro\Test\Purchases;
 
-use DateTime;
-use PHPSC\PagSeguro\Checkout\CheckoutService;
 use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Client;
+use PHPSC\PagSeguro\Purchases\OrderingService;
 
-class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
+class OrderingServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Client|\PHPUnit_Framework_MockObject_MockObject
@@ -27,25 +25,20 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
         $wsUri,
         $redirectUri
     ) {
-        $xml = simplexml_load_string(
-            '<?xml version="1.0" encoding="UTF-8"?>'
-            . '<checkout>'
-            . '<code>8CF4BE7DCECEF0F004A6DFA0A8243412</code><date>2014-05-29T03:11:28.000-03:00</date>'
-            . '</checkout>'
-        );
-        $checkout = $this->getMock('PHPSC\PagSeguro\Checkout\Checkout', array(), array(), '', false);
+        $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout />');
+        $order = $this->getMock('PHPSC\PagSeguro\Purchases\Order', array(), array(), '', false);
 
-        $checkout->expects($this->any())
-                 ->method('xmlSerialize')
-                 ->willReturn($xml);
+        $order->expects($this->any())
+              ->method('xmlSerialize')
+              ->willReturn($xml);
 
         $this->client->expects($this->once())
                      ->method('post')
                      ->with($wsUri, $xml)
                      ->willReturn($xml);
 
-        $service = new CheckoutService($credentials, $this->client);
-        $redirection = $service->checkout($checkout);
+        $service = new OrderingService($credentials, $this->client);
+        $redirection = $service->checkout($order);
 
         $this->assertInstanceOf('PHPSC\PagSeguro\Redirection', $redirection);
         $this->assertAttributeEquals($redirectUri, 'uri', $redirection);
