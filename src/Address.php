@@ -57,16 +57,15 @@ class Address implements XmlSerializable
     public function __construct($state, $city, $postalCode, $district, $street, $number, $complement = null)
     {
         $this->country = 'BRA';
+        $this->state = (string) $state;
+        $this->city = (string) $city;
+        $this->postalCode = preg_replace('/[^0-9]/', '', (string) $postalCode);
+        $this->district = (string) $district;
+        $this->street = (string) $street;
+        $this->number = (string) $number;
 
-        $this->setState($state);
-        $this->setCity($city);
-        $this->setPostalCode($postalCode);
-        $this->setDistrict($district);
-        $this->setStreet($street);
-        $this->setNumber($number);
-
-        if ($complement !== null) {
-            $this->setComplement($complement);
+        if (!empty($complement)) {
+            $this->complement = (string) $complement;
         }
     }
 
@@ -87,27 +86,11 @@ class Address implements XmlSerializable
     }
 
     /**
-     * @param string $state
-     */
-    protected function setState($state)
-    {
-        $this->state = substr((string) $state, 0, 2);
-    }
-
-    /**
      * @return string
      */
     public function getCity()
     {
         return $this->city;
-    }
-
-    /**
-     * @param string $city
-     */
-    protected function setCity($city)
-    {
-        $this->city = substr((string) $city, 0, 60);
     }
 
     /**
@@ -119,31 +102,11 @@ class Address implements XmlSerializable
     }
 
     /**
-     * @param string $postalCode
-     */
-    protected function setPostalCode($postalCode)
-    {
-        $this->postalCode = substr(
-            preg_replace('/[^0-9]/', '', (string) $postalCode),
-            0,
-            8
-        );
-    }
-
-    /**
      * @return string
      */
     public function getDistrict()
     {
         return $this->district;
-    }
-
-    /**
-     * @param string $district
-     */
-    protected function setDistrict($district)
-    {
-        $this->district = substr((string) $district, 0, 60);
     }
 
     /**
@@ -155,27 +118,11 @@ class Address implements XmlSerializable
     }
 
     /**
-     * @param string $street
-     */
-    protected function setStreet($street)
-    {
-        $this->street = substr((string) $street, 0, 80);
-    }
-
-    /**
      * @return string
      */
     public function getNumber()
     {
         return $this->number;
-    }
-
-    /**
-     * @param string $number
-     */
-    protected function setNumber($number)
-    {
-        $this->number = substr((string) $number, 0, 20);
     }
 
     /**
@@ -187,24 +134,22 @@ class Address implements XmlSerializable
     }
 
     /**
-     * @param string $complement
-     */
-    protected function setComplement($complement)
-    {
-        $this->complement = substr((string) $complement, 0, 40);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function xmlSerialize(SimpleXMLElement $parent)
     {
         $address = $parent->addChild('address');
 
-        foreach ($this as $name => $value) {
-            if ($value !== null) {
-                $address->addChild($name, $value);
-            }
+        $address->addChild('country', $this->country);
+        $address->addChild('state', strtoupper(substr($this->state, 0, 2)));
+        $address->addChild('city', substr($this->city, 0, 60));
+        $address->addChild('postalCode', substr($this->postalCode, 0, 8));
+        $address->addChild('district', substr($this->district, 0, 60));
+        $address->addChild('street', substr($this->street, 0, 80));
+        $address->addChild('number', substr($this->number, 0, 20));
+
+        if ($this->complement !== null) {
+            $address->addChild('complement', substr($this->complement, 0, 40));
         }
 
         return $address;
