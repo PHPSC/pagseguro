@@ -14,10 +14,10 @@ class AddressTest extends \PHPUnit_Framework_TestCase
     {
         $this->address = new Address(
             'sca',
-            'Florianópolis',
+            'Florianopolis',
             '12345-1231',
             'Centro',
-            'Avenida Mauro Ramos Eurípedes da Silva Santos Oliveira Carlos Henrique Salvador das Palmeiras',
+            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador das Palmeiras',
             123,
             'Apto 200'
         );
@@ -30,14 +30,14 @@ class AddressTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertAttributeEquals('BRA', 'country', $this->address);
         $this->assertAttributeEquals('sca', 'state', $this->address);
-        $this->assertAttributeEquals('Florianópolis', 'city', $this->address);
+        $this->assertAttributeEquals('Florianopolis', 'city', $this->address);
         $this->assertAttributeEquals('123451231', 'postalCode', $this->address);
         $this->assertAttributeEquals('Centro', 'district', $this->address);
         $this->assertAttributeEquals('123', 'number', $this->address);
         $this->assertAttributeEquals('Apto 200', 'complement', $this->address);
 
         $this->assertAttributeEquals(
-            'Avenida Mauro Ramos Eurípedes da Silva Santos Oliveira Carlos Henrique Salvador das Palmeiras',
+            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador das Palmeiras',
             'street',
             $this->address
         );
@@ -69,14 +69,14 @@ class AddressTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame($data, $xml);
         $this->assertEquals('BRA', (string) $xml->country);
         $this->assertEquals('SC', (string) $xml->state);
-        $this->assertEquals('Florianópolis', (string) $xml->city);
+        $this->assertEquals('Florianopolis', (string) $xml->city);
         $this->assertEquals('12345123', (string) $xml->postalCode);
         $this->assertEquals('Centro', (string) $xml->district);
         $this->assertEquals('123', (string) $xml->number);
         $this->assertEquals('Apto 200', (string) $xml->complement);
 
         $this->assertEquals(
-            'Avenida Mauro Ramos Eurípedes da Silva Santos Oliveira Carlos Henrique Salvador ',
+            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador ',
             (string) $xml->street
         );
     }
@@ -88,10 +88,10 @@ class AddressTest extends \PHPUnit_Framework_TestCase
     {
         $address = new Address(
             'sca',
-            'Florianópolis',
+            'Florianopolis',
             '12345-1231',
             'Centro',
-            'Avenida Mauro Ramos Eurípedes da Silva Santos Oliveira Carlos Henrique Salvador das Palmeiras',
+            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador das Palmeiras',
             123
         );
 
@@ -101,7 +101,7 @@ class AddressTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame($data, $xml);
         $this->assertEquals('BRA', (string) $xml->country);
         $this->assertEquals('SC', (string) $xml->state);
-        $this->assertEquals('Florianópolis', (string) $xml->city);
+        $this->assertEquals('Florianopolis', (string) $xml->city);
         $this->assertEquals('12345123', (string) $xml->postalCode);
         $this->assertEquals('Centro', (string) $xml->district);
         $this->assertEquals('123', (string) $xml->number);
@@ -109,7 +109,7 @@ class AddressTest extends \PHPUnit_Framework_TestCase
 
 
         $this->assertEquals(
-            'Avenida Mauro Ramos Eurípedes da Silva Santos Oliveira Carlos Henrique Salvador ',
+            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador ',
             (string) $xml->street
         );
     }
