@@ -34,16 +34,6 @@ class Order implements XmlSerializable
     private $extraAmount;
 
     /**
-     * @var int
-     */
-    private $maxUses;
-
-    /**
-     * @var int
-     */
-    private $maxAge;
-
-    /**
      * @param array $items
      * @param string $reference
      * @param Shipping $shipping
