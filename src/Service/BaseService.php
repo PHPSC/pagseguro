@@ -1,7 +1,6 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Service;
 
-use PHPSC\PagSeguro\Credentials;
 use SimpleXMLElement;
 
 abstract class BaseService

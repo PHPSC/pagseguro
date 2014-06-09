@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Service;
 
 use Guzzle\Http\Message\Response;
 

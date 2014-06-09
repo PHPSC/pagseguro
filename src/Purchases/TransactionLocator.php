@@ -1,11 +1,11 @@
 <?php
 namespace PHPSC\PagSeguro\Purchases;
 
-use PHPSC\PagSeguro\BaseService;
-use PHPSC\PagSeguro\Client;
-use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\NotificationService;
 use PHPSC\PagSeguro\SearchService;
+use PHPSC\PagSeguro\Service\BaseService;
+use PHPSC\PagSeguro\Service\Credentials;
+use PHPSC\PagSeguro\Service\Client;
 
 class TransactionLocator extends BaseService implements SearchService, NotificationService
 {

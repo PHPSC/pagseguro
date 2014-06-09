@@ -1,7 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\Test\Purchases;
 
-use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Service\Credentials;
 use PHPSC\PagSeguro\Purchases\OrderingService;
 
 class OrderingServiceTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class OrderingServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->client = $this->getMock('PHPSC\PagSeguro\Client', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Service\Client', array(), array(), '', false);
     }
 
     /**

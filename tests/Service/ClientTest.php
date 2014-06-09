@@ -1,12 +1,12 @@
 <?php
-namespace PHPSC\PagSeguro\Test;
+namespace PHPSC\PagSeguro\Test\Service;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Message\Request;
-use PHPSC\PagSeguro\BaseService;
-use PHPSC\PagSeguro\Client;
+use PHPSC\PagSeguro\Service\BaseService;
+use PHPSC\PagSeguro\Service\Client;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -81,7 +81,7 @@ XML;
 
     /**
      * @test
-     * @expectedException PHPSC\PagSeguro\PagSeguroException
+     * @expectedException PHPSC\PagSeguro\Service\PagSeguroException
      */
     public function handleErrorShouldRaiseExceptionWhenHostIsFromPagSeguro()
     {

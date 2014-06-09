@@ -1,7 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\Test;
+namespace PHPSC\PagSeguro\Test\Service;
 
-use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Service\Credentials;
 
 class BaseServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->client = $this->getMock('PHPSC\PagSeguro\Client', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Service\Client', array(), array(), '', false);
     }
 
     /**
@@ -22,7 +22,7 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
     public function isSandboxMustReturnCredentialsConfiguration(Credentials $credentials)
     {
         $service = $this->getMockForAbstractClass(
-            'PHPSC\PagSeguro\BaseService',
+            'PHPSC\PagSeguro\Service\BaseService',
             array($credentials, $this->client)
         );
 
@@ -48,7 +48,7 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
         array $params
     ) {
         $service = $this->getMockForAbstractClass(
-            'PHPSC\PagSeguro\BaseService',
+            'PHPSC\PagSeguro\Service\BaseService',
             array($credentials, $this->client)
         );
 

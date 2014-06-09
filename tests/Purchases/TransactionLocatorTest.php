@@ -1,8 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro\Test\Purchases;
 
-use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Client;
+use PHPSC\PagSeguro\Service\Credentials;
+use PHPSC\PagSeguro\Service\Client;
 use PHPSC\PagSeguro\Purchases\TransactionDecoder;
 use PHPSC\PagSeguro\Purchases\TransactionLocator;
 
@@ -26,7 +26,7 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = new Credentials('a@a.com', 't');
-        $this->client = $this->getMock('PHPSC\PagSeguro\Client', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Service\Client', array(), array(), '', false);
         $this->decoder = $this->getMock('PHPSC\PagSeguro\Purchases\TransactionDecoder', array(), array(), '', false);
     }
 
