@@ -27,18 +27,21 @@ class OrderingServiceTest extends \PHPUnit_Framework_TestCase
     ) {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout />');
         $order = $this->getMock('PHPSC\PagSeguro\Purchases\Order', array(), array(), '', false);
+        $customer = $this->getMock('PHPSC\PagSeguro\Customer', array(), array(), '', false);
 
         $order->expects($this->any())
-              ->method('xmlSerialize')
-              ->willReturn($xml);
+              ->method('xmlSerialize');
+
+        $customer->expects($this->any())
+                 ->method('xmlSerialize');
 
         $this->client->expects($this->once())
                      ->method('post')
-                     ->with($wsUri, $xml)
+                     ->with($wsUri, $this->isInstanceOf('SimpleXMLElement'))
                      ->willReturn($xml);
 
         $service = new OrderingService($credentials, $this->client);
-        $redirection = $service->checkout($order);
+        $redirection = $service->checkout($order, $customer, 'http://example.com', 10, 12);
 
         $this->assertInstanceOf('PHPSC\PagSeguro\Redirection', $redirection);
         $this->assertAttributeEquals($redirectUri, 'uri', $redirection);

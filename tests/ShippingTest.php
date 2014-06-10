@@ -76,4 +76,24 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($address, $shipping->getAddress());
         $this->assertEquals(10.31, $shipping->getCost());
     }
+
+    /**
+     * @test
+     */
+    public function xmlSerializeMustAppendShippingData()
+    {
+        $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><test />');
+
+        $address = $this->getMock('PHPSC\PagSeguro\Address', array(), array(), '', false);
+        $shipping = new Shipping(Shipping::TYPE_PAC, $address, '10.31');
+
+        $address->expects($this->once())
+                ->method('xmlSerialize')
+                ->with($this->isInstanceOf('SimpleXMLElement'));
+
+        $shipping->xmlSerialize($xml);
+
+        $this->assertEquals(1, (string) $xml->shipping->type);
+        $this->assertEquals(10.31, (string) $xml->shipping->cost);
+    }
 }

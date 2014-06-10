@@ -30,13 +30,9 @@ class Customer implements XmlSerializable
         $name = null,
         Phone $phone = null
     ) {
-        $this->setEmail($email);
-
+        $this->email = $email;
         $this->phone = $phone;
-
-        if ($name !== null) {
-            $this->setName($name);
-        }
+        $this->name = $name;
     }
 
     /**
@@ -48,27 +44,11 @@ class Customer implements XmlSerializable
     }
 
     /**
-     * @param string $email
-     */
-    protected function setEmail($email)
-    {
-        $this->email = substr($email, 0, 60);
-    }
-
-    /**
      * @return string
      */
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    protected function setName($name)
-    {
-        $this->name = substr($name, 0, 50);
     }
 
     /**
@@ -85,10 +65,10 @@ class Customer implements XmlSerializable
     public function xmlSerialize(SimpleXMLElement $parent)
     {
         $customer = $parent->addChild('sender');
-        $customer->addChild('email', $this->email);
+        $customer->addChild('email', substr($this->email, 0, 60));
 
         if ($this->name !== null) {
-            $customer->addChild('name', $this->name);
+            $customer->addChild('name', substr($this->name, 0, 50));
         }
 
         if ($this->phone !== null) {

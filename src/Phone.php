@@ -21,8 +21,8 @@ class Phone implements XmlSerializable
      */
     public function __construct($areaCode, $number)
     {
-        $this->setAreaCode($areaCode);
-        $this->setNumber($number);
+        $this->areaCode = $areaCode;
+        $this->number = $number;
     }
 
     /**
@@ -34,14 +34,6 @@ class Phone implements XmlSerializable
     }
 
     /**
-     * @param string $areaCode
-     */
-    protected function setAreaCode($areaCode)
-    {
-        $this->areaCode = substr($areaCode, 0, 2);
-    }
-
-    /**
      * @return string
      */
     public function getNumber()
@@ -50,21 +42,13 @@ class Phone implements XmlSerializable
     }
 
     /**
-     * @param string $number
-     */
-    protected function setNumber($number)
-    {
-        $this->number = substr($number, 0, 9);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function xmlSerialize(SimpleXMLElement $parent)
     {
         $phone = $parent->addChild('phone');
-        $phone->addChild('areaCode', $this->areaCode);
-        $phone->addChild('number', $this->number);
+        $phone->addChild('areaCode', substr($this->areaCode, 0, 2));
+        $phone->addChild('number', substr($this->number, 0, 9));
 
         return $phone;
     }

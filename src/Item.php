@@ -54,18 +54,12 @@ class Item implements XmlSerializable
         $shippingCost = null,
         $weight = null
     ) {
-        $this->setId($id);
-        $this->setDescription($description);
-        $this->setAmount($amount);
-        $this->setQuantity($quantity);
-
-        if ($shippingCost !== null) {
-            $this->setShippingCost($shippingCost);
-        }
-
-        if ($weight !== null) {
-            $this->setWeight($weight);
-        }
+        $this->id = $id;
+        $this->description = $description;
+        $this->amount = $amount;
+        $this->quantity = $quantity;
+        $this->shippingCost = $shippingCost;
+        $this->weight = $weight;
     }
 
     /**
@@ -77,27 +71,11 @@ class Item implements XmlSerializable
     }
 
     /**
-     * @param string $id
-     */
-    protected function setId($id)
-    {
-        $this->id = substr((string) $id, 0, 100);
-    }
-
-    /**
      * @return string
      */
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    protected function setDescription($description)
-    {
-        $this->description = substr((string) $description, 0, 100);
     }
 
     /**
@@ -109,27 +87,11 @@ class Item implements XmlSerializable
     }
 
     /**
-     * @param number $amount
-     */
-    protected function setAmount($amount)
-    {
-        $this->amount = number_format($amount, 2, '.', '');
-    }
-
-    /**
      * @return number
      */
     public function getQuantity()
     {
         return $this->quantity;
-    }
-
-    /**
-     * @param number $quantity
-     */
-    protected function setQuantity($quantity)
-    {
-        $this->quantity = (int) $quantity;
     }
 
     /**
@@ -141,14 +103,6 @@ class Item implements XmlSerializable
     }
 
     /**
-     * @param number $shippingCost
-     */
-    protected function setShippingCost($shippingCost)
-    {
-        $this->shippingCost = number_format($shippingCost, 2, '.', '');
-    }
-
-    /**
      * @return number
      */
     public function getWeight()
@@ -157,25 +111,17 @@ class Item implements XmlSerializable
     }
 
     /**
-     * @param number $weight
-     */
-    protected function setWeight($weight)
-    {
-        $this->weight = (int) $weight;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function xmlSerialize(SimpleXMLElement $parent)
     {
         $item = $parent->addChild('item');
-
-        foreach ($this as $name => $value) {
-            if ($value !== null) {
-                $item->addChild($name, $value);
-            }
-        }
+        $item->addChild('id', substr($this->id, 0, 100));
+        $item->addChild('description', substr($this->description, 0, 100));
+        $item->addChild('amount', number_format($this->amount, 2, '.', ''));
+        $item->addChild('quantity', (int) $this->quantity);
+        $item->addChild('shippingCost', number_format($this->shippingCost, 2, '.', ''));
+        $item->addChild('weight', (int) $this->weight);
 
         return $item;
     }
