@@ -8,6 +8,7 @@ use PHPSC\PagSeguro\Item;
 use PHPSC\PagSeguro\Phone;
 use PHPSC\PagSeguro\Shipping;
 use SimpleXMLElement;
+use PHPSC\PagSeguro\TransactionDetails;
 
 class TransactionDecoder
 {
@@ -19,12 +20,37 @@ class TransactionDecoder
     public function decode(SimpleXMLElement $obj)
     {
         return new Transaction(
+            $this->createDetails($obj),
+            $this->createPayment($obj),
+            (int) $obj->type,
+            $this->createItems($obj->items),
+            $this->createShipping($obj->shipping)
+        );
+    }
+
+    /**
+     * @param SimpleXMLElement $obj
+     * @return TransactionDetails
+     */
+    protected function createDetails(SimpleXMLElement $obj)
+    {
+        return new TransactionDetails(
             (string) $obj->code,
             isset($obj->reference) ? (string) $obj->reference : null,
-            (int) $obj->type,
             (int) $obj->status,
             new DateTime((string) $obj->date),
             new DateTime((string) $obj->lastEventDate),
+            $this->createCustomer($obj->sender)
+        );
+    }
+
+    /**
+     * @param SimpleXMLElement $obj
+     * @return PaymentDetails
+     */
+    protected function createPayment(SimpleXMLElement $obj)
+    {
+        return new PaymentDetails(
             new PaymentMethod(
                 (int) $obj->paymentMethod->type,
                 (int) $obj->paymentMethod->code
@@ -35,9 +61,6 @@ class TransactionDecoder
             (float) $obj->netAmount,
             (float) $obj->extraAmount,
             (int) $obj->installmentCount,
-            $this->createItems($obj->items),
-            $this->createCustomer($obj->sender),
-            $this->createShipping($obj->shipping),
             isset($obj->escrowEndDate) ? new DateTime((string) $obj->escrowEndDate) : null
         );
     }

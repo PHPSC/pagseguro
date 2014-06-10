@@ -3,7 +3,7 @@ namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
 use PHPSC\PagSeguro\Shipping;
-use PHPSC\PagSeguro\Customer;
+use PHPSC\PagSeguro\TransactionDetails;
 
 class Transaction
 {
@@ -43,49 +43,19 @@ class Transaction
     const CANCELLED = 7;
 
     /**
+     * @var TransactionDetails
+     */
+    private $details;
+
+    /**
+     * @var PaymentDetails
+     */
+    private $payment;
+
+    /**
      * @var int
      */
     private $type;
-
-    /**
-     * @var DateTime
-     */
-    private $escrowEndDate;
-
-    /**
-     * @var PaymentMethod
-     */
-    private $paymentMethod;
-
-    /**
-     * @var float
-     */
-    private $grossAmount;
-
-    /**
-     * @var float
-     */
-    private $discountAmount;
-
-    /**
-     * @var float
-     */
-    private $feeAmount;
-
-    /**
-     * @var float
-     */
-    private $netAmount;
-
-    /**
-     * @var float
-     */
-    private $extraAmount;
-
-    /**
-     * @var int
-     */
-    private $installmentCount;
 
     /**
      * @var array
@@ -98,49 +68,32 @@ class Transaction
     private $shipping;
 
     /**
-     * @var string
+     * @param TransactionDetails $details
+     * @param PaymentDetails $payment
+     * @param int $type
+     * @param array $items
+     * @param Shipping $shipping
      */
-    protected $code;
-
-    /**
-     * @var string
-     */
-    protected $reference;
-
-    /**
-     * @var mixed
-     */
-    protected $status;
-
-    /**
-     * @var DateTime
-     */
-    protected $date;
-
-    /**
-     * @var DateTime
-     */
-    protected $lastEventDate;
-
-    /**
-     * @var Customer
-     */
-    protected $customer;
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
+    public function __construct(
+        TransactionDetails $details,
+        PaymentDetails $payment,
+        $type,
+        array $items,
+        Shipping $shipping = null
+    ) {
+        $this->details = $details;
+        $this->payment = $payment;
+        $this->type = $type;
+        $this->items = $items;
+        $this->shipping = $shipping;
     }
 
     /**
-     * @return string
+     * @return TransactionDetails
      */
-    public function getReference()
+    public function getDetails()
     {
-        return $this->reference;
+        return $this->details;
     }
 
     /**
@@ -152,212 +105,11 @@ class Transaction
     }
 
     /**
-     * @return number
+     * @return PaymentDetails
      */
-    public function getStatus()
+    public function getPayment()
     {
-        return $this->status;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getLastEventDate()
-    {
-        return $this->lastEventDate;
-    }
-
-    /**
-     * @return Customer
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
-
-    /**
-     * @param string $code
-     * @param string $reference
-     * @param int $type
-     * @param int $status
-     * @param DateTime $date
-     * @param DateTime $lastEventDate
-     * @param PaymentMethod $paymentMethod
-     * @param float $grossAmount
-     * @param float $discountAmount
-     * @param float $feeAmount
-     * @param float $netAmount
-     * @param float $extraAmount
-     * @param int $installmentCount
-     * @param array $items
-     * @param Customer $customer
-     * @param Shipping $shipping
-     * @param DateTime $escrowEndDate
-     */
-    public function __construct(
-        $code,
-        $reference,
-        $type,
-        $status,
-        DateTime $date,
-        DateTime $lastEventDate,
-        PaymentMethod $paymentMethod,
-        $grossAmount,
-        $discountAmount,
-        $feeAmount,
-        $netAmount,
-        $extraAmount,
-        $installmentCount,
-        array $items,
-        Customer $customer,
-        Shipping $shipping,
-        DateTime $escrowEndDate = null
-    ) {
-        $this->code = $code;
-        $this->reference = $reference;
-        $this->type = $type;
-        $this->status = $status;
-        $this->date = $date;
-        $this->lastEventDate = $lastEventDate;
-        $this->escrowEndDate = $escrowEndDate;
-        $this->paymentMethod = $paymentMethod;
-        $this->grossAmount = $grossAmount;
-        $this->discountAmount = $discountAmount;
-        $this->feeAmount = $feeAmount;
-        $this->netAmount = $netAmount;
-        $this->extraAmount = $extraAmount;
-        $this->installmentCount = $installmentCount;
-        $this->items = $items;
-        $this->customer = $customer;
-        $this->shipping = $shipping;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isWaitingPayment()
-    {
-        return $this->getStatus() === static::WAITING_PAYMENT;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isUnderAnalysis()
-    {
-        return $this->getStatus() === static::UNDER_ANALYSIS;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isPaid()
-    {
-        return $this->getStatus() === static::PAID;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isAvailable()
-    {
-        return $this->getStatus() === static::AVAILABLE;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isUnderContest()
-    {
-        return $this->getStatus() === static::UNDER_CONTEST;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isReturned()
-    {
-        return $this->getStatus() === static::RETURNED;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isCancelled()
-    {
-        return $this->getStatus() === static::CANCELLED;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getEscrowEndDate()
-    {
-        return $this->escrowEndDate;
-    }
-
-    /**
-     * @return PaymentMethod
-     */
-    public function getPaymentMethod()
-    {
-        return $this->paymentMethod;
-    }
-
-    /**
-     * @return number
-     */
-    public function getGrossAmount()
-    {
-        return $this->grossAmount;
-    }
-
-    /**
-     * @return number
-     */
-    public function getDiscountAmount()
-    {
-        return $this->discountAmount;
-    }
-
-    /**
-     * @return number
-     */
-    public function getFeeAmount()
-    {
-        return $this->feeAmount;
-    }
-
-    /**
-     * @return number
-     */
-    public function getNetAmount()
-    {
-        return $this->netAmount;
-    }
-
-    /**
-     * @return number
-     */
-    public function getExtraAmount()
-    {
-        return $this->extraAmount;
-    }
-
-    /**
-     * @return number
-     */
-    public function getInstallmentCount()
-    {
-        return $this->installmentCount;
+        return $this->payment;
     }
 
     /**
@@ -374,5 +126,61 @@ class Transaction
     public function getShipping()
     {
         return $this->shipping;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isWaitingPayment()
+    {
+        return $this->details->getStatus() === static::WAITING_PAYMENT;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isUnderAnalysis()
+    {
+        return $this->details->getStatus() === static::UNDER_ANALYSIS;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPaid()
+    {
+        return $this->details->getStatus() === static::PAID;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAvailable()
+    {
+        return $this->details->getStatus() === static::AVAILABLE;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isUnderContest()
+    {
+        return $this->details->getStatus() === static::UNDER_CONTEST;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isReturned()
+    {
+        return $this->details->getStatus() === static::RETURNED;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCancelled()
+    {
+        return $this->details->getStatus() === static::CANCELLED;
     }
 }
