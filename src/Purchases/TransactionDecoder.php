@@ -2,15 +2,12 @@
 namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
-use PHPSC\PagSeguro\Address;
-use PHPSC\PagSeguro\Customer;
 use PHPSC\PagSeguro\Item;
-use PHPSC\PagSeguro\Phone;
+use PHPSC\PagSeguro\BaseDecoder;
 use PHPSC\PagSeguro\Shipping;
 use SimpleXMLElement;
-use PHPSC\PagSeguro\TransactionDetails;
 
-class TransactionDecoder
+class TransactionDecoder extends BaseDecoder
 {
     /**
      * @param SimpleXMLElement $obj
@@ -25,22 +22,6 @@ class TransactionDecoder
             (int) $obj->type,
             $this->createItems($obj->items),
             $this->createShipping($obj->shipping)
-        );
-    }
-
-    /**
-     * @param SimpleXMLElement $obj
-     * @return TransactionDetails
-     */
-    protected function createDetails(SimpleXMLElement $obj)
-    {
-        return new TransactionDetails(
-            (string) $obj->code,
-            isset($obj->reference) ? (string) $obj->reference : null,
-            (int) $obj->status,
-            new DateTime((string) $obj->date),
-            new DateTime((string) $obj->lastEventDate),
-            $this->createCustomer($obj->sender)
         );
     }
 
@@ -88,50 +69,14 @@ class TransactionDecoder
     }
 
     /**
-     * @param SimpleXMLElement $customer
-     * @return Customer
-     */
-    protected function createCustomer(SimpleXMLElement $customer)
-    {
-        $phone = null;
-
-        if ($customer->phone) {
-            $phone = new Phone(
-                (string) $customer->phone->areaCode,
-                (string) $customer->phone->number
-            );
-        }
-
-        return new Customer(
-            (string) $customer->email,
-            isset($customer->name) ? (string) $customer->name : null,
-            $phone
-        );
-    }
-
-    /**
      * @param SimpleXMLElement $shipping
      * @return Shipping
      */
     protected function createShipping(SimpleXMLElement $shipping)
     {
-        $address = null;
-
-        if ($shipping->address) {
-            $address = new Address(
-                (string) $shipping->address->state,
-                (string) $shipping->address->city,
-                (string) $shipping->address->postalCode,
-                (string) $shipping->address->district,
-                (string) $shipping->address->street,
-                (string) $shipping->address->number,
-                (string) $shipping->address->complement
-            );
-        }
-
         return new Shipping(
             (int) $shipping->type,
-            $address,
+            isset($shipping->address) ? $this->createAddress($shipping->address) : null,
             isset($shipping->cost) ? (float) $shipping->cost : null
         );
     }
