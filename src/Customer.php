@@ -21,18 +21,26 @@ class Customer implements XmlSerializable
     private $phone;
 
     /**
+     * @var Address
+     */
+    private $address;
+
+    /**
      * @param string $email
      * @param string $name
      * @param Phone $phone
+     * @param Address $address
      */
     public function __construct(
         $email,
         $name = null,
-        Phone $phone = null
+        Phone $phone = null,
+        Address $address = null
     ) {
         $this->email = $email;
-        $this->phone = $phone;
         $this->name = $name;
+        $this->phone = $phone;
+        $this->address = $address;
     }
 
     /**
@@ -60,6 +68,14 @@ class Customer implements XmlSerializable
     }
 
     /**
+     * @return Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function xmlSerialize(SimpleXMLElement $parent)
@@ -73,6 +89,10 @@ class Customer implements XmlSerializable
 
         if ($this->phone !== null) {
             $this->phone->xmlSerialize($customer);
+        }
+
+        if ($this->address !== null) {
+            $this->address->xmlSerialize($customer);
         }
 
         return $customer;

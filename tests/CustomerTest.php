@@ -3,6 +3,7 @@ namespace PHPSC\PagSeguro\Test;
 
 use PHPSC\PagSeguro\Customer;
 use PHPSC\PagSeguro\Phone;
+use PHPSC\PagSeguro\Address;
 
 class CustomerTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,11 +13,15 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
     public function constructShouldConfigureTheAttributes()
     {
         $phone = new Phone(11, 999999999);
-        $customer = new Customer('aa@test.com', 'aa', $phone);
+        $address = new Address('aa', 'aa', '2123', 'aa', 'asdad', 12312);
+        $customer = new Customer('aa@test.com', 'aa', $phone, $address);
 
         $this->assertAttributeEquals('aa@test.com', 'email', $customer);
         $this->assertAttributeEquals('aa', 'name', $customer);
         $this->assertAttributeSame($phone, 'phone', $customer);
+        $this->assertAttributeSame($address, 'address', $customer);
+
+        return $customer;
     }
 
     /**
@@ -25,11 +30,13 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
     public function gettersShouldRetrieveConfiguredData()
     {
         $phone = new Phone(11, 999999999);
-        $customer = new Customer('aa@test.com', 'aa', $phone);
+        $address = new Address('aa', 'aa', '2123', 'aa', 'asdad', 12312);
+        $customer = new Customer('aa@test.com', 'aa', $phone, $address);
 
         $this->assertEquals('aa@test.com', $customer->getEmail());
         $this->assertEquals('aa', $customer->getName());
         $this->assertSame($phone, $customer->getPhone());
+        $this->assertSame($address, $customer->getAddress());
     }
 
     /**
@@ -41,11 +48,16 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><test />');
 
         $phone = $this->getMock('PHPSC\PagSeguro\Phone', array(), array(), '', false);
-        $customer = new Customer($name . '@test.com', $name, $phone);
+        $address = $this->getMock('PHPSC\PagSeguro\Address', array(), array(), '', false);
+        $customer = new Customer($name . '@test.com', $name, $phone, $address);
 
         $phone->expects($this->any())
               ->method('xmlSerialize')
               ->with($this->isInstanceOf('SimpleXMLElement'));
+
+        $address->expects($this->any())
+                ->method('xmlSerialize')
+                ->with($this->isInstanceOf('SimpleXMLElement'));
 
         $customer->xmlSerialize($xml);
 
