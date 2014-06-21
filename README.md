@@ -36,10 +36,10 @@ O uso básico é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
-use PHPSC\PagSeguro\Checkout\Checkout;
-use PHPSC\PagSeguro\Checkout\CheckoutService;
-use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Item;
+use PHPSC\PagSeguro\Purchases\Order;
+use PHPSC\PagSeguro\Purchases\OrderingService;
+use PHPSC\PagSeguro\Service\Credentials;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
@@ -47,11 +47,11 @@ $credentials = new Credentials(
     false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
 );
 
-$service = new CheckoutService($credentials); // cria instância do serviço de pagamentos
+$service = new OrderingService($credentials); // cria instância do serviço de pagamentos
 
 try {
     $response = $service->checkout( // Envia a solicitação de pagamento
-        new Checkout(
+        new Order(
             array( // Coleção de itens a serem pagos (O limite de itens é definido pelo webservice da Pagseguro)
                 new Item(
                 	'1', // ID do item
@@ -95,8 +95,11 @@ O uso básico é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
-use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Transaction\LocatingService;
+ // Caso estiver testando, a linha abaixo deve estar descomentada (assim o pagseguro conseguirá enviar requisições locais via JavaScript)
+// header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
+
+use PHPSC\PagSeguro\Service\Credentials;
+use PHPSC\PagSeguro\Purchases\TransactionLocator;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
@@ -104,7 +107,7 @@ $credentials = new Credentials(
     false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
 );
 
-$service = new LocatingService($credentials); // Cria instância do serviço
+$service = new TransactionLocator($credentials); // Cria instância do serviço
 
 try {
     $transaction = $service->getByNotification( // Solicita os detalhes da transação
@@ -136,8 +139,8 @@ O uso básico é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
-use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Transaction\LocatingService;
+use PHPSC\PagSeguro\Service\Credentials;
+use PHPSC\PagSeguro\Purchases\TransactionLocator;
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
@@ -145,7 +148,7 @@ $credentials = new Credentials(
     false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
 );
 
-$service = new LocatingService($credentials); // Cria instância do serviço
+$service = new TransactionLocator($credentials); // Cria instância do serviço
 
 try {
     $transaction = $service->getByCode( // Solicita os detalhes da transação
