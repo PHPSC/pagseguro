@@ -5,6 +5,14 @@ use PHPSC\PagSeguro\TransactionDetails;
 
 class Subscription
 {
+    const INITIATED = 'INITIATED';
+    const PENDING = 'PENDING';
+    const ACTIVE = 'ACTIVE';
+    const CANCELLED = 'CANCELLED';
+    const CANCELLED_BY_RECEIVER = 'CANCELLED_BY_RECEIVER';
+    const CANCELLED_BY_SENDER = 'CANCELLED_BY_SENDER';
+    const EXPIRED = 'EXPIRED';
+
     /**
      * @var string
      */
@@ -73,5 +81,61 @@ class Subscription
     public function isAutomatic()
     {
         return $this->automatic;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isInitiated()
+    {
+        return $this->getDetails()->getStatus() === static::INITIATED;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPending()
+    {
+        return $this->getDetails()->getStatus() === static::PENDING;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->getDetails()->getStatus() === static::ACTIVE;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCancelledByAcquirer()
+    {
+        return $this->getDetails()->getStatus() === static::CANCELLED;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCancelledByReceiver()
+    {
+        return $this->getDetails()->getStatus() === static::CANCELLED_BY_RECEIVER;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCancelledByCustomer()
+    {
+        return $this->getDetails()->getStatus() === static::CANCELLED_BY_SENDER;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isExpired()
+    {
+        return $this->getDetails()->getStatus() === static::EXPIRED;
     }
 }
