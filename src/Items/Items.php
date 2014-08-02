@@ -6,6 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class Items extends ArrayCollection implements ItemCollections
+class Items extends ArrayCollection implements ItemCollection
 {
 }

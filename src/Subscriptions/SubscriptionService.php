@@ -3,7 +3,7 @@ namespace PHPSC\PagSeguro\Subscriptions;
 
 use PHPSC\PagSeguro\Service\BaseService;
 use PHPSC\PagSeguro\SubscriptionService as SubscriptionServiceInterface;
-use PHPSC\PagSeguro\Customer;
+use PHPSC\PagSeguro\Customer\Customer;
 
 class SubscriptionService extends BaseService implements SubscriptionServiceInterface
 {

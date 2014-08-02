@@ -2,6 +2,7 @@
 namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Subscriptions\SubscriptionRequest;
+use PHPSC\PagSeguro\Customer\Customer;
 
 interface SubscriptionService
 {

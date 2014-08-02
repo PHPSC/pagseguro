@@ -2,6 +2,7 @@
 namespace PHPSC\PagSeguro;
 
 use DateTime;
+use PHPSC\PagSeguro\Customer\Customer;
 
 class TransactionDetails
 {
