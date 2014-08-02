@@ -3,7 +3,7 @@ namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
 use PHPSC\PagSeguro\Items\ItemCollection;
-use PHPSC\PagSeguro\Shipping;
+use PHPSC\PagSeguro\Shipping\Shipping;
 use PHPSC\PagSeguro\TransactionDetails;
 
 class Transaction

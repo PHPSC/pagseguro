@@ -1,27 +1,16 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Shipping;
 
 use InvalidArgumentException;
 use PHPSC\PagSeguro\Customer\Address;
+use PHPSC\PagSeguro\XmlSerializable;
 use SimpleXMLElement;
 
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Shipping implements XmlSerializable
 {
-    /**
-     * @var int
-     */
-    const TYPE_PAC = 1;
-
-    /**
-     * @var int
-     */
-    const TYPE_SEDEX = 2;
-
-    /**
-     * @var int
-     */
-    const TYPE_UNKNOWN = 3;
-
     /**
      * @var int
      */
@@ -62,7 +51,7 @@ class Shipping implements XmlSerializable
 
     protected function setType($type)
     {
-        if (!in_array($type, array(static::TYPE_PAC, static::TYPE_SEDEX, static::TYPE_UNKNOWN))) {
+        if (!Type::isValid($type)) {
             throw new InvalidArgumentException('Invalid shipping type informed');
         }
 

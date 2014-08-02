@@ -3,7 +3,7 @@ namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
 use PHPSC\PagSeguro\BaseDecoder;
-use PHPSC\PagSeguro\Shipping;
+use PHPSC\PagSeguro\Shipping\Shipping;
 use SimpleXMLElement;
 use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Items\Items;
