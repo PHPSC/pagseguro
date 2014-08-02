@@ -1,8 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Purchases;
+namespace PHPSC\PagSeguro\Purchases;
 
 use PHPSC\PagSeguro\Service\Credentials;
-use PHPSC\PagSeguro\Purchases\OrderingService;
 
 class OrderingServiceTest extends \PHPUnit_Framework_TestCase
 {

@@ -30,8 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPSC\\PagSeguro\\": "src",
-            "PHPSC\\PagSeguro\\Test\\": "test"
+            "PHPSC\\PagSeguro\\": ["src", "test"]
         }
     }
 }

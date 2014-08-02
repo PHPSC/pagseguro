@@ -1,9 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Customer;
-
-use PHPSC\PagSeguro\Customer\Address;
-use PHPSC\PagSeguro\Customer\Customer;
-use PHPSC\PagSeguro\Customer\Phone;
+namespace PHPSC\PagSeguro\Customer;
 
 class CustomerTest extends \PHPUnit_Framework_TestCase
 {

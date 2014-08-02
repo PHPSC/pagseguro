@@ -1,12 +1,10 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Service;
+namespace PHPSC\PagSeguro\Service;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Message\Request;
-use PHPSC\PagSeguro\Service\BaseService;
-use PHPSC\PagSeguro\Service\Client;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ClientTest extends \PHPUnit_Framework_TestCase

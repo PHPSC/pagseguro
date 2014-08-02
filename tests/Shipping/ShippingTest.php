@@ -1,8 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Shipping;
-
-use PHPSC\PagSeguro\Shipping\Shipping;
-use PHPSC\PagSeguro\Shipping\Type;
+namespace PHPSC\PagSeguro\Shipping;
 
 class ShippingTest extends \PHPUnit_Framework_TestCase
 {

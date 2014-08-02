@@ -1,10 +1,8 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Purchases;
+namespace PHPSC\PagSeguro\Purchases;
 
 use PHPSC\PagSeguro\Service\Credentials;
 use PHPSC\PagSeguro\Service\Client;
-use PHPSC\PagSeguro\Purchases\TransactionDecoder;
-use PHPSC\PagSeguro\Purchases\TransactionLocator;
 
 class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
 {

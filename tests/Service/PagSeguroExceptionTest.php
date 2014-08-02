@@ -1,7 +1,6 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Service;
+namespace PHPSC\PagSeguro\Service;
 
-use PHPSC\PagSeguro\Service\PagSeguroException;
 use Guzzle\Http\Message\Response;
 
 class PagSeguroExceptionTest extends \PHPUnit_Framework_TestCase

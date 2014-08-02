@@ -1,7 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Test\Service;
-
-use PHPSC\PagSeguro\Service\Credentials;
+namespace PHPSC\PagSeguro\Service;
 
 class CredentialsTest extends \PHPUnit_Framework_TestCase
 {
