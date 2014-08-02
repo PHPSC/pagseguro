@@ -1,7 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\Subscriptions;
+namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 
-use PHPSC\PagSeguro\TransactionDetails;
+use PHPSC\PagSeguro\Purchases\Details;
 
 class Subscription
 {
@@ -19,7 +19,7 @@ class Subscription
     private $name;
 
     /**
-     * @var TransactionDetails
+     * @var Details
      */
     private $details;
 
@@ -30,13 +30,13 @@ class Subscription
 
     /**
      * @param string $name
-     * @param TransactionDetails $details
+     * @param Details $details
      * @param string $tracker
      * @param boolean $automatic
      */
     public function __construct(
         $name,
-        TransactionDetails $details,
+        Details $details,
         $tracker,
         $automatic
     ) {

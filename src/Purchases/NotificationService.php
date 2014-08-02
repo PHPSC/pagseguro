@@ -1,8 +1,8 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Purchases;
 
-use PHPSC\PagSeguro\Subscriptions\Subscription;
-use PHPSC\PagSeguro\Purchases\Transaction;
+use PHPSC\PagSeguro\Purchases\Transactions\Transaction;
+use PHPSC\PagSeguro\Purchases\Subscriptions\Subscription;
 
 interface NotificationService
 {

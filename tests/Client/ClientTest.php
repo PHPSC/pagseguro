@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Service;
+namespace PHPSC\PagSeguro\Client;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
@@ -79,7 +79,7 @@ XML;
 
     /**
      * @test
-     * @expectedException PHPSC\PagSeguro\Service\PagSeguroException
+     * @expectedException PHPSC\PagSeguro\Client\PagSeguroException
      */
     public function handleErrorShouldRaiseExceptionWhenHostIsFromPagSeguro()
     {
@@ -88,7 +88,7 @@ XML;
 
         $this->request->expects($this->any())
                       ->method('getHost')
-                      ->willReturn(BaseService::SANDBOX_HOST);
+                      ->willReturn(Environment::SANDBOX_HOST);
 
         $this->response->expects($this->any())
                        ->method('getStatusCode')

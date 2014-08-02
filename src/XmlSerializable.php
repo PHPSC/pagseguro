@@ -3,6 +3,9 @@ namespace PHPSC\PagSeguro;
 
 use SimpleXMLElement;
 
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 interface XmlSerializable
 {
     /**

@@ -1,10 +1,13 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
 use PHPSC\PagSeguro\Customer\Customer;
 
-class TransactionDetails
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
+class Details
 {
     /**
      * @var string

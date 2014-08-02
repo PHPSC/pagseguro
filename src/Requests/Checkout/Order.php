@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Purchases;
+namespace PHPSC\PagSeguro\Requests\Checkout;
 
 use PHPSC\PagSeguro\Items\ItemCollection;
 use PHPSC\PagSeguro\Shipping\Shipping;

@@ -1,14 +1,14 @@
 <?php
-namespace PHPSC\PagSeguro\Purchases;
+namespace PHPSC\PagSeguro\Purchases\Transactions;
 
 use DateTime;
-use PHPSC\PagSeguro\BaseDecoder;
-use PHPSC\PagSeguro\Shipping\Shipping;
-use SimpleXMLElement;
 use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Items\Items;
+use PHPSC\PagSeguro\Purchases\Decoder;
+use PHPSC\PagSeguro\Shipping\Shipping;
+use SimpleXMLElement;
 
-class TransactionDecoder extends BaseDecoder
+class TransactionDecoder extends Decoder
 {
     /**
      * @param SimpleXMLElement $obj
@@ -28,11 +28,11 @@ class TransactionDecoder extends BaseDecoder
 
     /**
      * @param SimpleXMLElement $obj
-     * @return PaymentDetails
+     * @return Payment
      */
     protected function createPayment(SimpleXMLElement $obj)
     {
-        return new PaymentDetails(
+        return new Payment(
             new PaymentMethod(
                 (int) $obj->paymentMethod->type,
                 (int) $obj->paymentMethod->code

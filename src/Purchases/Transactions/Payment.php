@@ -1,9 +1,9 @@
 <?php
-namespace PHPSC\PagSeguro\Purchases;
+namespace PHPSC\PagSeguro\Purchases\Transactions;
 
 use DateTime;
 
-class PaymentDetails
+class Payment
 {
     /**
      * @var DateTime

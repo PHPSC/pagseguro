@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
 use PHPSC\PagSeguro\Customer\Address;
@@ -7,15 +7,19 @@ use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\Customer\Phone;
 use SimpleXMLElement;
 
-abstract class BaseDecoder
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
+abstract class Decoder
 {
     /**
      * @param SimpleXMLElement $obj
-     * @return TransactionDetails
+     *
+     * @return Details
      */
     protected function createDetails(SimpleXMLElement $obj)
     {
-        return new TransactionDetails(
+        return new Details(
             (string) $obj->code,
             isset($obj->reference) ? (string) $obj->reference : null,
             (int) $obj->status,
@@ -27,6 +31,7 @@ abstract class BaseDecoder
 
     /**
      * @param SimpleXMLElement $address
+     *
      * @return Address
      */
     protected function createAddress(SimpleXMLElement $address)
@@ -44,6 +49,7 @@ abstract class BaseDecoder
 
     /**
      * @param SimpleXMLElement $customer
+     *
      * @return Customer
      */
     protected function createCustomer(SimpleXMLElement $customer)

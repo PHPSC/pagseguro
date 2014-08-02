@@ -1,20 +1,14 @@
 <?php
-namespace PHPSC\PagSeguro\Service;
+namespace PHPSC\PagSeguro;
 
+use PHPSC\PagSeguro\Client\Client;
 use SimpleXMLElement;
 
-abstract class BaseService
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
+abstract class Service
 {
-    /**
-     * @var string
-     */
-    const HOST = 'ws.pagseguro.uol.com.br';
-
-    /**
-     * @var string
-     */
-    const SANDBOX_HOST = 'ws.sandbox.pagseguro.uol.com.br';
-
     /**
      * @var Credentials
      */
@@ -61,21 +55,11 @@ abstract class BaseService
             )
         );
 
-        return $this->getBaseUri($resource) . '?' . http_build_query($params);
-    }
-
-    /**
-     * @param string $resource
-     *
-     * @return string
-     */
-    protected function getBaseUri($resource)
-    {
-        if ($this->isSandbox()) {
-            return 'https://' . static::SANDBOX_HOST . $resource;
-        }
-
-        return 'https://' . static::HOST . $resource;
+        return sprintf(
+            '%s?%s',
+            $this->client->createUri($resource, $this->isSandbox()),
+            http_build_query($params)
+        );
     }
 
     /**

@@ -1,11 +1,14 @@
 <?php
-namespace PHPSC\PagSeguro\Purchases;
+namespace PHPSC\PagSeguro\Purchases\Transactions;
 
 use DateTime;
 use PHPSC\PagSeguro\Items\ItemCollection;
+use PHPSC\PagSeguro\Purchases\Details;
 use PHPSC\PagSeguro\Shipping\Shipping;
-use PHPSC\PagSeguro\TransactionDetails;
 
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Transaction
 {
     /**
@@ -44,7 +47,7 @@ class Transaction
     const CANCELLED = 7;
 
     /**
-     * @var TransactionDetails
+     * @var Details
      */
     private $details;
 
@@ -69,15 +72,15 @@ class Transaction
     private $shipping;
 
     /**
-     * @param TransactionDetails $details
+     * @param Details $details
      * @param PaymentDetails $payment
      * @param int $type
      * @param ItemCollection $items
      * @param Shipping $shipping
      */
     public function __construct(
-        TransactionDetails $details,
-        PaymentDetails $payment,
+        Details $details,
+        Payment $payment,
         $type,
         ItemCollection $items,
         Shipping $shipping = null

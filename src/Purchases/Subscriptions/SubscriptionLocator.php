@@ -1,13 +1,13 @@
 <?php
-namespace PHPSC\PagSeguro\Subscriptions;
+namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 
-use PHPSC\PagSeguro\NotificationService;
-use PHPSC\PagSeguro\SearchService;
-use PHPSC\PagSeguro\Service\BaseService;
-use PHPSC\PagSeguro\Service\Credentials;
-use PHPSC\PagSeguro\Service\Client;
+use PHPSC\PagSeguro\Client\Client;
+use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Purchases\NotificationService;
+use PHPSC\PagSeguro\Purchases\SearchService;
+use PHPSC\PagSeguro\Service;
 
-class SubscriptionLocator extends BaseService implements SearchService, NotificationService
+class SubscriptionLocator extends Service implements SearchService, NotificationService
 {
     /**
      * @var SubscriptionDecoder

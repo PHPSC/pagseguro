@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Requests;
 
 use DateTime;
 

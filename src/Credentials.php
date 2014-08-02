@@ -1,6 +1,9 @@
 <?php
-namespace PHPSC\PagSeguro\Service;
+namespace PHPSC\PagSeguro;
 
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Credentials
 {
     /**

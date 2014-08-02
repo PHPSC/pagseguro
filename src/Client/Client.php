@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Service;
+namespace PHPSC\PagSeguro\Client;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
@@ -31,11 +31,22 @@ class Client
      */
     public function handleError(Event $event)
     {
-        if (!in_array($event['request']->getHost(), array(BaseService::HOST, BaseService::SANDBOX_HOST))) {
+        if (!Environment::isValid($event['request']->getHost())) {
             return ;
         }
 
         throw PagSeguroException::create($event['response']);
+    }
+
+    /**
+     * @param string $resource
+     * @param boolean $sandbox
+     *
+     * @return string
+     */
+    public function createUri($resource, $sandbox = false)
+    {
+        return Environment::createUri($resource, $sandbox);
     }
 
     /**
