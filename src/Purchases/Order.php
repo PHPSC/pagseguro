@@ -1,8 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro\Purchases;
 
+use PHPSC\PagSeguro\Items\ItemCollection;
 use PHPSC\PagSeguro\Shipping;
-use PHPSC\PagSeguro\Item;
 use PHPSC\PagSeguro\XmlSerializable;
 use SimpleXMLElement;
 
@@ -14,7 +14,7 @@ class Order implements XmlSerializable
     private $currency;
 
     /**
-     * @var Item[]
+     * @var ItemCollection
      */
     private $items;
 
@@ -34,13 +34,13 @@ class Order implements XmlSerializable
     private $extraAmount;
 
     /**
-     * @param array $items
+     * @param ItemCollection $items
      * @param string $reference
      * @param Shipping $shipping
      * @param float $extraAmount
      */
     public function __construct(
-        array $items,
+        ItemCollection $items,
         $reference = null,
         Shipping $shipping = null,
         $extraAmount = null
@@ -61,7 +61,6 @@ class Order implements XmlSerializable
 
         $items = $parent->addChild('items');
 
-        /* @var $item Item */
         foreach ($this->items as $item) {
             $item->xmlSerialize($items);
         }

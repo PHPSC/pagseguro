@@ -1,7 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\Test;
+namespace PHPSC\PagSeguro\Test\Items;
 
-use PHPSC\PagSeguro\Item;
+use PHPSC\PagSeguro\Items\Item;
 
 class ItemTest extends \PHPUnit_Framework_TestCase
 {

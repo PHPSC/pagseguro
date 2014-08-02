@@ -2,10 +2,11 @@
 namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
-use PHPSC\PagSeguro\Item;
 use PHPSC\PagSeguro\BaseDecoder;
 use PHPSC\PagSeguro\Shipping;
 use SimpleXMLElement;
+use PHPSC\PagSeguro\Items\Item;
+use PHPSC\PagSeguro\Items\Items;
 
 class TransactionDecoder extends BaseDecoder
 {
@@ -52,16 +53,18 @@ class TransactionDecoder extends BaseDecoder
      */
     protected function createItems(SimpleXMLElement $itemsNode)
     {
-        $items = array();
+        $items = new Items();
 
         foreach ($itemsNode->item as $item) {
-            $items[] = new Item(
-                (string) $item->id,
-                (string) $item->description,
-                (float) $item->amount,
-                (int) $item->quantity,
-                isset($item->shippingCost) ? (float) $item->shippingCost : null,
-                isset($item->weight) ? (int) $item->weight : null
+            $items->add(
+                new Item(
+                    (string) $item->id,
+                    (string) $item->description,
+                    (float) $item->amount,
+                    (int) $item->quantity,
+                    isset($item->shippingCost) ? (float) $item->shippingCost : null,
+                    isset($item->weight) ? (int) $item->weight : null
+                )
             );
         }
 

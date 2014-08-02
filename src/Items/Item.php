@@ -1,7 +1,8 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Items;
 
 use SimpleXMLElement;
+use PHPSC\PagSeguro\XmlSerializable;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>

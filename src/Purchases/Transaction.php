@@ -2,6 +2,7 @@
 namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
+use PHPSC\PagSeguro\Items\ItemCollection;
 use PHPSC\PagSeguro\Shipping;
 use PHPSC\PagSeguro\TransactionDetails;
 
@@ -58,7 +59,7 @@ class Transaction
     private $type;
 
     /**
-     * @var array
+     * @var ItemCollection
      */
     private $items;
 
@@ -71,14 +72,14 @@ class Transaction
      * @param TransactionDetails $details
      * @param PaymentDetails $payment
      * @param int $type
-     * @param array $items
+     * @param ItemCollection $items
      * @param Shipping $shipping
      */
     public function __construct(
         TransactionDetails $details,
         PaymentDetails $payment,
         $type,
-        array $items,
+        ItemCollection $items,
         Shipping $shipping = null
     ) {
         $this->details = $details;
@@ -113,7 +114,7 @@ class Transaction
     }
 
     /**
-     * @return array
+     * @return Collection
      */
     public function getItems()
     {
