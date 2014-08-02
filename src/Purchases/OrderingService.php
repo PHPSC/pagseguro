@@ -2,7 +2,7 @@
 namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
-use PHPSC\PagSeguro\Customer;
+use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\OrderingService as OrderingServiceInterface;
 use PHPSC\PagSeguro\Redirection;
 use PHPSC\PagSeguro\Service\BaseService;

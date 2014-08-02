@@ -1,6 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Customer;
 
+use PHPSC\PagSeguro\XmlSerializable;
 use SimpleXMLElement;
 
 class Customer implements XmlSerializable

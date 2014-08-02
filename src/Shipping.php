@@ -2,6 +2,7 @@
 namespace PHPSC\PagSeguro;
 
 use InvalidArgumentException;
+use PHPSC\PagSeguro\Customer\Address;
 use SimpleXMLElement;
 
 class Shipping implements XmlSerializable

@@ -1,9 +1,9 @@
 <?php
-namespace PHPSC\PagSeguro\Test;
+namespace PHPSC\PagSeguro\Test\Customer;
 
-use PHPSC\PagSeguro\Customer;
-use PHPSC\PagSeguro\Phone;
-use PHPSC\PagSeguro\Address;
+use PHPSC\PagSeguro\Customer\Address;
+use PHPSC\PagSeguro\Customer\Customer;
+use PHPSC\PagSeguro\Customer\Phone;
 
 class CustomerTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,8 +47,8 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
         $name = str_repeat('a', 55);
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><test />');
 
-        $phone = $this->getMock('PHPSC\PagSeguro\Phone', array(), array(), '', false);
-        $address = $this->getMock('PHPSC\PagSeguro\Address', array(), array(), '', false);
+        $phone = $this->getMock('PHPSC\PagSeguro\Customer\Phone', array(), array(), '', false);
+        $address = $this->getMock('PHPSC\PagSeguro\Customer\Address', array(), array(), '', false);
         $customer = new Customer($name . '@test.com', $name, $phone, $address);
 
         $phone->expects($this->any())

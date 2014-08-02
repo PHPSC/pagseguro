@@ -1,6 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro;
 
+use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\Purchases\Order;
 
 interface OrderingService

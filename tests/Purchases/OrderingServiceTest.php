@@ -27,7 +27,7 @@ class OrderingServiceTest extends \PHPUnit_Framework_TestCase
     ) {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout />');
         $order = $this->getMock('PHPSC\PagSeguro\Purchases\Order', array(), array(), '', false);
-        $customer = $this->getMock('PHPSC\PagSeguro\Customer', array(), array(), '', false);
+        $customer = $this->getMock('PHPSC\PagSeguro\Customer\Customer', array(), array(), '', false);
 
         $order->expects($this->any())
               ->method('xmlSerialize');

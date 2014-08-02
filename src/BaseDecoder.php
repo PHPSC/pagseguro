@@ -2,6 +2,9 @@
 namespace PHPSC\PagSeguro;
 
 use DateTime;
+use PHPSC\PagSeguro\Customer\Address;
+use PHPSC\PagSeguro\Customer\Customer;
+use PHPSC\PagSeguro\Customer\Phone;
 use SimpleXMLElement;
 
 abstract class BaseDecoder

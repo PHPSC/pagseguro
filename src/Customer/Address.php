@@ -1,7 +1,8 @@
 <?php
-namespace PHPSC\PagSeguro;
+namespace PHPSC\PagSeguro\Customer;
 
 use SimpleXMLElement;
+use PHPSC\PagSeguro\XmlSerializable;
 
 class Address implements XmlSerializable
 {
