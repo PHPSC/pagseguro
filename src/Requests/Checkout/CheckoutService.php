@@ -42,7 +42,7 @@ class CheckoutService extends Service implements CheckoutServiceInterface
         return new Redirection(
             (string) $obj->code,
             new DateTime((string) $obj->date),
-            $this->isSandbox() ? static::SANDBOX_REDIRECT_TO : static::REDIRECT_TO
+            $this->credentials->getUrl(static::REDIRECT_TO)
         );
     }
 }

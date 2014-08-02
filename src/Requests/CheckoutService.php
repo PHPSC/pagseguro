@@ -3,17 +3,15 @@ namespace PHPSC\PagSeguro\Requests;
 
 use PHPSC\PagSeguro\Requests\Checkout\Checkout;
 
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 interface CheckoutService
 {
     /**
      * @var string
      */
-    const REDIRECT_TO = 'https://pagseguro.uol.com.br/v2/checkout/payment.html';
-
-    /**
-     * @var string
-     */
-    const SANDBOX_REDIRECT_TO = 'https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html';
+    const REDIRECT_TO = '/v2/checkout/payment.html';
 
     /**
      * @var string

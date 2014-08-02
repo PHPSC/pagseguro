@@ -5,6 +5,7 @@ use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Message\Request;
+use PHPSC\PagSeguro\Environments\Production;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -88,7 +89,7 @@ XML;
 
         $this->request->expects($this->any())
                       ->method('getHost')
-                      ->willReturn(Environment::SANDBOX_HOST);
+                      ->willReturn(Production::WS_HOST);
 
         $this->response->expects($this->any())
                        ->method('getStatusCode')

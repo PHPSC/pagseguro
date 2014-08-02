@@ -3,6 +3,7 @@ namespace PHPSC\PagSeguro\Client;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Client as HttpClient;
+use PHPSC\PagSeguro\Environment;
 use SimpleXMLElement;
 
 /**
@@ -36,17 +37,6 @@ class Client
         }
 
         throw PagSeguroException::create($event['response']);
-    }
-
-    /**
-     * @param string $resource
-     * @param boolean $sandbox
-     *
-     * @return string
-     */
-    public function createUri($resource, $sandbox = false)
-    {
-        return Environment::createUri($resource, $sandbox);
     }
 
     /**

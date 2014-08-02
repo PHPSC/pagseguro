@@ -12,7 +12,7 @@ abstract class Service
     /**
      * @var Credentials
      */
-    private $credentials;
+    protected $credentials;
 
     /**
      * @var Client
@@ -23,43 +23,10 @@ abstract class Service
      * @param Credentials $credentials
      * @param Client $client
      */
-    public function __construct(
-        Credentials $credentials,
-        Client $client = null
-    ) {
+    public function __construct(Credentials $credentials, Client $client = null)
+    {
         $this->credentials = $credentials;
         $this->client = $client ?: new Client();
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isSandbox()
-    {
-        return $this->credentials->isSandbox();
-    }
-
-    /**
-     * @param string $resource
-     * @param array $params
-     *
-     * @return string
-     */
-    public function buildUri($resource, array $params = array())
-    {
-        $params = array_merge(
-            $params,
-            array(
-                'email' => $this->credentials->getEmail(),
-                'token' => $this->credentials->getToken()
-            )
-        );
-
-        return sprintf(
-            '%s?%s',
-            $this->client->createUri($resource, $this->isSandbox()),
-            http_build_query($params)
-        );
     }
 
     /**
@@ -70,7 +37,7 @@ abstract class Service
      */
     protected function get($resource, array $params = array())
     {
-        return $this->client->get($this->buildUri($resource, $params));
+        return $this->client->get($this->credentials->getWsUrl($resource, $params));
     }
 
     /**
@@ -81,6 +48,6 @@ abstract class Service
      */
     protected function post($resource, SimpleXMLElement $request)
     {
-        return $this->client->post($this->buildUri($resource), $request);
+        return $this->client->post($this->credentials->getWsUrl($resource), $request);
     }
 }

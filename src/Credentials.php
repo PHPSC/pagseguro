@@ -1,6 +1,9 @@
 <?php
 namespace PHPSC\PagSeguro;
 
+use PHPSC\PagSeguro\Environment;
+use PHPSC\PagSeguro\Environments\Production;
+
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
@@ -17,21 +20,20 @@ class Credentials
     private $token;
 
     /**
-     * @var boolean
+     * @var Environment
      */
-    private $sandbox;
+    private $environment;
 
     /**
      * @param string $email
      * @param string $token
-     * @param boolean $sandbox
+     * @param Environment $environment
      */
-    public function __construct($email, $token, $sandbox = false)
+    public function __construct($email, $token, Environment $environment = null)
     {
-        $this->setEmail($email);
-        $this->setToken($token);
-
-        $this->sandbox = (boolean) $sandbox;
+        $this->email = substr($email, 0, 60);
+        $this->token = substr($token, 0, 32);
+        $this->environment = $environment ?: new Production();
     }
 
     /**
@@ -43,14 +45,6 @@ class Credentials
     }
 
     /**
-     * @param string $email
-     */
-    protected function setEmail($email)
-    {
-        $this->email = substr($email, 0, 60);
-    }
-
-    /**
      * @return string
      */
     public function getToken()
@@ -59,18 +53,40 @@ class Credentials
     }
 
     /**
-     * @param string $token
+     * @return Environment
      */
-    protected function setToken($token)
+    public function getEnvironment()
     {
-        $this->token = substr($token, 0, 32);
+        return $this->environment;
     }
 
     /**
-     * @return boolean
+     * @param string $resource
+     * @param array $params
+     *
+     * @return string
      */
-    public function isSandbox()
+    public function getWsUrl($resource, array $params = array())
     {
-        return $this->sandbox;
+        $params = array_merge(
+            $params,
+            array('email' => $this->email, 'token' => $this->token)
+        );
+
+        return sprintf(
+            '%s?%s',
+            $this->environment->getWsUrl($resource),
+            http_build_query($params)
+        );
+    }
+
+    /**
+     * @param string $resource
+     *
+     * @return string
+     */
+    public function getUrl($resource)
+    {
+        return $this->environment->getUrl($resource);
     }
 }
