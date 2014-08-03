@@ -21,11 +21,41 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
      */
     protected $decoder;
 
+    /**
+     * @var Transaction|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $transaction;
+
     protected function setUp()
     {
-        $this->credentials = new Credentials('a@a.com', 't');
+        $environment = $this->getMockForAbstractClass('PHPSC\PagSeguro\Environment');
+
+        $environment->expects($this->any())
+                    ->method('getHost')
+                    ->willReturn('test.com');
+
+        $environment->expects($this->any())
+                    ->method('getWsHost')
+                    ->willReturn('ws.test.com');
+
+        $this->credentials = new Credentials('a@a.com', 't', $environment);
         $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', array(), array(), '', false);
-        $this->decoder = $this->getMock('PHPSC\PagSeguro\Purchases\Transactions\TransactionDecoder', array(), array(), '', false);
+
+        $this->decoder = $this->getMock(
+            'PHPSC\PagSeguro\Purchases\Transactions\TransactionDecoder',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $this->transaction = $this->getMock(
+            'PHPSC\PagSeguro\Purchases\Transactions\Transaction',
+            array(),
+            array(),
+            '',
+            false
+        );
     }
 
     /**
@@ -34,21 +64,20 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
     public function getByCodeShouldDoAGetRequestAddingCredentialsData()
     {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
-        $transaction = $this->getMock('PHPSC\PagSeguro\Purchases\Transactions\Transaction', array(), array(), '', false);
 
         $this->client->expects($this->once())
                      ->method('get')
-                     ->with('https://ws.pagseguro.uol.com.br/v2/transactions/1?email=a%40a.com&token=t')
+                     ->with('https://ws.test.com/v2/transactions/1?email=a%40a.com&token=t')
                      ->willReturn($xml);
 
         $this->decoder->expects($this->once())
                       ->method('decode')
                       ->with($xml)
-                      ->willReturn($transaction);
+                      ->willReturn($this->transaction);
 
         $service = new TransactionLocator($this->credentials, $this->client, $this->decoder);
 
-        $this->assertSame($transaction, $service->getByCode(1));
+        $this->assertSame($this->transaction, $service->getByCode(1));
     }
 
     /**
@@ -57,20 +86,19 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
     public function getByNotificationShouldDoAGetRequestAddingCredentialsData()
     {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
-        $transaction = $this->getMock('PHPSC\PagSeguro\Purchases\Transactions\Transaction', array(), array(), '', false);
 
         $this->client->expects($this->once())
                      ->method('get')
-                     ->with('https://ws.pagseguro.uol.com.br/v2/transactions/notifications/1?email=a%40a.com&token=t')
+                     ->with('https://ws.test.com/v2/transactions/notifications/1?email=a%40a.com&token=t')
                      ->willReturn($xml);
 
         $this->decoder->expects($this->once())
                       ->method('decode')
                       ->with($xml)
-                      ->willReturn($transaction);
+                      ->willReturn($this->transaction);
 
         $service = new TransactionLocator($this->credentials, $this->client, $this->decoder);
 
-        $this->assertSame($transaction, $service->getByNotification(1));
+        $this->assertSame($this->transaction, $service->getByNotification(1));
     }
 }
