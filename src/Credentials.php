@@ -37,27 +37,13 @@ class Credentials
     }
 
     /**
+     * @param string $resource
+     *
      * @return string
      */
-    public function getEmail()
+    public function getUrl($resource)
     {
-        return $this->email;
-    }
-
-    /**
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
-     * @return Environment
-     */
-    public function getEnvironment()
-    {
-        return $this->environment;
+        return $this->environment->getUrl($resource);
     }
 
     /**
@@ -78,15 +64,5 @@ class Credentials
             $this->environment->getWsUrl($resource),
             http_build_query($params)
         );
-    }
-
-    /**
-     * @param string $resource
-     *
-     * @return string
-     */
-    public function getUrl($resource)
-    {
-        return $this->environment->getUrl($resource);
     }
 }

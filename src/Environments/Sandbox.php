@@ -15,7 +15,7 @@ class Sandbox extends Environment
     /**
      * {@inheritdoc}
      */
-    protected function getHost()
+    public function getHost()
     {
         return static::HOST;
     }
@@ -23,7 +23,7 @@ class Sandbox extends Environment
     /**
      * {@inheritdoc}
      */
-    protected function getWsHost()
+    public function getWsHost()
     {
         return static::WS_HOST;
     }

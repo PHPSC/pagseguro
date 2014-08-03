@@ -1,8 +1,8 @@
 <?php
-namespace PHPSC\PagSeguro\Purchases;
+namespace PHPSC\PagSeguro\Purchases\Transactions;
 
-use PHPSC\PagSeguro\Service\Credentials;
-use PHPSC\PagSeguro\Service\Client;
+use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Client\Client;
 
 class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,8 +24,8 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = new Credentials('a@a.com', 't');
-        $this->client = $this->getMock('PHPSC\PagSeguro\Service\Client', array(), array(), '', false);
-        $this->decoder = $this->getMock('PHPSC\PagSeguro\Purchases\TransactionDecoder', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', array(), array(), '', false);
+        $this->decoder = $this->getMock('PHPSC\PagSeguro\Purchases\Transactions\TransactionDecoder', array(), array(), '', false);
     }
 
     /**
@@ -34,7 +34,7 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
     public function getByCodeShouldDoAGetRequestAddingCredentialsData()
     {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
-        $transaction = $this->getMock('PHPSC\PagSeguro\Purchases\Transaction', array(), array(), '', false);
+        $transaction = $this->getMock('PHPSC\PagSeguro\Purchases\Transactions\Transaction', array(), array(), '', false);
 
         $this->client->expects($this->once())
                      ->method('get')
@@ -57,7 +57,7 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
     public function getByNotificationShouldDoAGetRequestAddingCredentialsData()
     {
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
-        $transaction = $this->getMock('PHPSC\PagSeguro\Transaction\Transaction', array(), array(), '', false);
+        $transaction = $this->getMock('PHPSC\PagSeguro\Purchases\Transactions\Transaction', array(), array(), '', false);
 
         $this->client->expects($this->once())
                      ->method('get')

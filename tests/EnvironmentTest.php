@@ -10,23 +10,24 @@ use PHPSC\PagSeguro\Environments\Sandbox;
 class EnvironmentTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @param string $host
-     *
-     * @return Environment
+     * @var Environment
      */
-    protected function createEnvironment($host)
+    private $environment;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
     {
-        $environment = $this->getMockForAbstractClass('PHPSC\PagSeguro\Environment');
+        $this->environment = $this->getMockForAbstractClass('PHPSC\PagSeguro\Environment');
 
-        $environment->expects($this->any())
-                    ->method('getHost')
-                    ->willReturn($host);
+        $this->environment->expects($this->any())
+                          ->method('getHost')
+                          ->willReturn('test.com');
 
-        $environment->expects($this->any())
-                    ->method('getWsHost')
-                    ->willReturn('ws.' . $host);
-
-        return $environment;
+        $this->environment->expects($this->any())
+                          ->method('getWsHost')
+                          ->willReturn('ws.test.com');
     }
 
     /**
@@ -58,9 +59,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
      */
     public function getWsUrlShouldAppendProtocolAndWsHostToResource()
     {
-        $environment = $this->createEnvironment('test.com');
-
-        $this->assertEquals('https://ws.test.com/test', $environment->getWsUrl('/test'));
+        $this->assertEquals('https://ws.test.com/test', $this->environment->getWsUrl('/test'));
     }
 
     /**
@@ -68,8 +67,6 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
      */
     public function getUrlShouldAppendProtocolAndHostToResource()
     {
-        $environment = $this->createEnvironment('test.com');
-
-        $this->assertEquals('https://test.com/test', $environment->getUrl('/test'));
+        $this->assertEquals('https://test.com/test', $this->environment->getUrl('/test'));
     }
 }

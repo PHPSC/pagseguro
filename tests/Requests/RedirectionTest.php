@@ -1,8 +1,7 @@
 <?php
-namespace PHPSC\PagSeguro\Test;
+namespace PHPSC\PagSeguro\Requests;
 
 use DateTime;
-use PHPSC\PagSeguro\Redirection;
 
 class RedirectionTest extends \PHPUnit_Framework_TestCase
 {

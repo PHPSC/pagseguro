@@ -42,10 +42,10 @@ abstract class Environment
     /**
      * @return string
      */
-    abstract protected function getWsHost();
+    abstract public function getWsHost();
 
     /**
      * @return string
      */
-    abstract protected function getHost();
+    abstract public function getHost();
 }

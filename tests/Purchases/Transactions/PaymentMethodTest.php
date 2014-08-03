@@ -1,5 +1,5 @@
 <?php
-namespace PHPSC\PagSeguro\Purchases;
+namespace PHPSC\PagSeguro\Purchases\Transactions;
 
 class PaymentMethodTest extends \PHPUnit_Framework_TestCase
 {
