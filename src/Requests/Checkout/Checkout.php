@@ -42,17 +42,48 @@ class Checkout implements XmlSerializable
      * @param string $maxUses
      * @param string $maxAge
      */
-    public function __construct(
-        Order $order,
-        Customer $customer = null,
-        $redirectTo = null,
-        $maxUses = null,
-        $maxAge = null
-    ) {
-        $this->order = $order;
+    public function __construct(Order $order = null)
+    {
+        $this->order = $order ?: new Order();
+    }
+
+    /**
+     * @return Order
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param Customer $customer
+     */
+    public function setCustomer(Customer $customer)
+    {
         $this->customer = $customer;
+    }
+
+    /**
+     * @param string $redirectTo
+     */
+    public function setRedirectTo($redirectTo)
+    {
         $this->redirectTo = $redirectTo;
+    }
+
+    /**
+     * @param int $maxUses
+     */
+    public function setMaxUses($maxUses)
+    {
         $this->maxUses = $maxUses;
+    }
+
+    /**
+     * @param int $maxAge
+     */
+    public function setMaxAge($maxAge)
+    {
         $this->maxAge = $maxAge;
     }
 
@@ -67,7 +98,7 @@ class Checkout implements XmlSerializable
             $this->customer->xmlSerialize($parent);
         }
 
-        if ($this->this->redirectTo !== null) {
+        if ($this->redirectTo !== null) {
             $parent->addChild('redirectURL', $this->redirectTo);
         }
 

@@ -5,7 +5,11 @@ use PHPSC\PagSeguro\Items\ItemCollection;
 use PHPSC\PagSeguro\Shipping\Shipping;
 use PHPSC\PagSeguro\XmlSerializable;
 use SimpleXMLElement;
+use PHPSC\PagSeguro\Items\Items;
 
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Order implements XmlSerializable
 {
     /**
@@ -35,21 +39,43 @@ class Order implements XmlSerializable
 
     /**
      * @param ItemCollection $items
+     */
+    public function __construct(ItemCollection $items = null)
+    {
+        $this->items = $items ?: new Items();
+        $this->currency = 'BRL';
+    }
+
+    /**
+     * @return ItemCollection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
      * @param string $reference
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+    }
+
+    /**
      * @param Shipping $shipping
+     */
+    public function setShipping(Shipping $shipping)
+    {
+        $this->shipping = $shipping;
+    }
+
+    /**
      * @param float $extraAmount
      */
-    public function __construct(
-        ItemCollection $items,
-        $reference = null,
-        Shipping $shipping = null,
-        $extraAmount = null
-    ) {
-        $this->items = $items;
-        $this->reference = $reference;
-        $this->shipping = $shipping;
+    public function setExtraAmount($extraAmount)
+    {
         $this->extraAmount = $extraAmount;
-        $this->currency = 'BRL';
     }
 
     /**

@@ -7,8 +7,19 @@ use PHPSC\PagSeguro\Requests\Redirection;
 use PHPSC\PagSeguro\Service;
 use SimpleXMLElement;
 
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class CheckoutService extends Service implements CheckoutServiceInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function createCheckoutBuilder()
+    {
+        return new CheckoutBuilder();
+    }
+
     /**
      * {@inheritdoc}
      */

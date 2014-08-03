@@ -36,42 +36,38 @@ O uso básico é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
-use PHPSC\PagSeguro\Item;
-use PHPSC\PagSeguro\Purchases\Order;
-use PHPSC\PagSeguro\Purchases\OrderingService;
-use PHPSC\PagSeguro\Service\Credentials;
+use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Customer\Customer;
+use PHPSC\PagSeguro\Environments\Production;
+use PHPSC\PagSeguro\Environments\Sandbox;
+use PHPSC\PagSeguro\Items\Item;
+use PHPSC\PagSeguro\Requests\Checkout\CheckoutService;
+
+// $environment = new Production(); // Este é o valor padrão caso o parâmetro $environment não seja informado
+$environment = new Sandbox();
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO',
     'TOKEN DE ACESSO À API',
-    false // este é o valor padrão e não precisa ser informado, ele define se será utilizado o modo SANDBOX ou não.
+    $environment
 );
 
-$service = new OrderingService($credentials); // cria instância do serviço de pagamentos
+$service = new CheckoutService($credentials); // cria instância do serviço de pagamentos
 
 try {
-    $response = $service->checkout( // Envia a solicitação de pagamento
-        new Order(
-            array( // Coleção de itens a serem pagos (O limite de itens é definido pelo webservice da Pagseguro)
-                new Item(
-                	'1', // ID do item
-                	'Televisão LED 500 polegadas', // Descrição do item
-                	8999.99 // Valor do item
-            	),
-            	new Item(
-                	'2', // ID do item
-                	'Video-game mega ultra blaster', // Descrição do item
-                	799.99 // Valor do item
-            	)
-            )
-        )
-    );
+    $checkout = $service->createCheckoutBuilder()
+                        ->addItem(new Item(1, 'Televisão LED 500', 8999.99))
+                        ->addItem(new Item(2, 'Video-game mega ultra blaster', 799.99))
+                        ->getCheckout();
+    
+    $response = $service->checkout($checkout);
 
     header('Location: ' . $response->getRedirectionUrl()); // Redireciona o usuário
 } catch (Exception $error) { // Caso ocorreu algum erro
     echo $error->getMessage(); // Exibe na tela a mensagem de erro
 }
 ```
+
 ### Notificações de compras
 
 Este serviço é responsável por buscar uma transação a partir do código da notificação, ele 
@@ -119,6 +115,7 @@ try {
     echo $error->getMessage(); // Exibe na tela a mensagem de erro
 }
 ```
+
 ### Consultas de compras
 
 Este serviço é responsável por buscar uma transação a partir do código da transação, ele 

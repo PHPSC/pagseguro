@@ -68,4 +68,14 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals('123', 'code', $redirection);
         $this->assertAttributeEquals(new DateTime('2010-12-02T10:11:28.000-02:00'), 'date', $redirection);
     }
+
+    /**
+     * @test
+     */
+    public function createCheckoutBuilderShouldReturnANewBuilderInstance()
+    {
+        $service = new CheckoutService($this->credentials, $this->client);
+
+        $this->assertInstanceOf('PHPSC\PagSeguro\Requests\CheckoutBuilder', $service->createCheckoutBuilder());
+    }
 }

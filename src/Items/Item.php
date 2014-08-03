@@ -121,8 +121,14 @@ class Item implements XmlSerializable
         $item->addChild('description', substr($this->description, 0, 100));
         $item->addChild('amount', number_format($this->amount, 2, '.', ''));
         $item->addChild('quantity', (int) $this->quantity);
-        $item->addChild('shippingCost', number_format($this->shippingCost, 2, '.', ''));
-        $item->addChild('weight', (int) $this->weight);
+
+        if ($this->weight !== null) {
+            $item->addChild('weight', (int) $this->weight);
+        }
+
+        if ($this->shippingCost !== null) {
+            $item->addChild('shippingCost', number_format($this->shippingCost, 2, '.', ''));
+        }
 
         return $item;
     }

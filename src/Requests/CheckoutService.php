@@ -19,6 +19,11 @@ interface CheckoutService
     const ENDPOINT = '/v2/checkout';
 
     /**
+     * @return CheckoutBuilder
+     */
+    public function createCheckoutBuilder();
+
+    /**
      * @param Checkout $checkout
      *
      * @return Redirection
