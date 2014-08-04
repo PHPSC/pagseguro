@@ -1,11 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro\Requests\Checkout;
 
-use DateTime;
 use PHPSC\PagSeguro\Requests\CheckoutService as CheckoutServiceInterface;
-use PHPSC\PagSeguro\Requests\Redirection;
-use PHPSC\PagSeguro\Service;
-use SimpleXMLElement;
+use PHPSC\PagSeguro\Requests\Service;
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Client\Client;
 
@@ -53,19 +50,5 @@ class CheckoutService extends Service implements CheckoutServiceInterface
         );
 
         return $this->getRedirection($response);
-    }
-
-    /**
-     * @param SimpleXMLElement $obj
-     *
-     * @return Response
-     */
-    protected function getRedirection(SimpleXMLElement $obj)
-    {
-        return new Redirection(
-            (string) $obj->code,
-            new DateTime((string) $obj->date),
-            $this->credentials->getUrl(static::REDIRECT_TO)
-        );
     }
 }

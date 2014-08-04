@@ -1,7 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\Requests;
 
-use PHPSC\PagSeguro\Requests\PreApprovals\PreApproval;
+use PHPSC\PagSeguro\Requests\PreApprovals\Request;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -11,17 +11,24 @@ interface PreApprovalService
     /**
      * @var string
      */
-    const REDIRECT_TO = 'https://pagseguro.uol.com.br/v2/pre-approvals/request.html';
+    const ENDPOINT = '/v2/pre-approvals/request';
 
     /**
      * @var string
      */
-    const SANDBOX_REDIRECT_TO = 'https://sandbox.pagseguro.uol.com.br/v2/pre-approvals/request.html';
+    const REDIRECT_TO = '/v2/pre-approvals/request.html';
 
     /**
-     * @param PreApproval $approval
+     * @param boolean $manualCharge
+     *
+     * @return RequestBuilder
+     */
+    public function createRequestBuilder($manualCharge = true);
+
+    /**
+     * @param Request $request
      *
      * @return Redirection
      */
-    public function approve(PreApproval $approval);
+    public function approve(Request $request);
 }
