@@ -25,17 +25,50 @@ class Charge
     private $reference;
 
     /**
-     * @param string $subscriptionCode
      * @param ItemCollection $items
+     */
+    public function __construct(ItemCollection $items = null)
+    {
+        $this->items = $items ?: new Items();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionCode()
+    {
+        return $this->subscriptionCode;
+    }
+
+    /**
+     * @param string $subscriptionCode
+     */
+    public function setSubscriptionCode($subscriptionCode)
+    {
+        $this->subscriptionCode = $subscriptionCode;
+    }
+
+    /**
+     * @return ItemCollection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
      * @param string $reference
      */
-    public function __construct(
-        $subscriptionCode,
-        ItemCollection $items = null,
-        $reference = null
-    ) {
-        $this->subscriptionCode = $subscriptionCode;
-        $this->items = $items ?: new Items();
+    public function setReference($reference)
+    {
         $this->reference = $reference;
     }
 }

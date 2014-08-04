@@ -82,9 +82,9 @@ use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Requests\Checkout\CheckoutService;
 
-$service = new CheckoutService($credentials); // cria instância do serviço de pagamentos
-
 try {
+    $service = new CheckoutService($credentials); // cria instância do serviço de pagamentos
+    
     $checkout = $service->createCheckoutBuilder()
                         ->addItem(new Item(1, 'Televisão LED 500', 8999.99))
                         ->addItem(new Item(2, 'Video-game mega ultra blaster', 799.99))
@@ -129,9 +129,9 @@ use DateTime;
 use PHPSC\PagSeguro\Requests\PreApprovals\Period;
 use PHPSC\PagSeguro\Requests\PreApprovals\PreApprovalService;
 
-$service = new PreApprovalService($credentials); // cria instância do serviço de pagamentos
-
 try {
+    $service = new PreApprovalService($credentials); // cria instância do serviço de pagamentos
+    
     $request = $service->createRequestBuilder()
                    ->setName('Nome da assinatura')
                    ->setPeriod(Period::MONTHLY)
@@ -160,9 +160,9 @@ use DateTime;
 use PHPSC\PagSeguro\Requests\PreApprovals\Period;
 use PHPSC\PagSeguro\Requests\PreApprovals\PreApprovalService;
 
-$service = new PreApprovalService($credentials); // cria instância do serviço de pagamentos
-
 try {
+    $service = new PreApprovalService($credentials); // cria instância do serviço de pagamentos
+    
     $request = $service->createRequestBuilder(false)
                    ->setName('Nome da assinatura')
                    ->setPeriod(Period::MONTHLY)
@@ -208,11 +208,11 @@ O uso básico é:
 use PHPSC\PagSeguro\Purchases\Subscriptions\Locator as SubscriptionLocator;
 use PHPSC\PagSeguro\Purchases\Transactions\Locator as TransactionLocator;
 
-$service = $_POST['notificationType'] == 'preApproval'
-           ? new SubscriptionLocator($credentials)
-           : new TransactionLocator($credentials); // Cria instância do serviço de acordo com o tipo da notificação
-
 try {
+    $service = $_POST['notificationType'] == 'preApproval'
+               ? new SubscriptionLocator($credentials)
+               : new TransactionLocator($credentials); // Cria instância do serviço de acordo com o tipo da notificação
+               
     $purchase = $service->getByNotification($_POST['notificationCode']);
 
     var_dump($purchase); // Exibe na tela a transação ou assinatura atualizada
@@ -223,8 +223,8 @@ try {
 
 ### Busca por código
 
-Este serviço é responsável por buscar uma transação a partir do código da transação, ele 
-deve ser utilizado para buscar os dados de pagamento de uma venda. Seu fluxo básico é:
+Este serviço é responsável por buscar uma transação ou assinatura a partir de seu código, ele 
+deve ser utilizado para buscar os dados completos de uma transação/aassinatura. Seu fluxo básico é:
 
     Loja                                  PagSeguro
      |                                        |
@@ -232,8 +232,8 @@ deve ser utilizado para buscar os dados de pagamento de uma venda. Seu fluxo bá
      |                                        |
      |<---- (B) envia resposta ---------------|
      
-* (A) A loja busca a transação a partir do código da transação (recebido na solicitação de pagamento)
-* (B) PagSeguro envia resposta da requisição com os detalhes da transação
+* (A) A loja busca a transação a partir do código da transação/assinatura (recebido na solicitação de pagamento)
+* (B) PagSeguro envia resposta da requisição com os detalhes da transação/assinatura
 
 O uso para busca de transações é:
 
@@ -241,14 +241,11 @@ O uso para busca de transações é:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado e as credenciais foram configuradas em $credentials
 
-// Caso estiver testando, a linha abaixo deve estar descomentada (assim o pagseguro conseguirá enviar requisições locais via JavaScript)
-// header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
-
 use PHPSC\PagSeguro\Purchases\Transactions\Locator;
 
-$service = new Locator($credentials); // Cria instância do serviço de localização de transações
-
 try {
+    $service = new Locator($credentials); // Cria instância do serviço de localização de transações
+    
     $transaction = $service->getByCode('CÓDIGO');
 
     var_dump($transaction); // Exibe na tela a transação
@@ -263,17 +260,82 @@ Para assinaturas é muito similar:
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado e as credenciais foram configuradas em $credentials
 
-// Caso estiver testando, a linha abaixo deve estar descomentada (assim o pagseguro conseguirá enviar requisições locais via JavaScript)
-// header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
-
 use PHPSC\PagSeguro\Purchases\Subscriptions\Locator;
 
-$service = new Locator($credentials); // Cria instância do serviço de localização de assinaturas
-
 try {
+    $service = new Locator($credentials); // Cria instância do serviço de localização de assinaturas
+    
     $subscription = $service->getByCode('CÓDIGO');
 
     var_dump($subscription); // Exibe na tela a assinatura
+} catch (Exception $error) { // Caso ocorreu algum erro
+    echo $error->getMessage(); // Exibe na tela a mensagem de erro
+}
+```
+
+### Gerenciamento da assinatura
+
+O serviço de assinaturas possibilita duas ações a partir do código da assinatura: cobrança (apenas quando a assinatura é de cobrança manual) e cancelamento.
+
+#### Cobrança
+
+Este método é responsável por realizar uma nova cobrança para uma assinatura de cobrança manual. Seu fluxo básico é:
+
+    Loja                                  PagSeguro
+     |                                        |
+     |----- (A) solicita dados -------------->|
+     |                                        |
+     |<---- (B) envia resposta ---------------|
+     
+* (A) A loja busca envia uma nova cobrança com o código da assinatura e o detalhe dos itens
+* (B) PagSeguro envia resposta da requisição com o código da transação de cobrança
+
+O uso básico é:
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado e as credenciais foram configuradas em $credentials
+
+use PHPSC\PagSeguro\Purchases\Subscriptions\SubscriptionService;
+
+try {
+    $service = new SubscriptionService($credentials); // Cria instância do serviço de gerenciamento de assinaturas
+    
+    $charge = $service->createChargeBuilder('CÓDIGO DA ASSINATURA')
+                      ->addItem(new Item(1, 'Pagamento assinatura 1/4', 10))
+                      ->getCharge();
+
+    var_dump($service->charge($charge)); // Exibe na tela a resposta da cobrança
+} catch (Exception $error) { // Caso ocorreu algum erro
+    echo $error->getMessage(); // Exibe na tela a mensagem de erro
+}
+```
+
+#### Cancelamento
+
+Este método é responsável por realizar o cancelamento de uma assinatura pela loja. Seu fluxo básico é:
+
+    Loja                                  PagSeguro
+     |                                        |
+     |----- (A) solicita dados -------------->|
+     |                                        |
+     |<---- (B) envia resposta ---------------|
+     
+* (A) A loja busca envia a solicitação de cancelamento com o código da assinatura
+* (B) PagSeguro envia resposta da requisição
+
+O uso básico é:
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado e as credenciais foram configuradas em $credentials
+
+use PHPSC\PagSeguro\Purchases\Subscriptions\SubscriptionService;
+
+try {
+    $service = new SubscriptionService($credentials); // Cria instância do serviço de gerenciamento de assinaturas
+    
+    var_dump($service->cancel('CÓDIGO DA ASSINATURA')); // Exibe na tela a resposta do cancelamento
 } catch (Exception $error) { // Caso ocorreu algum erro
     echo $error->getMessage(); // Exibe na tela a mensagem de erro
 }
