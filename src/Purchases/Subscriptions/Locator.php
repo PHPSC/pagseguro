@@ -7,26 +7,34 @@ use PHPSC\PagSeguro\Purchases\NotificationService;
 use PHPSC\PagSeguro\Purchases\SearchService;
 use PHPSC\PagSeguro\Service;
 
-class SubscriptionLocator extends Service implements SearchService, NotificationService
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
+class Locator extends Service implements SearchService, NotificationService
 {
     /**
-     * @var SubscriptionDecoder
+     * @var string
+     */
+    const ENDPOINT = '/v2/pre-approvals';
+
+    /**
+     * @var Decoder
      */
     private $decoder;
 
     /**
      * @param Credentials $credentials
      * @param Client $client
-     * @param SubscriptionDecoder $decoder
+     * @param Decoder $decoder
      */
     public function __construct(
         Credentials $credentials,
         Client $client = null,
-        SubscriptionDecoder $decoder = null
+        Decoder $decoder = null
     ) {
         parent::__construct($credentials, $client);
 
-        $this->decoder = $decoder ?: new SubscriptionDecoder();
+        $this->decoder = $decoder ?: new Decoder();
     }
 
     /**
@@ -34,6 +42,7 @@ class SubscriptionLocator extends Service implements SearchService, Notification
      */
     public function getByCode($code)
     {
+        return $this->decoder->decode($this->get(static::ENDPOINT . '/' . $code));
     }
 
     /**
@@ -41,5 +50,6 @@ class SubscriptionLocator extends Service implements SearchService, Notification
      */
     public function getByNotification($code)
     {
+        return $this->decoder->decode($this->get(static::ENDPOINT . '/notifications/' . $code));
     }
 }

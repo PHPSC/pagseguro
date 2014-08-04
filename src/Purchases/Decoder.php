@@ -22,7 +22,7 @@ abstract class Decoder
         return new Details(
             (string) $obj->code,
             isset($obj->reference) ? (string) $obj->reference : null,
-            (int) $obj->status,
+            (string) $obj->status,
             new DateTime((string) $obj->date),
             new DateTime((string) $obj->lastEventDate),
             $this->createCustomer($obj->sender)
@@ -66,7 +66,8 @@ abstract class Decoder
         return new Customer(
             (string) $customer->email,
             isset($customer->name) ? (string) $customer->name : null,
-            $phone
+            $phone,
+            isset($customer->address) ? $this->createAddress($customer->address) : null
         );
     }
 }

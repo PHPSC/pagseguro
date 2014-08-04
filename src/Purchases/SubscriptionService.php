@@ -11,7 +11,12 @@ interface SubscriptionService
     /**
      * @var string
      */
-    const ENDPOINT = '/v2/pre-approvals';
+    const CHARGE_ENDPOINT = '/v2/pre-approvals/payment';
+
+    /**
+     * @var string
+     */
+    const CANCEL_ENDPOINT = '/v2/pre-approvals/cancel';
 
     /**
      * @param string $code

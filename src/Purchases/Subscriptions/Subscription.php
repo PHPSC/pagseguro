@@ -2,7 +2,11 @@
 namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 
 use PHPSC\PagSeguro\Purchases\Details;
+use PHPSC\PagSeguro\Requests\PreApprovals\ChargeType;
 
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Subscription
 {
     const INITIATED = 'INITIATED';
@@ -29,27 +33,27 @@ class Subscription
     private $tracker;
 
     /**
+     * @var string
+     */
+    private $chargeType;
+
+    /**
      * @param string $name
      * @param Details $details
      * @param string $tracker
-     * @param boolean $automatic
+     * @param string $chargeType
      */
     public function __construct(
         $name,
         Details $details,
         $tracker,
-        $automatic
+        $chargeType
     ) {
         $this->name = $name;
         $this->details = $details;
         $this->tracker = $tracker;
-        $this->automatic = $automatic;
+        $this->chargeType = $chargeType;
     }
-
-    /**
-     * @var boolean
-     */
-    private $automatic;
 
     /**
      * @return string
@@ -80,7 +84,15 @@ class Subscription
      */
     public function isAutomatic()
     {
-        return $this->automatic;
+        return $this->chargeType == ChargeType::AUTOMATIC;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isManual()
+    {
+        return $this->chargeType == ChargeType::MANUAL;
     }
 
     /**

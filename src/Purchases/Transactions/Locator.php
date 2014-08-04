@@ -13,6 +13,11 @@ use PHPSC\PagSeguro\Service;
 class Locator extends Service implements SearchService, NotificationService
 {
     /**
+     * @var string
+     */
+    const ENDPOINT = '/v2/transactions';
+
+    /**
      * @var Decoder
      */
     private $decoder;
