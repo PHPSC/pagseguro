@@ -1,10 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
-use SimpleXMLElement;
-use PHPSC\PagSeguro\XmlSerializable;
-
-class Address implements XmlSerializable
+class Address
 {
     /**
      * @var string
@@ -132,27 +129,5 @@ class Address implements XmlSerializable
     public function getComplement()
     {
         return $this->complement;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function xmlSerialize(SimpleXMLElement $parent)
-    {
-        $address = $parent->addChild('address');
-
-        $address->addChild('country', $this->country);
-        $address->addChild('state', strtoupper(substr($this->state, 0, 2)));
-        $address->addChild('city', substr($this->city, 0, 60));
-        $address->addChild('postalCode', substr($this->postalCode, 0, 8));
-        $address->addChild('district', substr($this->district, 0, 60));
-        $address->addChild('street', substr($this->street, 0, 80));
-        $address->addChild('number', substr($this->number, 0, 20));
-
-        if ($this->complement !== null) {
-            $address->addChild('complement', substr($this->complement, 0, 40));
-        }
-
-        return $address;
     }
 }

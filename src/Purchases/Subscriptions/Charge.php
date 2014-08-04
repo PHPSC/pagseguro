@@ -2,10 +2,8 @@
 namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 
 use PHPSC\PagSeguro\Items\ItemCollection;
-use PHPSC\PagSeguro\XmlSerializable;
-use SimpleXMLElement;
 
-class Charge implements XmlSerializable
+class Charge
 {
     /**
      * @var string
@@ -35,15 +33,5 @@ class Charge implements XmlSerializable
         $this->subscriptionCode = $subscriptionCode;
         $this->items = $items;
         $this->reference = $reference;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function xmlSerialize(SimpleXMLElement $parent)
-    {
-        //TODO: implement it!
-
-        return $parent;
     }
 }

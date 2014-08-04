@@ -2,13 +2,11 @@
 namespace PHPSC\PagSeguro\Requests\Checkout;
 
 use PHPSC\PagSeguro\Customer\Customer;
-use PHPSC\PagSeguro\XmlSerializable;
-use SimpleXMLElement;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class Checkout implements XmlSerializable
+class Checkout
 {
     /**
      * @var Order
@@ -56,11 +54,27 @@ class Checkout implements XmlSerializable
     }
 
     /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
      * @param Customer $customer
      */
     public function setCustomer(Customer $customer)
     {
         $this->customer = $customer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectTo()
+    {
+        return $this->redirectTo;
     }
 
     /**
@@ -72,6 +86,14 @@ class Checkout implements XmlSerializable
     }
 
     /**
+     * @return int
+     */
+    public function getMaxUses()
+    {
+        return $this->maxUses;
+    }
+
+    /**
      * @param int $maxUses
      */
     public function setMaxUses($maxUses)
@@ -80,36 +102,18 @@ class Checkout implements XmlSerializable
     }
 
     /**
+     * @return int
+     */
+    public function getMaxAge()
+    {
+        return $this->maxAge;
+    }
+
+    /**
      * @param int $maxAge
      */
     public function setMaxAge($maxAge)
     {
         $this->maxAge = $maxAge;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function xmlSerialize(SimpleXMLElement $parent)
-    {
-        $this->order->xmlSerialize($parent);
-
-        if ($this->customer !== null) {
-            $this->customer->xmlSerialize($parent);
-        }
-
-        if ($this->redirectTo !== null) {
-            $parent->addChild('redirectURL', $this->redirectTo);
-        }
-
-        if ($this->maxUses !== null) {
-            $parent->addChild('maxUses', $this->maxUses);
-        }
-
-        if ($this->maxAge !== null) {
-            $parent->addChild('maxAge', $this->maxAge);
-        }
-
-        return $parent;
     }
 }

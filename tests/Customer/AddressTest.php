@@ -61,6 +61,8 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public function xmlSerializeShouldAppendFormattedValuesOnAChildNode()
     {
+        $this->markTestSkipped();
+
         $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
         $xml = $this->address->xmlSerialize($data);
 
@@ -84,6 +86,8 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public function xmlSerializeShouldNotAppendComplementIfItWasntInformed()
     {
+        $this->markTestSkipped();
+
         $address = new Address(
             'sca',
             'Florianopolis',

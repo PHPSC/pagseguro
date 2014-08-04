@@ -20,6 +20,11 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected $credentials;
 
+    /**
+     * @var CheckoutSerializer|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $serializer;
+
     protected function setUp()
     {
         $environment = $this->getMockForAbstractClass('PHPSC\PagSeguro\Environment');
@@ -34,6 +39,14 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', array(), array(), '', false);
         $this->credentials = new Credentials('test@test.com', 'test', $environment);
+
+        $this->serializer = $this->getMock(
+            'PHPSC\PagSeguro\Requests\Checkout\CheckoutSerializer',
+            array(),
+            array(),
+            '',
+            false
+        );
     }
 
     /**
@@ -43,22 +56,25 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
     {
         $checkout = $this->getMock('PHPSC\PagSeguro\Requests\Checkout\Checkout', array(), array(), '', false);
 
-        $checkout->expects($this->any())
-                 ->method('xmlSerialize');
-
         $wsUri = 'https://ws.test.com/v2/checkout?email=test%40test.com&token=test';
+        $request = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout />');
 
         $response = simplexml_load_string(
             '<?xml version="1.0" encoding="UTF-8"?>'
             . '<checkout><code>123</code><date>2010-12-02T10:11:28.000-02:00</date></checkout>'
         );
 
+        $this->serializer->expects($this->once())
+                         ->method('serialize')
+                         ->with($checkout)
+                         ->willReturn($request);
+
         $this->client->expects($this->once())
                      ->method('post')
-                     ->with($wsUri, $this->isInstanceOf('SimpleXMLElement'))
+                     ->with($wsUri, $request)
                      ->willReturn($response);
 
-        $service = new CheckoutService($this->credentials, $this->client);
+        $service = new CheckoutService($this->credentials, $this->client, $this->serializer);
         $redirection = $service->checkout($checkout);
 
         $redirectUri = 'https://test.com/v2/checkout/payment.html';
@@ -74,7 +90,7 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function createCheckoutBuilderShouldReturnANewBuilderInstance()
     {
-        $service = new CheckoutService($this->credentials, $this->client);
+        $service = new CheckoutService($this->credentials, $this->client, $this->serializer);
 
         $this->assertInstanceOf('PHPSC\PagSeguro\Requests\CheckoutBuilder', $service->createCheckoutBuilder());
     }

@@ -6,12 +6,34 @@ use PHPSC\PagSeguro\Requests\CheckoutService as CheckoutServiceInterface;
 use PHPSC\PagSeguro\Requests\Redirection;
 use PHPSC\PagSeguro\Service;
 use SimpleXMLElement;
+use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Client\Client;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class CheckoutService extends Service implements CheckoutServiceInterface
 {
+    /**
+     * @var CheckoutSerializer
+     */
+    private $serializer;
+
+    /**
+     * @param Credentials $credentials
+     * @param Client $client
+     * @param CheckoutSerializer $serializer
+     */
+    public function __construct(
+        Credentials $credentials,
+        Client $client = null,
+        CheckoutSerializer $serializer = null
+    ) {
+        parent::__construct($credentials, $client);
+
+        $this->serializer = $serializer ?: new CheckoutSerializer();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -25,22 +47,12 @@ class CheckoutService extends Service implements CheckoutServiceInterface
      */
     public function checkout(Checkout $checkout)
     {
-        $response = $this->post(static::ENDPOINT, $this->createRequest($checkout));
+        $response = $this->post(
+            static::ENDPOINT,
+            $this->serializer->serialize($checkout)
+        );
 
         return $this->getRedirection($response);
-    }
-
-    /**
-     * @param Checkout $checkout
-     *
-     * @return SimpleXMLElement
-     */
-    protected function createRequest(Checkout $checkout)
-    {
-        $request = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout />');
-        $checkout->xmlSerialize($request);
-
-        return $request;
     }
 
     /**

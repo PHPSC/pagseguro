@@ -1,13 +1,10 @@
 <?php
 namespace PHPSC\PagSeguro\Items;
 
-use SimpleXMLElement;
-use PHPSC\PagSeguro\XmlSerializable;
-
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class Item implements XmlSerializable
+class Item
 {
     /**
      * @var string
@@ -109,27 +106,5 @@ class Item implements XmlSerializable
     public function getWeight()
     {
         return $this->weight;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function xmlSerialize(SimpleXMLElement $parent)
-    {
-        $item = $parent->addChild('item');
-        $item->addChild('id', substr($this->id, 0, 100));
-        $item->addChild('description', substr($this->description, 0, 100));
-        $item->addChild('amount', number_format($this->amount, 2, '.', ''));
-        $item->addChild('quantity', (int) $this->quantity);
-
-        if ($this->weight !== null) {
-            $item->addChild('weight', (int) $this->weight);
-        }
-
-        if ($this->shippingCost !== null) {
-            $item->addChild('shippingCost', number_format($this->shippingCost, 2, '.', ''));
-        }
-
-        return $item;
     }
 }

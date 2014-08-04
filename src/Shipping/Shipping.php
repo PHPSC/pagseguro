@@ -3,13 +3,11 @@ namespace PHPSC\PagSeguro\Shipping;
 
 use InvalidArgumentException;
 use PHPSC\PagSeguro\Customer\Address;
-use PHPSC\PagSeguro\XmlSerializable;
-use SimpleXMLElement;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class Shipping implements XmlSerializable
+class Shipping
 {
     /**
      * @var int
@@ -72,24 +70,5 @@ class Shipping implements XmlSerializable
     public function getCost()
     {
         return $this->cost;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function xmlSerialize(SimpleXMLElement $parent)
-    {
-        $shipping = $parent->addChild('shipping');
-        $shipping->addChild('type', $this->type);
-
-        if ($this->address !== null) {
-            $this->address->xmlSerialize($shipping);
-        }
-
-        if ($this->cost !== null) {
-            $shipping->addChild('cost', $this->cost);
-        }
-
-        return $shipping;
     }
 }

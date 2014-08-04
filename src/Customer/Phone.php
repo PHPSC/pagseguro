@@ -1,10 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
-use PHPSC\PagSeguro\XmlSerializable;
-use SimpleXMLElement;
-
-class Phone implements XmlSerializable
+class Phone
 {
     /**
      * @var string
@@ -40,17 +37,5 @@ class Phone implements XmlSerializable
     public function getNumber()
     {
         return $this->number;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function xmlSerialize(SimpleXMLElement $parent)
-    {
-        $phone = $parent->addChild('phone');
-        $phone->addChild('areaCode', substr($this->areaCode, 0, 2));
-        $phone->addChild('number', substr($this->number, 0, 9));
-
-        return $phone;
     }
 }
