@@ -4,7 +4,10 @@ namespace PHPSC\PagSeguro\Purchases\Transactions;
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Client\Client;
 
-class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
+class LocatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Credentials
@@ -17,7 +20,7 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
     protected $client;
 
     /**
-     * @var TransactionDecoder|\PHPUnit_Framework_MockObject_MockObject
+     * @var Decoder|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $decoder;
 
@@ -42,7 +45,7 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
         $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', array(), array(), '', false);
 
         $this->decoder = $this->getMock(
-            'PHPSC\PagSeguro\Purchases\Transactions\TransactionDecoder',
+            'PHPSC\PagSeguro\Purchases\Transactions\Decoder',
             array(),
             array(),
             '',
@@ -75,7 +78,7 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
                       ->with($xml)
                       ->willReturn($this->transaction);
 
-        $service = new TransactionLocator($this->credentials, $this->client, $this->decoder);
+        $service = new Locator($this->credentials, $this->client, $this->decoder);
 
         $this->assertSame($this->transaction, $service->getByCode(1));
     }
@@ -97,7 +100,7 @@ class TransactionLocatorTest extends \PHPUnit_Framework_TestCase
                       ->with($xml)
                       ->willReturn($this->transaction);
 
-        $service = new TransactionLocator($this->credentials, $this->client, $this->decoder);
+        $service = new Locator($this->credentials, $this->client, $this->decoder);
 
         $this->assertSame($this->transaction, $service->getByNotification(1));
     }

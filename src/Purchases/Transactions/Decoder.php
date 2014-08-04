@@ -4,11 +4,14 @@ namespace PHPSC\PagSeguro\Purchases\Transactions;
 use DateTime;
 use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Items\Items;
-use PHPSC\PagSeguro\Purchases\Decoder;
+use PHPSC\PagSeguro\Purchases\Decoder as BaseDecoder;
 use PHPSC\PagSeguro\Shipping\Shipping;
 use SimpleXMLElement;
 
-class TransactionDecoder extends Decoder
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
+class Decoder extends BaseDecoder
 {
     /**
      * @param SimpleXMLElement $obj

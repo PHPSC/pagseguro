@@ -2,7 +2,11 @@
 namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 
 use PHPSC\PagSeguro\Items\ItemCollection;
+use PHPSC\PagSeguro\Items\Items;
 
+/**
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Charge
 {
     /**
@@ -27,11 +31,11 @@ class Charge
      */
     public function __construct(
         $subscriptionCode,
-        ItemCollection $items,
+        ItemCollection $items = null,
         $reference = null
     ) {
         $this->subscriptionCode = $subscriptionCode;
-        $this->items = $items;
+        $this->items = $items ?: new Items();
         $this->reference = $reference;
     }
 }
