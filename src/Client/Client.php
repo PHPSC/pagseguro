@@ -22,7 +22,7 @@ class Client
     public function __construct(HttpClient $client = null)
     {
         $this->client = $client ?: new HttpClient();
-        $this->client->getEventDispatcher()->addListener('request.error', array($this, 'handleError'));
+        $this->client->getEventDispatcher()->addListener('request.error', [$this, 'handleError']);
     }
 
     /**
@@ -49,9 +49,9 @@ class Client
     {
         $request = $this->client->post(
             $url,
-            array('Content-Type' => 'application/xml; charset=UTF-8'),
+            ['Content-Type' => 'application/xml; charset=UTF-8'],
             $body->asXML(),
-            array('verify' => false)
+            ['verify' => false]
         );
 
         return $request->send()->xml();
@@ -64,7 +64,7 @@ class Client
      */
     public function get($url)
     {
-        $request = $this->client->get($url, null, array('verify' => false));
+        $request = $this->client->get($url, null, ['verify' => false]);
 
         return $request->send()->xml();
     }

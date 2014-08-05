@@ -19,7 +19,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = new Credentials('a@a.com', 't');
-        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', [], [], '', false);
     }
 
     /**
@@ -29,7 +29,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getMockForAbstractClass(
             'PHPSC\PagSeguro\Service',
-            array($this->credentials, $this->client)
+            [$this->credentials, $this->client]
         );
 
         $this->assertAttributeSame($this->credentials, 'credentials', $service);
@@ -43,7 +43,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getMockForAbstractClass(
             'PHPSC\PagSeguro\Service',
-            array($this->credentials)
+            [$this->credentials]
         );
 
         $this->assertAttributeInstanceOf('PHPSC\PagSeguro\Client\Client', 'client', $service);
