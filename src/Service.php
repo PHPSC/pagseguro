@@ -35,7 +35,7 @@ abstract class Service
      *
      * @return SimpleXMLElement
      */
-    protected function get($resource, array $params = array())
+    protected function get($resource, array $params = [])
     {
         return $this->client->get($this->credentials->getWsUrl($resource, $params));
     }
