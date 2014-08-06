@@ -20,7 +20,7 @@ class Details
     protected $reference;
 
     /**
-     * @var mixed
+     * @var integer
      */
     protected $status;
 
@@ -57,7 +57,7 @@ class Details
     ) {
         $this->code = $code;
         $this->reference = $reference;
-        $this->status = $status;
+        $this->status = (int) $status;
         $this->date = $date;
         $this->lastEventDate = $lastEventDate;
         $this->customer = $customer;
