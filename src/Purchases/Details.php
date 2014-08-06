@@ -57,7 +57,7 @@ class Details
     ) {
         $this->code = $code;
         $this->reference = $reference;
-        $this->status = (int) $status;
+        $this->status = $status;
         $this->date = $date;
         $this->lastEventDate = $lastEventDate;
         $this->customer = $customer;
