@@ -14,37 +14,37 @@ class Transaction
     /**
      * @var int
      */
-    const WAITING_PAYMENT = 1;
+    const WAITING_PAYMENT = '1';
 
     /**
      * @var int
      */
-    const UNDER_ANALYSIS = 2;
+    const UNDER_ANALYSIS = '2';
 
     /**
      * @var int
      */
-    const PAID = 3;
+    const PAID = '3';
 
     /**
      * @var int
      */
-    const AVAILABLE = 4;
+    const AVAILABLE = '4';
 
     /**
      * @var int
      */
-    const UNDER_CONTEST = 5;
+    const UNDER_CONTEST = '5';
 
     /**
      * @var int
      */
-    const RETURNED = 6;
+    const RETURNED = '6';
 
     /**
      * @var int
      */
-    const CANCELLED = 7;
+    const CANCELLED = '7';
 
     /**
      * @var Details
