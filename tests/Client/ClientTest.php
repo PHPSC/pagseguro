@@ -27,9 +27,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->httpClient = $this->getMock('Guzzle\Http\Client', array(), array(), '', false);
-        $this->request = $this->getMock('Guzzle\Http\Message\Request', array(), array(), '', false);
-        $this->response = $this->getMock('Guzzle\Http\Message\Response', array(), array(), '', false);
+        $this->httpClient = $this->getMock('Guzzle\Http\Client', [], [], '', false);
+        $this->request = $this->getMock('Guzzle\Http\Message\Request', [], [], '', false);
+        $this->response = $this->getMock('Guzzle\Http\Message\Response', [], [], '', false);
 
         $this->httpClient->expects($this->any())
                          ->method('getEventDispatcher')
@@ -69,7 +69,7 @@ XML;
     public function handleErrorShouldBypassEventWhenHostIsNotFromPagSeguro()
     {
         $client = new Client($this->httpClient);
-        $event = new Event(array('request' => $this->request, 'response' => $this->response));
+        $event = new Event(['request' => $this->request, 'response' => $this->response]);
 
         $this->request->expects($this->any())
                       ->method('getHost')
@@ -85,7 +85,7 @@ XML;
     public function handleErrorShouldRaiseExceptionWhenHostIsFromPagSeguro()
     {
         $client = new Client($this->httpClient);
-        $event = new Event(array('request' => $this->request, 'response' => $this->response));
+        $event = new Event(['request' => $this->request, 'response' => $this->response]);
 
         $this->request->expects($this->any())
                       ->method('getHost')
@@ -114,9 +114,9 @@ XML;
                          ->method('post')
                          ->with(
                              '/test',
-                             array('Content-Type' => 'application/xml; charset=UTF-8'),
+                             ['Content-Type' => 'application/xml; charset=UTF-8'],
                              $xml->asXML(),
-                             array('verify' => false)
+                             ['verify' => false]
                          )->willReturn($this->request);
 
         $this->assertInstanceOf('SimpleXMLElement', $client->post('/test', $xml));
@@ -131,7 +131,7 @@ XML;
 
         $this->httpClient->expects($this->once())
                          ->method('get')
-                         ->with('/test?name=Test', null, array('verify' => false))
+                         ->with('/test?name=Test', null, ['verify' => false])
                          ->willReturn($this->request);
 
         $this->assertInstanceOf('SimpleXMLElement', $client->get('/test?name=Test'));

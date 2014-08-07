@@ -87,7 +87,7 @@ class CredentialsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'https://ws.test.com/test?page=1&email=contato%40phpsc.com.br&token=testing',
-            $credentials->getWsUrl('/test', array('page' => '1'))
+            $credentials->getWsUrl('/test', ['page' => '1'])
         );
     }
 }

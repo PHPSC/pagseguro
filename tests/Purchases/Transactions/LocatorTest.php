@@ -42,20 +42,20 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
                     ->willReturn('ws.test.com');
 
         $this->credentials = new Credentials('a@a.com', 't', $environment);
-        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', [], [], '', false);
 
         $this->decoder = $this->getMock(
             'PHPSC\PagSeguro\Purchases\Transactions\Decoder',
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
 
         $this->transaction = $this->getMock(
             'PHPSC\PagSeguro\Purchases\Transactions\Transaction',
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );

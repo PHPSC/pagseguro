@@ -52,11 +52,11 @@ class Credentials
      *
      * @return string
      */
-    public function getWsUrl($resource, array $params = array())
+    public function getWsUrl($resource, array $params = [])
     {
         $params = array_merge(
             $params,
-            array('email' => $this->email, 'token' => $this->token)
+            ['email' => $this->email, 'token' => $this->token]
         );
 
         return sprintf(

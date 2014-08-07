@@ -23,6 +23,6 @@ class ChargeType
      */
     public static function isValid($type)
     {
-        return in_array($type, array(static::AUTOMATIC, static::MANUAL));
+        return in_array($type, [static::AUTOMATIC, static::MANUAL]);
     }
 }
