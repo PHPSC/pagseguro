@@ -37,13 +37,13 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
                     ->method('getWsHost')
                     ->willReturn('ws.test.com');
 
-        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', array(), array(), '', false);
+        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', [], [], '', false);
         $this->credentials = new Credentials('test@test.com', 'test', $environment);
 
         $this->serializer = $this->getMock(
             'PHPSC\PagSeguro\Requests\Checkout\CheckoutSerializer',
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
@@ -54,7 +54,7 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function checkoutShouldDoAPostRequestReturningTheRedirection()
     {
-        $checkout = $this->getMock('PHPSC\PagSeguro\Requests\Checkout\Checkout', array(), array(), '', false);
+        $checkout = $this->getMock('PHPSC\PagSeguro\Requests\Checkout\Checkout', [], [], '', false);
 
         $wsUri = 'https://ws.test.com/v2/checkout?email=test%40test.com&token=test';
         $request = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout />');

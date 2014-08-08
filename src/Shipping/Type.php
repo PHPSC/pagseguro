@@ -26,7 +26,7 @@ class Type
      */
     public static function getTypes()
     {
-        return array(static::TYPE_PAC, static::TYPE_SEDEX, static::TYPE_UNKNOWN);
+        return [static::TYPE_PAC, static::TYPE_SEDEX, static::TYPE_UNKNOWN];
     }
 
     /**

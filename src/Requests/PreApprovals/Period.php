@@ -41,14 +41,14 @@ class Period
      */
     protected static function getPeriods()
     {
-        return array(
+        return [
             static::WEEKLY,
             static::MONTHLY,
             static::BIMONTHLY,
             static::TRIMONTHLY,
             static::SEMESTRALLY,
             static::YEARLY
-        );
+        ];
     }
 
     /**
