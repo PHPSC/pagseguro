@@ -72,7 +72,7 @@ class RequestSerializer extends Serializer
         }
 
         if ($initialDate = $approval->getInitialDate()) {
-            $child->addChild('amountPerPayment', $initialDate->format(DateTime::W3C));
+            $child->addChild('initialDate', $initialDate->format(DateTime::W3C));
         }
 
         if ($maxPaymentsPerPeriod = $approval->getMaxPaymentsPerPeriod()) {
