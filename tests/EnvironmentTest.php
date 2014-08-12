@@ -19,7 +19,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->environment = $this->getMockForAbstractClass('PHPSC\PagSeguro\Environment');
+        $this->environment = $this->getMockForAbstractClass(Environment::class);
 
         $this->environment->expects($this->any())
                           ->method('getHost')

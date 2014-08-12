@@ -41,7 +41,7 @@ class CheckoutTest extends \PHPUnit_Framework_TestCase
     public function constructShouldCreateANewOrderWhenItWasntInformed()
     {
         $this->assertAttributeInstanceOf(
-            'PHPSC\PagSeguro\Requests\Checkout\Order',
+            Order::class,
             'order',
             new Checkout()
         );

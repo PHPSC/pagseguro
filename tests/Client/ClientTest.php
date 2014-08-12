@@ -27,9 +27,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->httpClient = $this->getMock('Guzzle\Http\Client', [], [], '', false);
-        $this->request = $this->getMock('Guzzle\Http\Message\Request', [], [], '', false);
-        $this->response = $this->getMock('Guzzle\Http\Message\Response', [], [], '', false);
+
+        $this->httpClient = $this->getMock(HttpClient::class, [], [], '', false);
+        $this->request = $this->getMock(Request::class, [], [], '', false);
+        $this->response = $this->getMock(Response::class, [], [], '', false);
 
         $this->httpClient->expects($this->any())
                          ->method('getEventDispatcher')
@@ -80,7 +81,7 @@ XML;
 
     /**
      * @test
-     * @expectedException PHPSC\PagSeguro\Client\PagSeguroException
+     * @expectedException \PHPSC\PagSeguro\Client\PagSeguroException
      */
     public function handleErrorShouldRaiseExceptionWhenHostIsFromPagSeguro()
     {

@@ -13,7 +13,7 @@ class PagSeguroExceptionTest extends \PHPUnit_Framework_TestCase
         $response = new Response(500, null, 'Server gone mad');
         $exception = PagSeguroException::create($response);
 
-        $this->assertInstanceOf('PHPSC\PagSeguro\Client\PagSeguroException', $exception);
+        $this->assertInstanceOf(PagSeguroException::class, $exception);
         $this->assertEquals('[500] A HTTP error has occurred: Server gone mad', $exception->getMessage());
     }
 
@@ -45,7 +45,7 @@ MESSAGE;
         $response = new Response(400, null, $xml);
         $exception = PagSeguroException::create($response);
 
-        $this->assertInstanceOf('PHPSC\PagSeguro\Client\PagSeguroException', $exception);
+        $this->assertInstanceOf(PagSeguroException::class, $exception);
         $this->assertEquals($message, $exception->getMessage());
     }
 }

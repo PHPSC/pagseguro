@@ -4,6 +4,8 @@ namespace PHPSC\PagSeguro\Requests\Checkout;
 use DateTime;
 use PHPSC\PagSeguro\Client\Client;
 use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Environment;
+use PHPSC\PagSeguro\Requests\Redirection;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -27,7 +29,7 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $environment = $this->getMockForAbstractClass('PHPSC\PagSeguro\Environment');
+        $environment = $this->getMockForAbstractClass(Environment::class);
 
         $environment->expects($this->any())
                     ->method('getHost')
@@ -37,11 +39,11 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
                     ->method('getWsHost')
                     ->willReturn('ws.test.com');
 
-        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', [], [], '', false);
+        $this->client = $this->getMock(Client::class, [], [], '', false);
         $this->credentials = new Credentials('test@test.com', 'test', $environment);
 
         $this->serializer = $this->getMock(
-            'PHPSC\PagSeguro\Requests\Checkout\CheckoutSerializer',
+            CheckoutSerializer::class,
             [],
             [],
             '',
@@ -54,7 +56,7 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function checkoutShouldDoAPostRequestReturningTheRedirection()
     {
-        $checkout = $this->getMock('PHPSC\PagSeguro\Requests\Checkout\Checkout', [], [], '', false);
+        $checkout = $this->getMock(Checkout::class, [], [], '', false);
 
         $wsUri = 'https://ws.test.com/v2/checkout?email=test%40test.com&token=test';
         $request = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout />');
@@ -79,7 +81,7 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
 
         $redirectUri = 'https://test.com/v2/checkout/payment.html';
 
-        $this->assertInstanceOf('PHPSC\PagSeguro\Requests\Redirection', $redirection);
+        $this->assertInstanceOf(Redirection::class, $redirection);
         $this->assertAttributeEquals($redirectUri, 'uri', $redirection);
         $this->assertAttributeEquals('123', 'code', $redirection);
         $this->assertAttributeEquals(new DateTime('2010-12-02T10:11:28.000-02:00'), 'date', $redirection);
@@ -92,6 +94,6 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = new CheckoutService($this->credentials, $this->client, $this->serializer);
 
-        $this->assertInstanceOf('PHPSC\PagSeguro\Requests\CheckoutBuilder', $service->createCheckoutBuilder());
+        $this->assertInstanceOf(CheckoutBuilder::class, $service->createCheckoutBuilder());
     }
 }

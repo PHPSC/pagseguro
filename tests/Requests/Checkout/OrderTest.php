@@ -24,7 +24,7 @@ class OrderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->items = $this->getMock('PHPSC\PagSeguro\Items\ItemCollection');
+        $this->items = $this->getMock(ItemCollection::class);
         $this->order = new Order($this->items);
     }
 
@@ -42,7 +42,7 @@ class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldCreateAnItemCollectionWhenItWasntInformed()
     {
-        $this->assertAttributeInstanceOf('PHPSC\PagSeguro\Items\ItemCollection', 'items', new Order());
+        $this->assertAttributeInstanceOf(ItemCollection::class, 'items', new Order());
     }
 
     /**

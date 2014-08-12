@@ -1,6 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro;
 
+use PHPSC\PagSeguro\Client\Client;
+
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
@@ -19,7 +21,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = new Credentials('a@a.com', 't');
-        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', [], [], '', false);
+        $this->client = $this->getMock(Client::class, [], [], '', false);
     }
 
     /**
@@ -28,7 +30,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     public function constructorShouldConfigureAttributes()
     {
         $service = $this->getMockForAbstractClass(
-            'PHPSC\PagSeguro\Service',
+            Service::class,
             [$this->credentials, $this->client]
         );
 
@@ -42,10 +44,10 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     public function constructorShouldCreateAClientWhenItWasntInformed()
     {
         $service = $this->getMockForAbstractClass(
-            'PHPSC\PagSeguro\Service',
+            Service::class,
             [$this->credentials]
         );
 
-        $this->assertAttributeInstanceOf('PHPSC\PagSeguro\Client\Client', 'client', $service);
+        $this->assertAttributeInstanceOf(Client::class, 'client', $service);
     }
 }

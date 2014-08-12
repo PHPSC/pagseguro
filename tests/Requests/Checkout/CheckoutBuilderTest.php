@@ -43,7 +43,7 @@ class CheckoutBuilderTest extends \PHPUnit_Framework_TestCase
     public function constructShouldCreateANewCheckoutWhenItWasntInformed()
     {
         $this->assertAttributeInstanceOf(
-            'PHPSC\PagSeguro\Requests\Checkout\Checkout',
+            Checkout::class,
             'checkout',
             new CheckoutBuilder()
         );
