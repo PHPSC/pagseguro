@@ -35,7 +35,7 @@ $credentials = new Credentials('EMAIL CADASTRADO NO PAGSEGURO', 'TOKEN DE ACESSO
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO', 
-    'TOKEN DE ACESSO À API'
+    'TOKEN DE ACESSO À API',
     new Production()
 );
 
@@ -43,7 +43,7 @@ $credentials = new Credentials(
 
 $credentials = new Credentials(
     'EMAIL CADASTRADO NO PAGSEGURO', 
-    'TOKEN DE ACESSO À API'
+    'TOKEN DE ACESSO À API',
     new Sandbox()
 );
 ```
