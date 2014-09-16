@@ -1,11 +1,13 @@
 <?php
 namespace PHPSC\PagSeguro\Shipping;
 
+use PHPSC\PagSeguro\Customer\Address;
+
 class ShippingTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function constructorMustRaiseExceptionWhenTypeIsInvalid()
     {
@@ -41,7 +43,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      */
     public function constructorMustBeAbleToReceiveTypeAndAddress()
     {
-        $address = $this->getMock('PHPSC\PagSeguro\Customer\Address', [], [], '', false);
+        $address = $this->getMock(Address::class, [], [], '', false);
         $shipping = new Shipping(Type::TYPE_PAC, $address);
 
         $this->assertAttributeEquals(Type::TYPE_PAC, 'type', $shipping);
@@ -54,7 +56,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      */
     public function constructorMustBeAbleToReceiveAllArguments()
     {
-        $address = $this->getMock('PHPSC\PagSeguro\Customer\Address', [], [], '', false);
+        $address = $this->getMock(Address::class, [], [], '', false);
         $shipping = new Shipping(Type::TYPE_PAC, $address, '10.31');
 
         $this->assertAttributeEquals(Type::TYPE_PAC, 'type', $shipping);
@@ -67,7 +69,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      */
     public function getterShouldReturnConfiguredData()
     {
-        $address = $this->getMock('PHPSC\PagSeguro\Customer\Address', [], [], '', false);
+        $address = $this->getMock(Address::class, [], [], '', false);
         $shipping = new Shipping(Type::TYPE_PAC, $address, '10.31');
 
         $this->assertEquals(Type::TYPE_PAC, $shipping->getType());
@@ -84,7 +86,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
 
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><test />');
 
-        $address = $this->getMock('PHPSC\PagSeguro\Customer\Address', [], [], '', false);
+        $address = $this->getMock(Address::class, [], [], '', false);
         $shipping = new Shipping(Type::TYPE_PAC, $address, '10.31');
 
         $address->expects($this->once())

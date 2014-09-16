@@ -45,8 +45,8 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
         $name = str_repeat('a', 55);
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><test />');
 
-        $phone = $this->getMock('PHPSC\PagSeguro\Customer\Phone', [], [], '', false);
-        $address = $this->getMock('PHPSC\PagSeguro\Customer\Address', [], [], '', false);
+        $phone = $this->getMock(Phone::class, [], [], '', false);
+        $address = $this->getMock(Address::class, [], [], '', false);
         $customer = new Customer($name . '@test.com', $name, $phone, $address);
 
         $phone->expects($this->any())
