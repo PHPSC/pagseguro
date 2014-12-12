@@ -1,5 +1,7 @@
 # API PagSeguro
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/PHPSC/pagseguro?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 API de integração com o PagSeguro para PHP 5.3+, deve ser utilizado um Autoloader compatível com a PSR-4.
 
 ## Instalação
