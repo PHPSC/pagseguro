@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=5.5",
-        "guzzle/guzzle": "~3.8",
+        "guzzlehttp/guzzle": "~5.0",
         "doctrine/collections": "~1.2@dev"
     },
     "require-dev": {

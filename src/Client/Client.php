@@ -1,8 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro\Client;
 
-use Guzzle\Common\Event;
-use Guzzle\Http\Client as HttpClient;
+use GuzzleHttp\Event\ErrorEvent as Event;
+use GuzzleHttp\Client as HttpClient;
 use PHPSC\PagSeguro\Environment;
 use SimpleXMLElement;
 
@@ -22,7 +22,7 @@ class Client
     public function __construct(HttpClient $client = null)
     {
         $this->client = $client ?: new HttpClient();
-        $this->client->getEventDispatcher()->addListener('request.error', [$this, 'handleError']);
+        $this->client->getEmitter()->on('error', [$this, 'handleError']);
     }
 
     /**
@@ -32,11 +32,11 @@ class Client
      */
     public function handleError(Event $event)
     {
-        if (!Environment::isValid($event['request']->getHost())) {
+        if (!Environment::isValid($event->getRequest()->getHost())) {
             return ;
         }
 
-        throw PagSeguroException::create($event['response']);
+        throw PagSeguroException::create($event->getResponse());
     }
 
     /**
@@ -47,14 +47,16 @@ class Client
      */
     public function post($url, SimpleXMLElement $body)
     {
-        $request = $this->client->post(
+        $response = $this->client->post(
             $url,
-            ['Content-Type' => 'application/xml; charset=UTF-8'],
-            $body->asXML(),
-            ['verify' => false]
+            [
+                'headers' => ['Content-Type' => 'application/xml; charset=UTF-8'],
+                'body' => $body->asXML(),
+                'verify' => false
+            ]
         );
 
-        return $request->send()->xml();
+        return $response->xml();
     }
 
     /**
@@ -64,8 +66,8 @@ class Client
      */
     public function get($url)
     {
-        $request = $this->client->get($url, null, ['verify' => false]);
+        $response = $this->client->get($url, ['verify' => false]);
 
-        return $request->send()->xml();
+        return $response->xml();
     }
 }

@@ -1,7 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro\Client;
 
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Message\Response;
 
 class PagSeguroExceptionTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +11,7 @@ class PagSeguroExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function createShouldCreateAGenericMessageWhenStatusCodeIsNot400()
     {
-        $response = new Response(500, null, 'Server gone mad');
+        $response = new Response(500, [], Stream::factory('Server gone mad'));
         $exception = PagSeguroException::create($response);
 
         $this->assertInstanceOf(PagSeguroException::class, $exception);
@@ -42,7 +43,7 @@ Some errors occurred:
 [11005] Currency invalid value: 100
 MESSAGE;
 
-        $response = new Response(400, null, $xml);
+        $response = new Response(400, [], Stream::factory($xml));
         $exception = PagSeguroException::create($response);
 
         $this->assertInstanceOf(PagSeguroException::class, $exception);

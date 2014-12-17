@@ -1,7 +1,7 @@
 <?php
 namespace PHPSC\PagSeguro\Client;
 
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Message\Response;
 
 class PagSeguroException extends \RuntimeException
 {
