@@ -26,6 +26,7 @@
         "phpunit/phpunit": "*",
         "squizlabs/php_codesniffer": "~1.5",
         "pdepend/pdepend": "~2.0",
+        "phpmd/phpmd": "~2.1",
         "sebastian/phpcpd": "*"
     },
     "autoload": {
