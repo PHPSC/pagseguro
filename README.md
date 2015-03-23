@@ -229,7 +229,16 @@ try {
                : new TransactionLocator($credentials); // Cria instância do serviço de acordo com o tipo da notificação
                
     $purchase = $service->getByNotification($_POST['notificationCode']);
+    
+    /* $purchase é um objeto da classe PHPSC\PagSeguro\Purchases\Transactions\Transaction  */
+    $isPaid = $purchase->isPaid();
 
+    /* $details é um objeto da classe PHPSC\PagSeguro\Customer\Customer\Details */
+    $details = $purchase->getDetails();
+    
+    $referenceCode = $details->getReference();
+    $paymentStatus = $details->getStatus();
+    
     var_dump($purchase); // Exibe na tela a transação ou assinatura atualizada
 } catch (Exception $error) { // Caso ocorreu algum erro
     echo $error->getMessage(); // Exibe na tela a mensagem de erro
