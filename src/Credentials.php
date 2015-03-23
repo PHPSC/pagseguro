@@ -3,6 +3,7 @@ namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Environment;
 use PHPSC\PagSeguro\Environments\Production;
+use PHPSC\PagSeguro\Environments\Sandbox;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -65,4 +66,19 @@ class Credentials
             http_build_query($params)
         );
     }
+    
+    /**
+     * @return Credentials $credentials
+     */
+    static public function createFromEnv()
+    {
+        return new Credentials(
+            getenv('PAGSEGURO_EMAIL'),
+            getenv('PAGSEGURO_ENV') == 'SANDBOX' ? 
+                        getenv('PAGSEGURO_TOKEN_SANDBOX') : 
+                        getenv('PAGSEGURO_TOKEN_PRODUCTION'),
+            getenv('PAGSEGURO_ENV') == 'SANDBOX' ? new Sandbox() : new Production(),
+        );
+    }
+    
 }
