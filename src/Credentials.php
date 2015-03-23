@@ -77,7 +77,7 @@ class Credentials
             getenv('PAGSEGURO_ENV') == 'SANDBOX' ? 
                         getenv('PAGSEGURO_TOKEN_SANDBOX') : 
                         getenv('PAGSEGURO_TOKEN_PRODUCTION'),
-            getenv('PAGSEGURO_ENV') == 'SANDBOX' ? new Sandbox() : new Production(),
+            getenv('PAGSEGURO_ENV') == 'SANDBOX' ? new Sandbox() : new Production()
         );
     }
     
