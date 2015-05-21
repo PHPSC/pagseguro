@@ -44,6 +44,10 @@ class CheckoutSerializer extends Serializer
         if ($maxAge = $checkout->getMaxAge()) {
             $xml->addChild('maxAge', $maxAge);
         }
+
+        if ($notificationURL = $checkout->getNotificationURL()) {
+            $xml->addChild('notificationURL', $notificationURL);
+        }
     }
 
     /**
