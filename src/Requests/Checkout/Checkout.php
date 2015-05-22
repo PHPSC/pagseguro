@@ -34,6 +34,11 @@ class Checkout
     private $maxAge;
 
     /**
+    * @var string
+    */
+    private $notificationURL;
+
+    /**
      * @param Order $order
      * @param Customer $customer
      * @param string $redirectTo
@@ -115,5 +120,21 @@ class Checkout
     public function setMaxAge($maxAge)
     {
         $this->maxAge = $maxAge;
+    }
+
+    /**
+    * @return string
+    */
+    public function getNotificationURL()
+    {
+        return $this->notificationURL;
+    }
+
+    /**
+    * @param string $notificationURL
+    */
+    public function setNotificationURL($notificationURL)
+    {
+        $this->notificationURL = $notificationURL;
     }
 }
