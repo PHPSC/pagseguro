@@ -46,6 +46,10 @@ class CheckoutSerializer extends Serializer
         }
     }
 
+    if ($notificationURL = $checkout->getNotificationURL()) {
+        $xml->addChild('notificationURL', $notificationURL);
+    }
+
     /**
      * @param SimpleXMLElement $xml
      * @param Order $order
