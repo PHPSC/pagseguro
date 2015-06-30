@@ -21,20 +21,28 @@ class Locator extends Service implements SearchService, NotificationService
      * @var Decoder
      */
     private $decoder;
+    
+    /**
+     * @var DecoderTransactionSearch
+     */
+    private $decoderTransactionSearch;
 
     /**
      * @param Credentials $credentials
      * @param Client $client
      * @param Decoder $decoder
+     * @param DecoderTransactionSearch
      */
     public function __construct(
         Credentials $credentials,
         Client $client = null,
-        Decoder $decoder = null
+        Decoder $decoder = null,
+        DecoderTransactionSearch $decoderTransactionSearch = null
     ) {
         parent::__construct($credentials, $client);
 
         $this->decoder = $decoder ?: new Decoder();
+        $this->decoderTransactionSearch = $decoderTransactionSearch ?: new DecoderTransactionSearch();
     }
 
     /**
@@ -53,5 +61,23 @@ class Locator extends Service implements SearchService, NotificationService
     public function getByNotification($code)
     {
         return $this->decoder->decode($this->get(static::ENDPOINT . '/notifications/' . $code));
+    }
+    
+    /**
+     * Consultar transações por período
+     * @param \DateTime $initialDate Data inicial do intervalo
+     * @param \DateTime $finalDate Data final do intervalo
+     * @param int $page Página Página de resultados a ser retornada.
+     * @param type $maxPageResults Número máximo de resultados por página.
+     * @return TransactionSearchResult
+     */
+    public function getByPeriod(\DateTime $initialDate, \DateTime $finalDate, $page = 1, $maxPageResults = 50 )
+    {
+        return $this->decoderTransactionSearch->decode($this->get(static::ENDPOINT . '/', array(
+            'initialDate' => $initialDate->format('Y-m-d\TH:i'),
+            'finalDate' => $finalDate->format('Y-m-d\TH:i'),
+            'page' => $page,
+            'maxPageResults' => $maxPageResults
+        )));
     }
 }
