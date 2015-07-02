@@ -53,7 +53,7 @@ class Details
         $status,
         DateTime $date,
         DateTime $lastEventDate,
-        Customer $customer
+        Customer $customer = null
     ) {
         $this->code = $code;
         $this->reference = $reference;

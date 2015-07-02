@@ -21,7 +21,7 @@ class Locator extends Service implements SearchService, NotificationService
      * @var Decoder
      */
     private $decoder;
-
+    
     /**
      * @param Credentials $credentials
      * @param Client $client
@@ -53,5 +53,23 @@ class Locator extends Service implements SearchService, NotificationService
     public function getByNotification($code)
     {
         return $this->decoder->decode($this->get(static::ENDPOINT . '/notifications/' . $code));
+    }
+    
+    /**
+     * Consultar transações por período
+     * @param \DateTime $initialDate Data inicial do intervalo
+     * @param \DateTime $finalDate Data final do intervalo
+     * @param int $page Página Página de resultados a ser retornada.
+     * @param type $maxPageResults Número máximo de resultados por página.
+     * @return TransactionSearchResult
+     */
+    public function getByPeriod(\DateTime $initialDate, \DateTime $finalDate, $page = 1, $maxPageResults = 50)
+    {
+        return $this->decoder->decodeTransactionSearch($this->get(static::ENDPOINT . '/', [
+            'initialDate' => $initialDate->format('Y-m-d\TH:i'),
+            'finalDate' => $finalDate->format('Y-m-d\TH:i'),
+            'page' => $page,
+            'maxPageResults' => $maxPageResults
+        ]));
     }
 }

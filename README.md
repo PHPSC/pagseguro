@@ -239,7 +239,7 @@ try {
 ### Busca por código
 
 Este serviço é responsável por buscar uma transação ou assinatura a partir de seu código, ele 
-deve ser utilizado para buscar os dados completos de uma transação/aassinatura. Seu fluxo básico é:
+deve ser utilizado para buscar os dados completos de uma transação/assinatura. Seu fluxo básico é:
 
     Loja                                  PagSeguro
      |                                        |
@@ -283,6 +283,45 @@ try {
     $subscription = $service->getByCode('CÓDIGO');
 
     var_dump($subscription); // Exibe na tela a assinatura
+} catch (Exception $error) { // Caso ocorreu algum erro
+    echo $error->getMessage(); // Exibe na tela a mensagem de erro
+}
+```
+
+### Busca por período
+
+Este serviço é responsável por buscar uma transação em determinado perído, ele 
+deve ser utilizado para buscar os dados completos de uma transação em um perído máximo de 30 dias. Seu fluxo básico é:
+
+    Loja                                  PagSeguro
+     |                                        |
+     |----- (A) solicita dados -------------->|
+     |                                        |
+     |<---- (B) envia resposta ---------------|
+     
+* (A) A loja busca a transação a partir de um período determinado
+* (B) PagSeguro envia resposta da requisição com os detalhes das transações
+
+O uso para busca de transações por período é:
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado e as credenciais foram configuradas em $credentials
+
+use PHPSC\PagSeguro\Purchases\Transactions\Locator;
+use DateTime
+try {
+    $service = new Locator($credentials); // Cria instância do serviço de localização de transações
+    $initialDate = new DateTime('2015-01-01 08:00:00');
+    $finalDate = new DateTime('2015-01-10 23:59:00');
+    $transaction = $service->getByPeriod($initialDate, $finalDate);
+    // ou
+    $page = 1; //padrão 1
+    $maxPageResults = 50; // padrão 50
+    $transactionSearchResult = $service->getByPeriod($initialDate, $finalDate, $page, $maxPageResults);
+
+    var_dump($transactionSearchResult); // Exibe o resultado
+    var_dump($transactionSearchResult->getTransactions()); // exibe as transações
 } catch (Exception $error) { // Caso ocorreu algum erro
     echo $error->getMessage(); // Exibe na tela a mensagem de erro
 }

@@ -6,6 +6,7 @@ use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Items\Items;
 use PHPSC\PagSeguro\Purchases\Decoder as BaseDecoder;
 use PHPSC\PagSeguro\Shipping\Shipping;
+use PHPSC\PagSeguro\Purchases\Transactions\TransactionSearchItem;
 use SimpleXMLElement;
 
 /**
@@ -26,6 +27,25 @@ class Decoder extends BaseDecoder
             (int) $obj->type,
             $this->createItems($obj->items),
             $this->createShipping($obj->shipping)
+        );
+    }
+    
+    /**
+     * @param SimpleXMLElement $obj
+     * @return TransactionSearchResult
+     */
+    public function decodeTransactionSearch(SimpleXMLElement $obj)
+    {
+        $transactions = [];
+        foreach ($obj->transactions->transaction as $transaction) {
+            $transactions[] = $this->createTransactionSearchItem($transaction);
+        }
+        return new TransactionSearchResult(
+            new DateTime((string) $obj->date),
+            $transactions,
+            $obj->resultsInThisPage,
+            $obj->currentPage,
+            $obj->totalPages
         );
     }
 
@@ -84,6 +104,29 @@ class Decoder extends BaseDecoder
             (int) $shipping->type,
             isset($shipping->address) ? $this->createAddress($shipping->address) : null,
             isset($shipping->cost) ? (float) $shipping->cost : null
+        );
+    }
+    
+    /**
+     * 
+     * @param SimpleXMLElement $transaction
+     * @return TransactionSearchItem
+     */
+    public function createTransactionSearchItem($transaction)
+    {
+        return new TransactionSearchItem(
+            $this->createDetails($transaction),
+            (int) $transaction->type,
+            (string) $transaction->cancellationSource,
+            new PaymentMethod(
+                (int) $transaction->paymentMethod->type,
+                (int) $transaction->paymentMethod->code
+            ),
+            (float) $transaction->grossAmount,
+            (float) $transaction->discountAmount,
+            (float) $transaction->feeAmount,
+            (float) $transaction->netAmount,
+            (float) $transaction->extraAmount
         );
     }
 }

@@ -25,7 +25,7 @@ abstract class Decoder
             (string) $obj->status,
             new DateTime((string) $obj->date),
             new DateTime((string) $obj->lastEventDate),
-            $this->createCustomer($obj->sender)
+            isset($obj->sender) ? $this->createCustomer($obj->sender) : null
         );
     }
 
