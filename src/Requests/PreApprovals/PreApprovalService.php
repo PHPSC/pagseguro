@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Requests\PreApprovals;
 
 use PHPSC\PagSeguro\Client\Client;

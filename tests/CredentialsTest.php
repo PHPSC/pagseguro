@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Environments\Production;

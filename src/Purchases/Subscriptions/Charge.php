@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 
 use PHPSC\PagSeguro\Items\ItemCollection;

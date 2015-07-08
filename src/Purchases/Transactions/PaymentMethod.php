@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Purchases\Transactions;
 
 class PaymentMethod

@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Customer;
 
 class PhoneTest extends \PHPUnit_Framework_TestCase

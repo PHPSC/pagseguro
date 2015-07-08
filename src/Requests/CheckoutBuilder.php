@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Requests;
 
 use PHPSC\PagSeguro\Customer\Customer;

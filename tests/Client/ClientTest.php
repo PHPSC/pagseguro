@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Client;
 
 use GuzzleHttp\Event\ErrorEvent as Event;
