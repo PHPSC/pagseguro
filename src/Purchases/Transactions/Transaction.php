@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Purchases\Transactions;
 
 use DateTime;
@@ -93,7 +94,7 @@ class Transaction
     }
 
     /**
-     * @return TransactionDetails
+     * @return Details
      */
     public function getDetails()
     {

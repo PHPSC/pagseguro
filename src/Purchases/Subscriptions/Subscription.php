@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 
 use PHPSC\PagSeguro\Purchases\Details;
@@ -64,7 +65,7 @@ class Subscription
     }
 
     /**
-     * @return TransactionDetails
+     * @return Details
      */
     public function getDetails()
     {
