@@ -93,7 +93,7 @@ class Transaction
     }
 
     /**
-     * @return TransactionDetails
+     * @return Details
      */
     public function getDetails()
     {

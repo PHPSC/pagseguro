@@ -64,7 +64,7 @@ class Subscription
     }
 
     /**
-     * @return TransactionDetails
+     * @return Details
      */
     public function getDetails()
     {
