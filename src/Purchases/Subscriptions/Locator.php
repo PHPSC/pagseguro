@@ -52,4 +52,27 @@ class Locator extends Service implements SearchService, NotificationService
     {
         return $this->decoder->decode($this->get(static::ENDPOINT . '/notifications/' . $code));
     }
+
+   /**
+     * @param $interval - Interval of days
+     * @return Transaction
+     */
+    public function getByDaysInterval($interval)
+    {
+        return $this->decoder->decode($this->get(static::ENDPOINT . '/notifications/', ['interval' => $interval]));
+    }
+
+    /**
+     * Get data between interval of dates.
+     *
+     * Important! The $initialDate must be lower than $finalDate.
+     *
+     * @param $initialDate - The initial date. The format is yyyy-mm-ddThh:mm
+     * @param $finalDate - The final date. The format is yyyy-mm-ddThh:mm
+     * @return Transaction
+     */
+    public function getByDateInterval($initialDate, $finalDate)
+    {
+        return $this->decoder->decode($this->get(static::ENDPOINT, ['initialDate' => $initialDate, 'finalDate' => $finalDate]));
+    }
 }
