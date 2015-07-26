@@ -30,11 +30,6 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
      * @var Transaction|\PHPUnit_Framework_MockObject_MockObject
      */
     private $transaction;
-    
-    /**
-     * @var TransactionSearchResult|\PHPUnit_Framework_MockObject_MockObject
-     */
-    private $transactionSearchResult;
 
     protected function setUp()
     {
@@ -61,14 +56,6 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
 
         $this->transaction = $this->getMock(
             Transaction::class,
-            [],
-            [],
-            '',
-            false
-        );
-        
-        $this->transactionSearchResult = $this->getMock(
-            TransactionSearchResult::class,
             [],
             [],
             '',
@@ -145,16 +132,22 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
                     '&email=a%40a.com&token=t'
                 )
                 ->willReturn($xml);
-
+        $transactionSearchResult = $this->getMock(
+            TransactionSearchResult::class,
+            [],
+            [],
+            '',
+            false
+        );
         $this->decoder->expects($this->once())
                 ->method('decodeTransactionSearch')
                 ->with($xml)
-                ->willReturn($this->transactionSearchResult);
+                ->willReturn($transactionSearchResult);
 
         $service = new Locator($this->credentials, $this->client, $this->decoder);
 
         $this->assertSame(
-            $this->transactionSearchResult,
+            $transactionSearchResult,
             $service->getByPeriod($initialDate, $finalDate, $page, $maxPageResults)
         );
     }
