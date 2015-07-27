@@ -7,6 +7,7 @@ use PHPSC\PagSeguro\Items\Items;
 use PHPSC\PagSeguro\Purchases\Decoder as BaseDecoder;
 use PHPSC\PagSeguro\Shipping\Shipping;
 use PHPSC\PagSeguro\Purchases\Transactions\TransactionSearchItem;
+use PHPSC\PagSeguro\Purchases\Transactions\TransactionSearchResult;
 use SimpleXMLElement;
 
 /**
