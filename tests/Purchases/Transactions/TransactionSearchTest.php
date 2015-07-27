@@ -25,7 +25,8 @@ class TransactionSearchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($transactionSearchResult->getTotalPages(), '1');
         $this->assertEquals(count($transactionSearchResult->getTransactions()), 2);
 
-        $transaction = array_shift($transactionSearchResult->getTransactions());
+        $transactions = $transactionSearchResult->getTransactions();
+        $transaction = $transactions[0];
         $this->assertEquals($transaction->getDetails()->getCode(), '9E884542-81B3-4419-9A75-BCC6FB495EF1');
         $this->assertEquals($transaction->getDetails()->getReference(), 'REF1234');
         $this->assertEquals($transaction->getDetails()->getStatus(), '3');
