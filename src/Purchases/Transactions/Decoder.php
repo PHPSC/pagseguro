@@ -109,11 +109,11 @@ class Decoder extends BaseDecoder
     }
     
     /**
-     * 
+     *
      * @param SimpleXMLElement $transaction
      * @return TransactionSearchItem
      */
-    public function createTransactionSearchItem($transaction)
+    public function createTransactionSearchItem(SimpleXMLElement $transaction)
     {
         return new TransactionSearchItem(
             $this->createDetails($transaction),
