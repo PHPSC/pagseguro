@@ -2,7 +2,7 @@
 namespace PHPSC\PagSeguro\Purchases\Transactions;
 
 use PHPSC\PagSeguro\Purchases\Details;
-use PHPSC\PagSeguro\Purchases\Transactions\PaymentMethod;
+use PHPSC\PagSeguro\Purchases\Transactions\Payment;
 
 class TransactionSearchItem
 {
@@ -25,66 +25,26 @@ class TransactionSearchItem
     protected $cancellationSource;
 
     /**
-     * @var PaymentMethod
+     * @var Payment
      */
-    protected $paymentMethod;
-
-    /**
-     * @var float
-     */
-    protected $grossAmount;
-
-    /**
-     * @var float
-     */
-    protected $discountAmount;
-
-    /**
-     * @var float
-     */
-    protected $feeAmount;
-
-    /**
-     * @var float
-     */
-    protected $netAmount;
-
-    /**
-     * @var float
-     */
-    protected $extraAmount;
+    protected $payment;
 
     /**
      * @param Details $details
      * @param int $type
      * @param string $cancellationSource
-     * @param PaymentMethod $paymentMethod
-     * @param float $grossAmount
-     * @param float $discountAmount
-     * @param float $feeAmount
-     * @param float $netAmount
-     * @param float $extraAmount
+     * @param Payment $payment
      */
     public function __construct(
         Details $details,
         $type,
         $cancellationSource,
-        PaymentMethod $paymentMethod,
-        $grossAmount,
-        $discountAmount = 0,
-        $feeAmount = 0,
-        $netAmount = 0,
-        $extraAmount = 0
+        Payment $payment
     ) {
         $this->details = $details;
         $this->type = $type;
         $this->cancellationSource = $cancellationSource;
-        $this->paymentMethod = $paymentMethod;
-        $this->grossAmount = $grossAmount;
-        $this->discountAmount = $discountAmount;
-        $this->feeAmount = $feeAmount;
-        $this->netAmount = $netAmount;
-        $this->extraAmount = $extraAmount;
+        $this->payment = $payment;
     }
     
     public function getDetails()
@@ -102,33 +62,8 @@ class TransactionSearchItem
         return $this->type;
     }
 
-    public function getPaymentMethod()
+    public function getPayment()
     {
-        return $this->paymentMethod;
-    }
-
-    public function getGrossAmount()
-    {
-        return $this->grossAmount;
-    }
-
-    public function getDiscountAmount()
-    {
-        return $this->discountAmount;
-    }
-
-    public function getFeeAmount()
-    {
-        return $this->feeAmount;
-    }
-
-    public function getNetAmount()
-    {
-        return $this->netAmount;
-    }
-
-    public function getExtraAmount()
-    {
-        return $this->extraAmount;
+        return $this->payment;
     }
 }

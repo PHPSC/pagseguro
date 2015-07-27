@@ -118,15 +118,7 @@ class Decoder extends BaseDecoder
             $this->createDetails($transaction),
             (int) $transaction->type,
             (string) $transaction->cancellationSource,
-            new PaymentMethod(
-                (int) $transaction->paymentMethod->type,
-                (int) $transaction->paymentMethod->code
-            ),
-            (float) $transaction->grossAmount,
-            (float) $transaction->discountAmount,
-            (float) $transaction->feeAmount,
-            (float) $transaction->netAmount,
-            (float) $transaction->extraAmount
+            $this->createPayment($transaction)
         );
     }
 }
