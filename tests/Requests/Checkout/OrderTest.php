@@ -56,6 +56,45 @@ class OrderTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function getCurrencyShouldReturnConfiguredCurrency()
+    {
+        $this->assertEquals('BRL', $this->order->getCurrency());
+    }
+
+    /**
+     * @test
+     */
+    public function getReferenceShouldReturnConfiguredReference()
+    {
+        $this->order->setReference('someRef');
+
+        $this->assertEquals('someRef', $this->order->getReference());
+    }
+
+    /**
+     * @test
+     */
+    public function getExtraAmountShouldReturnConfiguredExtraAmount()
+    {
+        $this->order->setExtraAmount(123);
+
+        $this->assertEquals(123, $this->order->getExtraAmount());
+    }
+
+    /**
+     * @test
+     */
+    public function getShippingShouldReturnConfiguredShipping()
+    {
+        $shipping = new Shipping(1);
+        $this->order->setShipping($shipping);
+
+        $this->assertSame($shipping, $this->order->getShipping());
+    }
+
+    /**
+     * @test
+     */
     public function setReferenceShouldChangeTheAttribute()
     {
         $this->order->setReference('test');
