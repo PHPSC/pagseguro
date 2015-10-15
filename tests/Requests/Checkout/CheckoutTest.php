@@ -92,4 +92,45 @@ class CheckoutTest extends \PHPUnit_Framework_TestCase
 
         $this->assertAttributeEquals(1, 'maxUses', $this->checkout);
     }
+
+    /**
+     * @test
+     */
+    public function getMaxAgeShouldReturnConfiguredMaxAge()
+    {
+        $this->checkout->setMaxAge(12);
+
+        $this->assertEquals(12, $this->checkout->getMaxAge());
+    }
+
+    /**
+     * @test
+     */
+    public function getMaxUsesShouldReturnConfiguredMaxUses()
+    {
+        $this->checkout->setMaxUses(7);
+
+        $this->assertEquals(7, $this->checkout->getMaxUses());
+    }
+
+    /**
+     * @test
+     */
+    public function getRedirectToShouldReturnConfiguredRedirectTo()
+    {
+        $this->checkout->setRedirectTo('someRedirect');
+
+        $this->assertEquals('someRedirect', $this->checkout->getRedirectTo());
+    }
+
+    /**
+     * @test
+     */
+    public function getCustomerShouldReturnConfiguredCustomer()
+    {
+        $customer = $this->getMock(Customer::class, [], [], '', false);
+        $this->checkout->setCustomer($customer);
+
+        $this->assertSame($customer, $this->checkout->getCustomer());
+    }
 }
