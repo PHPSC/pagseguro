@@ -77,6 +77,16 @@ class CheckoutBuilder implements CheckoutBuilderInterface
     /**
      * {@inheritdoc}
      */
+    public function setNotificationURL($notificationURL)
+    {
+        $this->checkout->setNotificationURL($notificationURL);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setMaxAge($maxAge)
     {
         $this->checkout->setMaxAge($maxAge);
