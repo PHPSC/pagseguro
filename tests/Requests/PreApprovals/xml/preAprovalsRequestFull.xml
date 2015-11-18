@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preApprovalRequest>
+    <sender>
+        <email>usuario@site.com</email>
+        <name>FooBar</name>
+        <phone>
+            <areaCode>11</areaCode>
+            <number>99999999</number>
+        </phone>
+        <address>
+            <country>BRA</country>
+            <state>AC</state>
+            <city>Sao Maite</city>
+            <postalCode>99500079</postalCode>
+            <district>Centro</district>
+            <street>Rua David Delgado</street>
+            <number>55</number>
+            <complement>Fundos</complement>
+        </address>
+    </sender>
+
+    <preApproval>
+        <charge>auto</charge>
+        <name>Assinatura Revista</name>
+        <period>MONTHLY</period>
+        <finalDate>2016-11-18T00:00:00+00:00</finalDate>
+        <maxTotalAmount>3000.00</maxTotalAmount>
+        <details>Cobranca Mensal da Revista</details>
+        <amountPerPayment>100.00</amountPerPayment>
+        <maxAmountPerPayment>150.00</maxAmountPerPayment>
+        <initialDate>2015-11-18T00:00:00+00:00</initialDate>
+        <maxPaymentsPerPeriod>12</maxPaymentsPerPeriod>
+        <maxAmountPerPeriod>1200.00</maxAmountPerPeriod>
+    </preApproval>
+
+    <reference>abcdef</reference>
+    <reviewURL>http://localhost/return.php</reviewURL>
+    <redirectURL>http://localhost/success.php</redirectURL>
+
+</preApprovalRequest>
