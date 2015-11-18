@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preApproval>
+    <name>Seguro Notebook</name>
+    <code>C08984</code>
+    <date>2011-11-23T13:40:00.000-02:00</date>
+    <tracker>538C53</tracker>
+    <status>CANCELLED</status>
+    <reference>REF1234</reference>
+    <lastEventDate>2011-11-25T20:04:00.000-02:00</lastEventDate>
+    <charge>auto</charge>
+    <sender>
+        <name>Nome Comprador</name>
+        <email>comprador@uol.com</email>
+        <phone>
+            <areaCode>11</areaCode>
+        <number>30389678</number>
+        </phone>
+        <address>
+            <street>ALAMEDAITU</street>
+            <number>78</number>
+            <complement>ap.2601</complement>
+            <district>J Paulista</district>
+            <city>SAO PAULO</city>
+            <state>SP</state>
+            <country>BRA</country>
+            <postalCode>01421000</postalCode>
+        </address>
+    </sender>
+</preApproval>
