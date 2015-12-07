@@ -1,0 +1,98 @@
+<?php
+namespace PHPSC\PagSeguro\Purchases\Subscriptions;
+
+use PHPSC\PagSeguro\Purchases\SubscriptionService as SubscriptionServiceInterface;
+use PHPSC\PagSeguro\Service;
+use PHPSC\PagSeguro\Credentials;
+use PHPSC\PagSeguro\Client\Client;
+use DateTime;
+use SimpleXMLElement;
+
+/**
+ * @author Renato Moura <moura137@gmail.com>
+ */
+class SubscriptionServiceTest extends \PHPUnit_Framework_TestCase
+{
+    protected function setUp()
+    {
+        $this->credentials = $this->getMock(Credentials::class, [], [], '', false);
+        $this->client = $this->getMock(CLient::class, [], [], '', false);
+        $this->serializer = $this->getMock(ChargeSerializer::class, [], [], '', false);
+    }
+
+    public function testConstructShouldSettersDecoder()
+    {
+        $service = new SubscriptionService($this->credentials, $this->client, $this->serializer);
+
+        $this->assertInstanceOf(SubscriptionServiceInterface::class, $service);
+        $this->assertInstanceOf(Service::class, $service);
+        $this->assertAttributeSame($this->serializer, 'serializer', $service);
+    }
+
+    public function testCreateChargeBuilderShouldReturnObjectBuilder()
+    {
+        $service = new SubscriptionService($this->credentials, $this->client, $this->serializer);
+
+        $this->assertEquals(new ChargeBuilder('ABCDEF'), $service->createChargeBuilder('ABCDEF'));
+    }
+
+    public function testCancelShouldDoReturnCancellationResponse()
+    {
+        $wsUrl = 'https://ws.test.com/v2/transactions?token=zzzzz';
+        $this->credentials
+            ->expects($this->once())
+            ->method('getWsUrl')
+            ->with('/v2/pre-approvals/cancel/ABCDEF', [])
+            ->willReturn($wsUrl);
+
+        $response  = '<?xml version="1.0" encoding="UTF-8"?><transaction>';
+        $response .= '<status>6</status><date>2015-11-19T11:33:54.000-03:00</date>';
+        $response .= '</transaction>';
+        $xmlResponse = new SimpleXMLElement($response);
+        $this->client
+            ->expects($this->once())
+            ->method('get')
+            ->with($wsUrl)
+            ->willReturn($xmlResponse);
+
+        $service = new SubscriptionService($this->credentials, $this->client, $this->serializer);
+
+        $expected = new CancellationResponse('6', new DateTime('2015-11-19T11:33:54.000-03:00'));
+        $this->assertEquals($expected, $service->cancel('ABCDEF'));
+    }
+
+    public function testChargeShouldDoReturnChargeResponse()
+    {
+        $charge = $this->getMock(Charge::class, [], [], '', false);
+
+        $request  = '<?xml version="1.0" encoding="UTF-8"?><payment/>';
+        $xmlRequest = new SimpleXMLElement($request);
+        $this->serializer
+            ->expects($this->once())
+            ->method('serialize')
+            ->with($charge)
+            ->willReturn($xmlRequest);
+
+        $wsUrl = 'https://ws.test.com/v2/transactions?token=zzzzz';
+        $this->credentials
+            ->expects($this->once())
+            ->method('getWsUrl')
+            ->with('/v2/pre-approvals/payment')
+            ->willReturn($wsUrl);
+
+        $response  = '<?xml version="1.0" encoding="UTF-8"?><transaction>';
+        $response .= '<transactionCode>123456</transactionCode><date>2015-11-19T11:33:54.000-03:00</date>';
+        $response .= '</transaction>';
+        $xmlResponse = new SimpleXMLElement($response);
+        $this->client
+            ->expects($this->once())
+            ->method('post')
+            ->with($wsUrl, $xmlRequest)
+            ->willReturn($xmlResponse);
+
+        $service = new SubscriptionService($this->credentials, $this->client, $this->serializer);
+
+        $expected = new ChargeResponse('123456', new DateTime('2015-11-19T11:33:54.000-03:00'));
+        $this->assertEquals($expected, $service->charge($charge));
+    }
+}
