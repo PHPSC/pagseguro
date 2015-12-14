@@ -61,23 +61,21 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public function xmlSerializeShouldAppendFormattedValuesOnAChildNode()
     {
-        $this->markTestSkipped();
-
         $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
         $xml = $this->address->xmlSerialize($data);
 
-        $this->assertNotSame($data, $xml);
-        $this->assertEquals('BRA', (string) $xml->country);
-        $this->assertEquals('SC', (string) $xml->state);
-        $this->assertEquals('Florianopolis', (string) $xml->city);
-        $this->assertEquals('12345123', (string) $xml->postalCode);
-        $this->assertEquals('Centro', (string) $xml->district);
-        $this->assertEquals('123', (string) $xml->number);
-        $this->assertEquals('Apto 200', (string) $xml->complement);
+        $this->assertSame($data, $xml);
+        $this->assertEquals('BRA', (string) $xml->address->country);
+        $this->assertEquals('sca', (string) $xml->address->state);
+        $this->assertEquals('Florianopolis', (string) $xml->address->city);
+        $this->assertEquals('123451231', (string) $xml->address->postalCode);
+        $this->assertEquals('Centro', (string) $xml->address->district);
+        $this->assertEquals('123', (string) $xml->address->number);
+        $this->assertEquals('Apto 200', (string) $xml->address->complement);
 
         $this->assertEquals(
-            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador ',
-            (string) $xml->street
+            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador das Palmeiras',
+            (string) $xml->address->street
         );
     }
 
@@ -86,33 +84,31 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public function xmlSerializeShouldNotAppendComplementIfItWasntInformed()
     {
-        $this->markTestSkipped();
-
         $address = new Address(
-            'sca',
+            'SC',
             'Florianopolis',
             '12345-1231',
             'Centro',
-            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador das Palmeiras',
+            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador',
             123
         );
 
         $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
         $xml = $address->xmlSerialize($data);
 
-        $this->assertNotSame($data, $xml);
-        $this->assertEquals('BRA', (string) $xml->country);
-        $this->assertEquals('SC', (string) $xml->state);
-        $this->assertEquals('Florianopolis', (string) $xml->city);
-        $this->assertEquals('12345123', (string) $xml->postalCode);
-        $this->assertEquals('Centro', (string) $xml->district);
-        $this->assertEquals('123', (string) $xml->number);
-        $this->assertEmpty($xml->xpath('//complement'));
+        $this->assertSame($data, $xml);
+        $this->assertEquals('BRA', (string) $xml->address->country);
+        $this->assertEquals('SC', (string) $xml->address->state);
+        $this->assertEquals('Florianopolis', (string) $xml->address->city);
+        $this->assertEquals('123451231', (string) $xml->address->postalCode);
+        $this->assertEquals('Centro', (string) $xml->address->district);
+        $this->assertEquals('123', (string) $xml->address->number);
+        $this->assertEmpty($xml->xpath('//address/complement'));
 
 
         $this->assertEquals(
-            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador ',
-            (string) $xml->street
+            'Avenida Mauro Ramos Euripedes da Silva Santos Oliveira Carlos Henrique Salvador',
+            (string) $xml->address->street
         );
     }
 }

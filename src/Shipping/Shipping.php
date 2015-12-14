@@ -3,23 +3,37 @@ namespace PHPSC\PagSeguro\Shipping;
 
 use InvalidArgumentException;
 use PHPSC\PagSeguro\Customer\Address;
+use PHPSC\PagSeguro\SerializerTrait;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
+ * @Serializer\AccessType("public_method")
+ * @Serializer\ReadOnly
+ * @Serializer\XmlRoot("shipping")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Shipping
 {
+    use SerializerTrait;
+
     /**
+     * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $type;
 
     /**
+     * @Serializer\Type("PHPSC\PagSeguro\Customer\Address")
+     *
      * @var Address
      */
     private $address;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var float
      */
     private $cost;
@@ -65,10 +79,10 @@ class Shipping
     }
 
     /**
-     * @return number
+     * @return string
      */
     public function getCost()
     {
-        return $this->cost;
+        return $this->formatAmount($this->cost);
     }
 }

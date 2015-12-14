@@ -1,37 +1,58 @@
 <?php
 namespace PHPSC\PagSeguro\Items;
 
+use JMS\Serializer\Annotation as Serializer;
+use PHPSC\PagSeguro\SerializerTrait;
+
 /**
+ * @Serializer\AccessType("public_method")
+ * @Serializer\ReadOnly
+ * @Serializer\XmlRoot("item")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Item
 {
+    use SerializerTrait;
+
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $id;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $description;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var float
      */
     private $amount;
 
     /**
+     * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $quantity;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var float
      */
     private $shippingCost;
 
     /**
+     * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $weight;
@@ -77,11 +98,11 @@ class Item
     }
 
     /**
-     * @return number
+     * @return string
      */
     public function getAmount()
     {
-        return $this->amount;
+        return $this->formatAmount($this->amount);
     }
 
     /**
@@ -93,11 +114,11 @@ class Item
     }
 
     /**
-     * @return number
+     * @return string
      */
     public function getShippingCost()
     {
-        return $this->shippingCost;
+        return $this->formatAmount($this->shippingCost);
     }
 
     /**

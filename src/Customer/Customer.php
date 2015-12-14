@@ -1,24 +1,44 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
+use JMS\Serializer\Annotation as Serializer;
+use PHPSC\PagSeguro\SerializerTrait;
+
+/**
+ * @Serializer\AccessType("public_method")
+ * @Serializer\ReadOnly
+ * @Serializer\XmlRoot("sender")
+ *
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Customer
 {
+    use SerializerTrait;
+
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $email;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $name;
 
     /**
+     * @Serializer\Type("PHPSC\PagSeguro\Customer\Phone")
+     *
      * @var Phone
      */
     private $phone;
 
     /**
+     * @Serializer\Type("PHPSC\PagSeguro\Customer\Address")
+     *
      * @var Address
      */
     private $address;
