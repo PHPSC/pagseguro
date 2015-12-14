@@ -40,26 +40,78 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
      */
     public function xmlSerializeMustAppendFormattedCustomerData()
     {
-        $this->markTestSkipped();
-
         $name = str_repeat('a', 55);
-        $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><test />');
+        $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
 
-        $phone = $this->getMock(Phone::class, [], [], '', false);
-        $address = $this->getMock(Address::class, [], [], '', false);
+        $phone = new Phone(12, 999999989);
+        $address = new Address('DF', 'Brasília', '70999-999', 'Plano Piloto', 'SQWN 17', 12, 'Apto 507');
         $customer = new Customer($name . '@test.com', $name, $phone, $address);
 
-        $phone->expects($this->any())
-              ->method('xmlSerialize')
-              ->with($this->isInstanceOf('SimpleXMLElement'));
+        $xml = $customer->xmlSerialize($data);
 
-        $address->expects($this->any())
-                ->method('xmlSerialize')
-                ->with($this->isInstanceOf('SimpleXMLElement'));
+        $this->assertEquals($name . '@test.com', (string) $xml->sender->email);
+        $this->assertEquals(str_repeat('a', 55), (string) $xml->sender->name);
 
-        $customer->xmlSerialize($xml);
+        $this->assertEquals('BRA', (string) $xml->sender->address->country);
+        $this->assertEquals('DF', (string) $xml->sender->address->state);
+        $this->assertEquals('Brasília', (string) $xml->sender->address->city);
+        $this->assertEquals('70999999', (string) $xml->sender->address->postalCode);
+        $this->assertEquals('Plano Piloto', (string) $xml->sender->address->district);
+        $this->assertEquals('SQWN 17', (string) $xml->sender->address->street);
+        $this->assertEquals('12', (string) $xml->sender->address->number);
+        $this->assertEquals('Apto 507', (string) $xml->sender->address->complement);
 
-        $this->assertEquals($name . '@test', (string) $xml->sender->email);
-        $this->assertEquals(str_repeat('a', 50), (string) $xml->sender->name);
+        $this->assertEquals(12, (string) $xml->sender->phone->areaCode);
+        $this->assertEquals(999999989, (string) $xml->sender->phone->number);
+    }
+
+    /**
+     * @test
+     */
+    public function xmlSerializeShouldNotAppendAddressIfItWasntInformed()
+    {
+        $name = str_repeat('a', 55);
+        $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
+
+        $phone = new Phone(12, 999999989);
+        $customer = new Customer($name . '@test.com', $name, $phone);
+
+        $xml = $customer->xmlSerialize($data);
+
+        $this->assertEquals($name . '@test.com', (string) $xml->sender->email);
+        $this->assertEquals(str_repeat('a', 55), (string) $xml->sender->name);
+
+        $this->assertEquals(12, (string) $xml->sender->phone->areaCode);
+        $this->assertEquals(999999989, (string) $xml->sender->phone->number);
+
+        $this->assertEmpty($xml->xpath('//sender/address'));
+    }
+
+    /**
+     * @test
+     */
+    public function xmlSerializeShouldNotAppendPhoneIfItWasntInformed()
+    {
+        $name = str_repeat('a', 55);
+        $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
+
+        $address = new Address('DF', 'Brasília', '70999-999', 'Plano Piloto', 'SQWN 17', 12, 'Apto 507');
+        $customer = new Customer($name . '@test.com', $name, null, $address);
+
+        $xml = $customer->xmlSerialize($data);
+
+        $this->assertEquals($name . '@test.com', (string) $xml->sender->email);
+        $this->assertEquals(str_repeat('a', 55), (string) $xml->sender->name);
+
+        $this->assertEquals('BRA', (string) $xml->sender->address->country);
+        $this->assertEquals('DF', (string) $xml->sender->address->state);
+        $this->assertEquals('Brasília', (string) $xml->sender->address->city);
+        $this->assertEquals('70999999', (string) $xml->sender->address->postalCode);
+        $this->assertEquals('Plano Piloto', (string) $xml->sender->address->district);
+        $this->assertEquals('SQWN 17', (string) $xml->sender->address->street);
+        $this->assertEquals('12', (string) $xml->sender->address->number);
+        $this->assertEquals('Apto 507', (string) $xml->sender->address->complement);
+
+        $this->assertEmpty($xml->xpath('//sender/phone'));
     }
 }

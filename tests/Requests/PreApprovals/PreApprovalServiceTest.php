@@ -15,11 +15,9 @@ class PreApprovalServiceTest extends \PHPUnit_Framework_TestCase
     {
         $credentials = $this->getMock(Credentials::class, [], [], '', false);
         $client = $this->getMock(Client::class, [], [], '', false);
-        $serializer = $this->getMock(RequestSerializer::class, [], [], '', false);
 
-        $service = new PreApprovalService($credentials, $client, $serializer);
+        $service = new PreApprovalService($credentials, $client);
 
-        $this->assertAttributeEquals($serializer, 'serializer', $service);
         $this->assertAttributeEquals($credentials, 'credentials', $service);
         $this->assertAttributeEquals($client, 'client', $service);
 
@@ -29,20 +27,19 @@ class PreApprovalServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testAproveShouldReturningTheRedirection()
     {
-        $request = new Request;
+        $request = $this->getMock(Request::class, [], [], '', false);
         $response = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><response/>');
         $redirect = $this->getMock(Redirection::class, [], [], '', false);
         $xmlSerialize = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><request/>');
 
         $credentials = $this->getMock(Credentials::class, [], [], '', false);
         $client = $this->getMock(Client::class, [], [], '', false);
-        $serializer = $this->getMock(RequestSerializer::class, [], [], '', false);
 
-        $serializer->expects($this->once())->method('serialize')->willReturn($xmlSerialize);
+        $request->expects($this->once())->method('xmlSerialize')->willReturn($xmlSerialize);
 
         $service = $this->getMockBuilder(PreApprovalService::class)
             ->setMethods(['post', 'getRedirection'])
-            ->setConstructorArgs([$credentials, $client, $serializer])
+            ->setConstructorArgs([$credentials, $client])
             ->disableOriginalClone()
             ->getMock();
 

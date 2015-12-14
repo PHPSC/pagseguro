@@ -1,34 +1,61 @@
 <?php
 namespace PHPSC\PagSeguro\Requests\Checkout;
 
+use JMS\Serializer\Annotation as JSA;
 use PHPSC\PagSeguro\Customer\Customer;
+use PHPSC\PagSeguro\Requests\SerializerTrait;
 
 /**
+ * @JSA\AccessType("public_method")
+ * @JSA\ExclusionPolicy("all")
+ * @JSA\ReadOnly
+ * @JSA\XmlRoot("checkout")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Checkout
 {
+    use SerializerTrait;
+
     /**
+     * @JSA\Expose
+     * @JSA\Inline
+     * @JSA\Type("PHPSC\PagSeguro\Requests\Checkout\Order")
+     *
      * @var Order
      */
     private $order;
 
     /**
+     * @JSA\Expose
+     * @JSA\SerializedName("sender")
+     * @JSA\Type("PHPSC\PagSeguro\Customer\Customer")
+     *
      * @var Customer
      */
     private $customer;
 
     /**
+     * @JSA\Expose
+     * @JSA\XmlElement(cdata=false)
+     * @JSA\SerializedName("redirectURL")
+     *
      * @var string
      */
     private $redirectTo;
 
     /**
+     * @JSA\Type("integer")
+     * @JSA\Expose
+     *
      * @var int
      */
     private $maxUses;
 
     /**
+     * @JSA\Type("integer")
+     * @JSA\Expose
+     *
      * @var int
      */
     private $maxAge;

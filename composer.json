@@ -23,11 +23,12 @@
         "doctrine/collections": "~1.2@dev"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "~4.8",
         "squizlabs/php_codesniffer": "~1.5",
         "pdepend/pdepend": "~2.0",
         "phpmd/phpmd": "~2.1",
-        "sebastian/phpcpd": "*"
+        "sebastian/phpcpd": "*",
+        "jms/serializer":"~1.1"
     },
     "autoload": {
         "psr-4": {

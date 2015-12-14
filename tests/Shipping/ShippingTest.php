@@ -80,22 +80,25 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function xmlSerializeMustAppendShippingData()
+    public function xmlSerializeMustAppendFormattedShippingData()
     {
-        $this->markTestSkipped();
+        $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
 
-        $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><test />');
-
-        $address = $this->getMock(Address::class, [], [], '', false);
+        $address = new Address('BA', 'Salvador', '40999-999', 'Red River', 'Beco Sem Nome', 25, 'Buteco do França');
         $shipping = new Shipping(Type::TYPE_PAC, $address, '10.31');
 
-        $address->expects($this->once())
-                ->method('xmlSerialize')
-                ->with($this->isInstanceOf('SimpleXMLElement'));
-
-        $shipping->xmlSerialize($xml);
+        $xml = $shipping->xmlSerialize($data);
 
         $this->assertEquals(1, (string) $xml->shipping->type);
         $this->assertEquals(10.31, (string) $xml->shipping->cost);
+
+        $this->assertEquals('BRA', (string) $xml->shipping->address->country);
+        $this->assertEquals('BA', (string) $xml->shipping->address->state);
+        $this->assertEquals('Salvador', (string) $xml->shipping->address->city);
+        $this->assertEquals('40999999', (string) $xml->shipping->address->postalCode);
+        $this->assertEquals('Red River', (string) $xml->shipping->address->district);
+        $this->assertEquals('Beco Sem Nome', (string) $xml->shipping->address->street);
+        $this->assertEquals('25', (string) $xml->shipping->address->number);
+        $this->assertEquals('Buteco do França', (string) $xml->shipping->address->complement);
     }
 }
