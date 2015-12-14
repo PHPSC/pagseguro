@@ -1,37 +1,65 @@
 <?php
 namespace PHPSC\PagSeguro\Items;
 
+use PHPSC\PagSeguro\Requests\SerializerTrait;
+use JMS\Serializer\Annotation as JSA;
+
 /**
+ * @JSA\AccessType("public_method")
+ * @JSA\ExclusionPolicy("all")
+ * @JSA\ReadOnly
+ * @JSA\XmlRoot("item")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Item
 {
+    use SerializerTrait;
+
     /**
+     * @JSA\Expose
+     * @JSA\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $id;
 
     /**
+     * @JSA\Expose
+     * @JSA\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $description;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("double")
+     *
      * @var float
      */
     private $amount;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("integer")
+     *
      * @var int
      */
     private $quantity;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("double")
+     *
      * @var float
      */
     private $shippingCost;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("integer")
+     *
      * @var int
      */
     private $weight;

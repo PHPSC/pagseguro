@@ -47,20 +47,18 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testAppendFormattedValuesOnAChildNode
+     * @test
      */
-    public function xmlSerializeShouldAppendFormattedValuesOnAChildNode()
+    public function xmlSerializeMustAppendFormattedItemData()
     {
-        $this->markTestSkipped();
-
         $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
         $xml = $this->item->xmlSerialize($data);
 
-        $this->assertEquals(str_repeat('01', 50), (string) $xml->id);
-        $this->assertEquals(substr(str_repeat('a very long description', 100), 0, 100), (string) $xml->description);
-        $this->assertEquals('150.23', (string) $xml->amount);
-        $this->assertEquals('3', (string) $xml->quantity);
-        $this->assertEquals('10.30', (string) $xml->shippingCost);
-        $this->assertEquals('123', (string) $xml->weight);
+        $this->assertEquals(str_repeat('01', 51), (string) $xml->item->id);
+        $this->assertEquals(str_repeat('a very long description', 100), (string) $xml->item->description);
+        $this->assertEquals(150.23, (string) $xml->item->amount);
+        $this->assertEquals(3, (string) $xml->item->quantity);
+        $this->assertEquals(10.30, (string) $xml->item->shippingCost);
+        $this->assertEquals('123', (string) $xml->item->weight);
     }
 }

@@ -1,44 +1,73 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
+use JMS\Serializer\Annotation as JSA;
+use PHPSC\PagSeguro\Requests\SerializerTrait;
+
+/**
+ * @JSA\AccessType("public_method")
+ * @JSA\ExclusionPolicy("all")
+ * @JSA\ReadOnly
+ * @JSA\XmlRoot("address")
+ *
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Address
 {
+    use SerializerTrait;
+
     /**
+     * @JSA\Expose
+     *
      * @var string
      */
     private $country;
 
     /**
+     * @JSA\Expose
+     *
      * @var string
      */
     private $state;
 
     /**
+     * @JSA\Expose
+     *
      * @var string
      */
     private $city;
 
     /**
+     * @JSA\Expose
+     *
      * @var string
      */
     private $postalCode;
 
     /**
+     * @JSA\Expose
+     *
      * @var string
      */
     private $district;
 
     /**
+     * @JSA\Expose
+     *
      * @var string
      */
     private $street;
 
     /**
+     * @JSA\Expose
+     *
      * @var string
      */
     private $number;
 
     /**
+     * @JSA\Expose
+     *
      * @var string
      */
     private $complement;

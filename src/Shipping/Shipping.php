@@ -3,23 +3,41 @@ namespace PHPSC\PagSeguro\Shipping;
 
 use InvalidArgumentException;
 use PHPSC\PagSeguro\Customer\Address;
+use PHPSC\PagSeguro\Requests\SerializerTrait;
+use JMS\Serializer\Annotation as JSA;
 
 /**
+ * @JSA\AccessType("public_method")
+ * @JSA\ExclusionPolicy("all")
+ * @JSA\ReadOnly
+ * @JSA\XmlRoot("shipping")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Shipping
 {
+    use SerializerTrait;
+    
     /**
+     * @JSA\Expose
+     * @JSA\Type("integer")
+     *
      * @var int
      */
     private $type;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("PHPSC\PagSeguro\Customer\Address")
+     *
      * @var Address
      */
     private $address;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("double")
+     *
      * @var float
      */
     private $cost;

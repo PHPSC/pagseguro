@@ -16,22 +16,20 @@ class SubscriptionServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = $this->getMock(Credentials::class, [], [], '', false);
-        $this->client = $this->getMock(CLient::class, [], [], '', false);
-        $this->serializer = $this->getMock(ChargeSerializer::class, [], [], '', false);
+        $this->client = $this->getMock(Client::class, [], [], '', false);
     }
 
     public function testConstructShouldSettersDecoder()
     {
-        $service = new SubscriptionService($this->credentials, $this->client, $this->serializer);
+        $service = new SubscriptionService($this->credentials, $this->client);
 
         $this->assertInstanceOf(SubscriptionServiceInterface::class, $service);
         $this->assertInstanceOf(Service::class, $service);
-        $this->assertAttributeSame($this->serializer, 'serializer', $service);
     }
 
     public function testCreateChargeBuilderShouldReturnObjectBuilder()
     {
-        $service = new SubscriptionService($this->credentials, $this->client, $this->serializer);
+        $service = new SubscriptionService($this->credentials, $this->client);
 
         $this->assertEquals(new ChargeBuilder('ABCDEF'), $service->createChargeBuilder('ABCDEF'));
     }
@@ -55,7 +53,7 @@ class SubscriptionServiceTest extends \PHPUnit_Framework_TestCase
             ->with($wsUrl)
             ->willReturn($xmlResponse);
 
-        $service = new SubscriptionService($this->credentials, $this->client, $this->serializer);
+        $service = new SubscriptionService($this->credentials, $this->client);
 
         $expected = new CancellationResponse('6', new DateTime('2015-11-19T11:33:54.000-03:00'));
         $this->assertEquals($expected, $service->cancel('ABCDEF'));
@@ -67,10 +65,9 @@ class SubscriptionServiceTest extends \PHPUnit_Framework_TestCase
 
         $request  = '<?xml version="1.0" encoding="UTF-8"?><payment/>';
         $xmlRequest = new SimpleXMLElement($request);
-        $this->serializer
+        $charge
             ->expects($this->once())
-            ->method('serialize')
-            ->with($charge)
+            ->method('xmlSerialize')
             ->willReturn($xmlRequest);
 
         $wsUrl = 'https://ws.test.com/v2/transactions?token=zzzzz';
@@ -90,7 +87,7 @@ class SubscriptionServiceTest extends \PHPUnit_Framework_TestCase
             ->with($wsUrl, $xmlRequest)
             ->willReturn($xmlResponse);
 
-        $service = new SubscriptionService($this->credentials, $this->client, $this->serializer);
+        $service = new SubscriptionService($this->credentials, $this->client);
 
         $expected = new ChargeResponse('123456', new DateTime('2015-11-19T11:33:54.000-03:00'));
         $this->assertEquals($expected, $service->charge($charge));

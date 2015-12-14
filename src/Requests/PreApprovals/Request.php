@@ -1,34 +1,61 @@
 <?php
 namespace PHPSC\PagSeguro\Requests\PreApprovals;
 
+use JMS\Serializer\Annotation as JSA;
+use PHPSC\PagSeguro\Requests\SerializerTrait;
 use PHPSC\PagSeguro\Customer\Customer;
 
 /**
+ * @JSA\AccessType("public_method")
+ * @JSA\ExclusionPolicy("all")
+ * @JSA\ReadOnly
+ * @JSA\XmlRoot("preApprovalRequest")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Request
 {
+    use SerializerTrait;
+    
     /**
+     * @JSA\Expose
+     * @JSA\Type("PHPSC\PagSeguro\Requests\PreApprovals\PreApproval")
+     *
      * @var PreApproval
      */
     private $preApproval;
 
     /**
+     * @JSA\Expose
+     * @JSA\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $reference;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("PHPSC\PagSeguro\Customer\Customer")
+     * @JSA\SerializedName("sender")
+     *
      * @var Customer
      */
     private $customer;
 
     /**
+     * @JSA\Expose
+     * @JSA\XmlElement(cdata=false)
+     * @JSA\SerializedName("redirectURL")
+     *
      * @var string
      */
     private $redirectTo;
 
     /**
+     * @JSA\Expose
+     * @JSA\XmlElement(cdata=false)
+     * @JSA\SerializedName("reviewURL")
+     *
      * @var string
      */
     private $reviewOn;

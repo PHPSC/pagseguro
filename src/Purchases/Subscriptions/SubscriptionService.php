@@ -4,34 +4,12 @@ namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 use DateTime;
 use PHPSC\PagSeguro\Purchases\SubscriptionService as SubscriptionServiceInterface;
 use PHPSC\PagSeguro\Service;
-use PHPSC\PagSeguro\Credentials;
-use PHPSC\PagSeguro\Client\Client;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class SubscriptionService extends Service implements SubscriptionServiceInterface
 {
-    /**
-     * @var ChargeSerializer
-     */
-    private $serializer;
-
-    /**
-     * @param Credentials $credentials
-     * @param Client $client
-     * @param ChargeSerializer $serializer
-     */
-    public function __construct(
-        Credentials $credentials,
-        Client $client = null,
-        ChargeSerializer $serializer = null
-    ) {
-        parent::__construct($credentials, $client);
-
-        $this->serializer = $serializer ?: new ChargeSerializer();
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -58,7 +36,7 @@ class SubscriptionService extends Service implements SubscriptionServiceInterfac
      */
     public function charge(Charge $charge)
     {
-        $response = $this->post(static::CHARGE_ENDPOINT, $this->serializer->serialize($charge));
+        $response = $this->post(static::CHARGE_ENDPOINT, $charge->xmlSerialize());
 
         return new ChargeResponse(
             (string) $response->transactionCode,

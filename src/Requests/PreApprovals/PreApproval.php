@@ -3,63 +3,108 @@ namespace PHPSC\PagSeguro\Requests\PreApprovals;
 
 use DateTime;
 use InvalidArgumentException;
+use JMS\Serializer\Annotation as JSA;
+use PHPSC\PagSeguro\Requests\SerializerTrait;
 
 /**
+ * @JSA\AccessType("public_method")
+ * @JSA\ExclusionPolicy("all")
+ * @JSA\ReadOnly
+ * @JSA\XmlRoot("preApproval")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class PreApproval
 {
+    use SerializerTrait;
+    
     /**
+     * @JSA\Expose
+     * @JSA\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $name;
 
     /**
+     * @JSA\Expose
+     * @JSA\SerializedName("charge")
+     * @JSA\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $chargeType;
 
     /**
+     * @JSA\Expose
+     * @JSA\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $details;
 
     /**
+     * @JSA\Expose
+     * @JSA\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $period;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("DateTime<'Y-m-d\TH:i:sP'>")
+     * @JSA\XmlElement(cdata=false)
+     *
      * @var DateTime
      */
     private $finalDate;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("double")
+     *
      * @var float
      */
     private $maxTotalAmount;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("double")
+     *
      * @var float
      */
     private $amountPerPayment;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("double")
+     *
      * @var float
      */
     private $maxAmountPerPayment;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("integer")
+     *
      * @var int
      */
     private $maxPaymentsPerPeriod;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("double")
+     *
      * @var float
      */
     private $maxAmountPerPeriod;
 
     /**
+     * @JSA\Expose
+     * @JSA\Type("DateTime<'Y-m-d\TH:i:sP','00:00'>")
+     * @JSA\XmlElement(cdata=false)
+     *
      * @var DateTime
      */
     private $initialDate;
@@ -157,15 +202,15 @@ class PreApproval
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getMaxTotalAmount()
     {
-        return $this->maxTotalAmount;
+        return number_format($this->maxTotalAmount, 2, '.', '');
     }
 
     /**
-     * @param float $amountPerPayment
+     * @param float $maxTotalAmount
      */
     public function setMaxTotalAmount($maxTotalAmount)
     {
@@ -173,26 +218,26 @@ class PreApproval
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getAmountPerPayment()
     {
-        return $this->amountPerPayment;
+        return number_format($this->amountPerPayment, 2, '.', '');
     }
 
     /**
-     * @param float $maxTotalAmount
+     * @param float $amountPerPayment
      */
     public function setAmountPerPayment($amountPerPayment)
     {
         $this->amountPerPayment = $amountPerPayment;
     }
     /**
-     * @return float
+     * @return string
      */
     public function getMaxAmountPerPayment()
     {
-        return $this->maxAmountPerPayment;
+        return number_format($this->maxAmountPerPayment, 2, '.', '');
     }
 
     /**
@@ -220,11 +265,11 @@ class PreApproval
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getMaxAmountPerPeriod()
     {
-        return $this->maxAmountPerPeriod;
+        return number_format($this->maxAmountPerPeriod, 2, '.', '');
     }
 
     /**
