@@ -37,6 +37,10 @@ class CheckoutSerializer extends Serializer
             $xml->addChild('redirectURL', $redirectTo);
         }
 
+        if ($notificationURL = $checkout->getNotificationURL()) {
+            $xml->addChild('notificationURL', $notificationURL);
+        }
+
         if ($maxUses = $checkout->getMaxUses()) {
             $xml->addChild('maxUses', $maxUses);
         }
