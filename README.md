@@ -26,7 +26,7 @@ A instalação desta biblioteca pode ser feita utilizando o [Composer](https://p
 Nesta versão é possível gerenciar:
 
 * Solicitações (pagamentos e assinaturas);
-* Notificações
+* Notificações v.2
 * Busca por código (pagamentos e assinaturas);
 * Cancelamento e cobrança de assinaturas.
 
