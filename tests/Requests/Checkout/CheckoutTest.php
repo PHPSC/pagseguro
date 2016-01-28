@@ -133,4 +133,14 @@ class CheckoutTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($customer, $this->checkout->getCustomer());
     }
+
+    /**
+     * @test
+     */
+    public function setNotificationURLShouldConfigureTheNotificationUri()
+    {
+        $uri = 'http://chibungo.com';
+        $this->checkout->setNotificationURL($uri);
+        $this->assertAttributeEquals($uri, 'notificationURL', $this->checkout);
+    }
 }
