@@ -1,0 +1,97 @@
+build:
+    environment:
+        mysql: false
+        redis: false
+        postgresql: false
+        php:
+            version: 5.5
+tools:
+    php_sim: true
+    php_pdepend: true
+    php_analyzer: true
+    php_changetracking: true
+    php_code_sniffer:
+        enabled: true
+        filter:
+            paths: ["src", "test"]
+        config:
+            standard: PSR2
+    php_mess_detector:
+        enabled: true
+        filter:
+            paths: ["src", "test"]
+        config:
+            code_size_rules:
+                cyclomatic_complexity: true
+                npath_complexity: true
+                excessive_method_length: true
+                excessive_class_length: true
+                excessive_parameter_list: true
+                excessive_public_count: true
+                too_many_fields: true
+                too_many_methods: true
+                excessive_class_complexity: true
+            design_rules:
+                exit_expression: true
+                eval_expression: true
+                goto_statement: true
+                number_of_class_children: true
+                depth_of_inheritance: true
+                coupling_between_objects: true
+            unused_code_rules:
+                unused_private_field: true
+                unused_local_variable: true
+                unused_private_method: true
+                unused_formal_parameter: true
+            naming_rules:
+                short_variable:
+                    minimum: 2
+                constructor_conflict: true
+                constant_naming: true
+                boolean_method_name: true
+            controversial_rules:
+                superglobals: true
+                camel_case_class_name: true
+                camel_case_property_name: true
+                camel_case_method_name: true
+                camel_case_parameter_name: true
+                camel_case_variable_name: true
+checks:
+    php:
+        argument_type_checks: true
+        assignment_of_null_return: true
+        avoid_conflicting_incrementers: true
+        avoid_useless_overridden_methods: true
+        catch_class_exists: true
+        closure_use_modifiable: true
+        closure_use_not_conflicting: true
+        code_rating: true
+        deprecated_code_usage: true
+        duplication: true
+        method_calls_on_non_object: true
+        missing_arguments: true
+        no_duplicate_arguments: true
+        no_non_implemented_abstract_methods: true
+        no_property_on_interface: true
+        parameter_non_unique: true
+        precedence_in_conditions: true
+        precedence_mistakes: true
+        require_php_tag_first: true
+        security_vulnerabilities: true
+        sql_injection_vulnerabilities: true
+        too_many_arguments: true
+        unreachable_code: true
+        unused_methods: true
+        unused_parameters: true
+        unused_properties: true
+        unused_variables: true
+        use_statement_alias_conflict: true
+        useless_calls: true
+        variable_existence: true
+        verify_access_scope_valid: true
+        verify_argument_usable_as_reference: true
+        verify_property_names: true
+
+filter:
+    excluded_paths:
+        - test/*

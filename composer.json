@@ -18,14 +18,15 @@
         "CC-BY-SA-2.5"
     ],
     "require": {
-        "php": ">=5.4",
-        "guzzle/guzzle": "~3.8",
+        "php": ">=5.5",
+        "guzzlehttp/guzzle": "~5.0",
         "doctrine/collections": "~1.2@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
         "squizlabs/php_codesniffer": "~1.5",
         "pdepend/pdepend": "~2.0",
+        "phpmd/phpmd": "~2.1",
         "sebastian/phpcpd": "*"
     },
     "autoload": {

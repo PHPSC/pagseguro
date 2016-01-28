@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transaction>
+    <date>2011-02-10T16:13:41.000-03:00</date>
+    <code>9E884542</code>
+    <reference>REF1234</reference>
+    <type>2</type>
+    <status>6</status>
+    <lastEventDate>2011-02-10T19:15:11.000-03:00</lastEventDate>
+    <escrowEndDate>2011-03-10T08:00:00.000-03:00</escrowEndDate>
+
+    <sender>
+        <email>usuario@site.com</email>
+        <name>FooBar</name>
+        <phone>
+            <areaCode>11</areaCode>
+            <number>99999999</number>
+        </phone>
+        <address>
+            <country>BRA</country>
+            <state>AC</state>
+            <city>Sao Maite</city>
+            <postalCode>99500079</postalCode>
+            <district>Centro</district>
+            <street>R Delgado</street>
+            <number>55</number>
+            <complement>Fundos</complement>
+        </address>
+    </sender>
+
+    <paymentMethod>
+        <type>1</type>
+        <code>101</code>
+    </paymentMethod>
+    <grossAmount>49900.00</grossAmount>
+    <discountAmount>0.01</discountAmount>
+    <feeAmount>0.04</feeAmount>
+    <netAmount>49900.03</netAmount>
+    <extraAmount>0.02</extraAmount>
+    <installmentCount>1</installmentCount>
+    <itemcount>2</itemcount>
+
+    <items>
+        <item>
+            <id>77</id>
+            <description>Produto 01</description>
+            <amount>2.50</amount>
+            <quantity>4</quantity>
+            <weight>300</weight>
+            <shippingCost>20.00</shippingCost>
+        </item>
+        <item>
+            <id>88</id>
+            <description>Produto 02</description>
+            <amount>342.51</amount>
+            <quantity>3</quantity>
+            <weight>1000</weight>
+            <shippingCost>134.98</shippingCost>
+        </item>
+    </items>
+
+
+
+    <shipping>
+        <type>2</type>
+        <cost>23.45</cost>
+        <address>
+            <country>BRA</country>
+            <state>CE</state>
+            <city>Ortega</city>
+            <postalCode>40610912</postalCode>
+            <district>Ipe</district>
+            <street>R. Regina</street>
+            <number>36</number>
+            <complement>Bl.A</complement>
+        </address>
+    </shipping>
+</transaction>

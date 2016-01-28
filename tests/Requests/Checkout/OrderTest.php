@@ -24,7 +24,7 @@ class OrderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->items = $this->getMock('PHPSC\PagSeguro\Items\ItemCollection');
+        $this->items = $this->getMock(ItemCollection::class);
         $this->order = new Order($this->items);
     }
 
@@ -42,7 +42,7 @@ class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldCreateAnItemCollectionWhenItWasntInformed()
     {
-        $this->assertAttributeInstanceOf('PHPSC\PagSeguro\Items\ItemCollection', 'items', new Order());
+        $this->assertAttributeInstanceOf(ItemCollection::class, 'items', new Order());
     }
 
     /**
@@ -51,6 +51,45 @@ class OrderTest extends \PHPUnit_Framework_TestCase
     public function getItemsShouldReturnConfiguredItemCollection()
     {
         $this->assertSame($this->items, $this->order->getItems());
+    }
+
+    /**
+     * @test
+     */
+    public function getCurrencyShouldReturnConfiguredCurrency()
+    {
+        $this->assertEquals('BRL', $this->order->getCurrency());
+    }
+
+    /**
+     * @test
+     */
+    public function getReferenceShouldReturnConfiguredReference()
+    {
+        $this->order->setReference('someRef');
+
+        $this->assertEquals('someRef', $this->order->getReference());
+    }
+
+    /**
+     * @test
+     */
+    public function getExtraAmountShouldReturnConfiguredExtraAmount()
+    {
+        $this->order->setExtraAmount(123);
+
+        $this->assertEquals(123, $this->order->getExtraAmount());
+    }
+
+    /**
+     * @test
+     */
+    public function getShippingShouldReturnConfiguredShipping()
+    {
+        $shipping = new Shipping(1);
+        $this->order->setShipping($shipping);
+
+        $this->assertSame($shipping, $this->order->getShipping());
     }
 
     /**

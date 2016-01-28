@@ -1,6 +1,8 @@
 <?php
 namespace PHPSC\PagSeguro;
 
+use PHPSC\PagSeguro\Environments\Production;
+
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
@@ -16,7 +18,7 @@ class CredentialsTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->environment = $this->getMockForAbstractClass('PHPSC\PagSeguro\Environment');
+        $this->environment = $this->getMockForAbstractClass(Environment::class);
 
         $this->environment->expects($this->any())
                           ->method('getHost')
@@ -57,7 +59,7 @@ class CredentialsTest extends \PHPUnit_Framework_TestCase
     {
         $credentials = new Credentials('contato@phpsc.com.br', 'testing');
 
-        $this->assertAttributeInstanceOf('PHPSC\PagSeguro\Environments\Production', 'environment', $credentials);
+        $this->assertAttributeInstanceOf(Production::class, 'environment', $credentials);
     }
 
     /**

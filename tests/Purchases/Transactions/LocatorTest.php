@@ -3,6 +3,7 @@ namespace PHPSC\PagSeguro\Purchases\Transactions;
 
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Client\Client;
+use PHPSC\PagSeguro\Environment;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -31,7 +32,7 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $environment = $this->getMockForAbstractClass('PHPSC\PagSeguro\Environment');
+        $environment = $this->getMockForAbstractClass(Environment::class);
 
         $environment->expects($this->any())
                     ->method('getHost')
@@ -42,10 +43,10 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
                     ->willReturn('ws.test.com');
 
         $this->credentials = new Credentials('a@a.com', 't', $environment);
-        $this->client = $this->getMock('PHPSC\PagSeguro\Client\Client', [], [], '', false);
+        $this->client = $this->getMock(Client::class, [], [], '', false);
 
         $this->decoder = $this->getMock(
-            'PHPSC\PagSeguro\Purchases\Transactions\Decoder',
+            Decoder::class,
             [],
             [],
             '',
@@ -53,7 +54,7 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->transaction = $this->getMock(
-            'PHPSC\PagSeguro\Purchases\Transactions\Transaction',
+            Transaction::class,
             [],
             [],
             '',

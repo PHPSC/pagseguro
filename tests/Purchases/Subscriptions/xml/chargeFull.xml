@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<payment>
+    <preApprovalCode>4556788</preApprovalCode>
+    <items>
+        <item>
+            <id>99</id>
+            <description>Produto 03</description>
+            <amount>1.77</amount>
+            <quantity>8</quantity>
+            <weight>360</weight>
+            <shippingCost>12.90</shippingCost>
+        </item>
+        <item>
+            <id>97</id>
+            <description>Produto 04</description>
+            <amount>43.67</amount>
+            <quantity>3</quantity>
+            <weight>1100</weight>
+            <shippingCost>134.98</shippingCost>
+        </item>
+    </items>
+    <reference>abcdef</reference>
+</payment>

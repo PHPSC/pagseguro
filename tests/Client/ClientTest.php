@@ -1,12 +1,13 @@
 <?php
 namespace PHPSC\PagSeguro\Client;
 
-use Guzzle\Common\Event;
-use Guzzle\Http\Client as HttpClient;
-use Guzzle\Http\Message\Response;
-use Guzzle\Http\Message\Request;
+use GuzzleHttp\Event\ErrorEvent as Event;
+use GuzzleHttp\Event\Emitter;
+use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Message\Response;
+use GuzzleHttp\Message\Request;
 use PHPSC\PagSeguro\Environments\Production;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use GuzzleHttp\Transaction;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,13 +28,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->httpClient = $this->getMock('Guzzle\Http\Client', [], [], '', false);
-        $this->request = $this->getMock('Guzzle\Http\Message\Request', [], [], '', false);
-        $this->response = $this->getMock('Guzzle\Http\Message\Response', [], [], '', false);
+        $this->httpClient = $this->getMock(HttpClient::class, [], [], '', false);
+        $this->request = $this->getMock(Request::class, [], [], '', false);
+        $this->response = $this->getMock(Response::class, [], [], '', false);
 
         $this->httpClient->expects($this->any())
-                         ->method('getEventDispatcher')
-                         ->willReturn(new EventDispatcher());
+                         ->method('getEmitter')
+                         ->willReturn(new Emitter());
 
         $this->request->expects($this->any())
                       ->method('send')
@@ -60,7 +61,7 @@ XML;
         $client = new Client($this->httpClient);
 
         $this->assertAttributeSame($this->httpClient, 'client', $client);
-        $this->assertTrue($this->httpClient->getEventDispatcher()->hasListeners('request.error'));
+        $this->assertTrue($this->httpClient->getEmitter()->hasListeners('error'));
     }
 
     /**
@@ -69,7 +70,9 @@ XML;
     public function handleErrorShouldBypassEventWhenHostIsNotFromPagSeguro()
     {
         $client = new Client($this->httpClient);
-        $event = new Event(['request' => $this->request, 'response' => $this->response]);
+        $transaction = new Transaction($this->httpClient, $this->request);
+        $transaction->response = $this->response;
+        $event = new Event($transaction);
 
         $this->request->expects($this->any())
                       ->method('getHost')
@@ -80,12 +83,14 @@ XML;
 
     /**
      * @test
-     * @expectedException PHPSC\PagSeguro\Client\PagSeguroException
+     * @expectedException \PHPSC\PagSeguro\Client\PagSeguroException
      */
     public function handleErrorShouldRaiseExceptionWhenHostIsFromPagSeguro()
     {
         $client = new Client($this->httpClient);
-        $event = new Event(['request' => $this->request, 'response' => $this->response]);
+        $transaction = new Transaction($this->httpClient, $this->request);
+        $transaction->response = $this->response;
+        $event = new Event($transaction);
 
         $this->request->expects($this->any())
                       ->method('getHost')
@@ -114,10 +119,12 @@ XML;
                          ->method('post')
                          ->with(
                              '/test',
-                             ['Content-Type' => 'application/xml; charset=UTF-8'],
-                             $xml->asXML(),
-                             ['verify' => false]
-                         )->willReturn($this->request);
+                             [
+                                'headers' => ['Content-Type' => 'application/xml; charset=UTF-8'],
+                                'body' => $xml->asXML(),
+                                'verify' => false
+                             ]
+                         )->willReturn($this->response);
 
         $this->assertInstanceOf('SimpleXMLElement', $client->post('/test', $xml));
     }
@@ -131,8 +138,8 @@ XML;
 
         $this->httpClient->expects($this->once())
                          ->method('get')
-                         ->with('/test?name=Test', null, ['verify' => false])
-                         ->willReturn($this->request);
+                         ->with('/test?name=Test', ['verify' => false])
+                         ->willReturn($this->response);
 
         $this->assertInstanceOf('SimpleXMLElement', $client->get('/test?name=Test'));
     }
