@@ -15,7 +15,6 @@ class Client {
 	 * @var HttpClient
 	 */
 	private $client;
-	private $handler;
 
 	/**
 	 * @param HttpClient $client
@@ -35,10 +34,10 @@ class Client {
 		try {
 			$response = $this->client->post($url, ['headers' => ['Content-Type' => 'application/xml; charset=UTF-8'], 'body' => $body->asXML(), 'verify' => false]);
 		} catch (RequestException $e) {
-			throw PagSeguroException::create($e->getMessage());
+			throw PagSeguroException::create($e->getResponse());
 		}
 
-		return (string) $response->getBody();
+		return new SimpleXMLElement((string) $response->getBody());
 	}
 
 	/**
@@ -50,9 +49,9 @@ class Client {
 		try {
 			$response = $this->client->get($url, ['verify' => false]);
 		} catch (RequestException $e) {
-			throw PagSeguroException::create($e->getMessage());
+			throw PagSeguroException::create($e->getResponse());
 		}
 
-		return (string) $response->getBody();
+		return new SimpleXMLElement((string) $response->getBody());
 	}
 }
