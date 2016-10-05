@@ -10,17 +10,25 @@ use PHPSC\PagSeguro\Requests\RequestBuilder as RequestBuilderInterface;
  */
 class RequestBuilderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var PreApproval|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $approval;
+
     protected function setUp()
     {
-        $this->mockApproval = $this->getMock(preApproval::class, [], [], '', false);
-        $this->mockApproval->expects($this->once())->method('setChargeType')->with(ChargeType::AUTOMATIC);
+        $this->approval = $this->createMock(PreApproval::class);
 
-        $this->mockRequest = $this->getMock(Request::class, [], [], '', false);
+        $this->approval->expects($this->once())
+                       ->method('setChargeType')
+                       ->with(ChargeType::AUTOMATIC);
+
+        $this->mockRequest = $this->createMock(Request::class);
     }
 
     public function testContructShouldSetterChargeTypeAndInstanceofInterface()
     {
-        $this->mockRequest->expects($this->once())->method('getPreApproval')->willReturn($this->mockApproval);
+        $this->mockRequest->expects($this->once())->method('getPreApproval')->willReturn($this->approval);
 
         $builder = new RequestBuilder(false, $this->mockRequest);
 
@@ -31,9 +39,9 @@ class RequestBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testSetterRequestShouldReturnSelfObject()
     {
-        $this->mockRequest->expects($this->once())->method('getPreApproval')->willReturn($this->mockApproval);
+        $customer = $this->createMock(Customer::class);
 
-        $customer = $this->getMock(Customer::class, [], [], '', false);
+        $this->mockRequest->expects($this->once())->method('getPreApproval')->willReturn($this->approval);
         $this->mockRequest->expects($this->once())->method('setCustomer')->with($customer);
         $this->mockRequest->expects($this->once())->method('setRedirectTo')->with('http://redirect');
         $this->mockRequest->expects($this->once())->method('setReference')->with('ABCDEF');
@@ -49,18 +57,18 @@ class RequestBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testSetterPreApprovalShouldReturnSelfObject()
     {
-        $this->mockRequest->expects($this->exactly(11))->method('getPreApproval')->willReturn($this->mockApproval);
+        $this->mockRequest->expects($this->exactly(11))->method('getPreApproval')->willReturn($this->approval);
 
-        $this->mockApproval->expects($this->once())->method('setName')->with('FooBar');
-        $this->mockApproval->expects($this->once())->method('setDetails')->with('Details Foo Bar');
-        $this->mockApproval->expects($this->once())->method('setFinalDate')->with(new DateTime('2016-11-18'));
-        $this->mockApproval->expects($this->once())->method('setMaxTotalAmount')->with(2000);
-        $this->mockApproval->expects($this->once())->method('setPeriod')->with('WEEKLY');
-        $this->mockApproval->expects($this->once())->method('setAmountPerPayment')->with(123.56);
-        $this->mockApproval->expects($this->once())->method('setMaxAmountPerPayment')->with(97);
-        $this->mockApproval->expects($this->once())->method('setMaxPaymentsPerPeriod')->with(544.87);
-        $this->mockApproval->expects($this->once())->method('setMaxAmountPerPeriod')->with(5432.90);
-        $this->mockApproval->expects($this->once())->method('setInitialDate')->with(new DateTime('2015-11-18'));
+        $this->approval->expects($this->once())->method('setName')->with('FooBar');
+        $this->approval->expects($this->once())->method('setDetails')->with('Details Foo Bar');
+        $this->approval->expects($this->once())->method('setFinalDate')->with(new DateTime('2016-11-18'));
+        $this->approval->expects($this->once())->method('setMaxTotalAmount')->with(2000);
+        $this->approval->expects($this->once())->method('setPeriod')->with('WEEKLY');
+        $this->approval->expects($this->once())->method('setAmountPerPayment')->with(123.56);
+        $this->approval->expects($this->once())->method('setMaxAmountPerPayment')->with(97);
+        $this->approval->expects($this->once())->method('setMaxPaymentsPerPeriod')->with(544.87);
+        $this->approval->expects($this->once())->method('setMaxAmountPerPeriod')->with(5432.90);
+        $this->approval->expects($this->once())->method('setInitialDate')->with(new DateTime('2015-11-18'));
 
         $builder = new RequestBuilder(false, $this->mockRequest);
 

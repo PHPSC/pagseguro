@@ -39,16 +39,9 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
                     ->method('getWsHost')
                     ->willReturn('ws.test.com');
 
-        $this->client = $this->getMock(Client::class, [], [], '', false);
         $this->credentials = new Credentials('test@test.com', 'test', $environment);
-
-        $this->serializer = $this->getMock(
-            CheckoutSerializer::class,
-            [],
-            [],
-            '',
-            false
-        );
+        $this->client     = $this->createMock(Client::class);
+        $this->serializer = $this->createMock(CheckoutSerializer::class);
     }
 
     /**
@@ -56,7 +49,7 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function checkoutShouldDoAPostRequestReturningTheRedirection()
     {
-        $checkout = $this->getMock(Checkout::class, [], [], '', false);
+        $checkout = $this->createMock(Checkout::class);
 
         $wsUri = 'https://ws.test.com/v2/checkout?email=test%40test.com&token=test';
         $request = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout />');
@@ -92,7 +85,11 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function createCheckoutBuilderShouldReturnANewBuilderInstance()
     {
-        $service = new CheckoutService($this->credentials, $this->client, $this->serializer);
+        $service = new CheckoutService(
+            $this->credentials,
+            $this->client,
+            $this->serializer
+        );
 
         $this->assertInstanceOf(CheckoutBuilder::class, $service->createCheckoutBuilder());
     }

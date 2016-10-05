@@ -128,7 +128,7 @@ class CheckoutTest extends \PHPUnit_Framework_TestCase
      */
     public function getCustomerShouldReturnConfiguredCustomer()
     {
-        $customer = $this->getMock(Customer::class, [], [], '', false);
+        $customer = $this->createMock(Customer::class);
         $this->checkout->setCustomer($customer);
 
         $this->assertSame($customer, $this->checkout->getCustomer());

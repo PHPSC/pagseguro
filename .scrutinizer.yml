@@ -4,7 +4,7 @@ build:
         redis: false
         postgresql: false
         php:
-            version: 5.5
+            version: 5.6
 tools:
     php_sim: true
     php_pdepend: true
@@ -13,13 +13,13 @@ tools:
     php_code_sniffer:
         enabled: true
         filter:
-            paths: ["src", "test"]
+            paths: ["src", "tests"]
         config:
             standard: PSR2
     php_mess_detector:
         enabled: true
         filter:
-            paths: ["src", "test"]
+            paths: ["src", "tests"]
         config:
             code_size_rules:
                 cyclomatic_complexity: true
@@ -94,4 +94,4 @@ checks:
 
 filter:
     excluded_paths:
-        - test/*
+        - tests/*

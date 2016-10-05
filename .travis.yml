@@ -1,16 +1,17 @@
 language: php
+sudo: false
 
 php:
-  - 5.5
   - 5.6
+  - 7.0
+  - 7.1
+  - nightly
   - hhvm
-  - hhvm-nightly
 
 matrix:
   allow_failures:
     - php: hhvm
-    - php: hhvm-nightly
 
 before_script:
-  - composer selfupdate
-  - composer install --dev --prefer-dist
+  - composer self-update
+  - composer install
