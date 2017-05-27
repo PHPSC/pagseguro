@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Shipping;
 
 use PHPSC\PagSeguro\Customer\Address;

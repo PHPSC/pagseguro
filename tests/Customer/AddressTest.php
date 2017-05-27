@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Customer;
 
 class AddressTest extends \PHPUnit_Framework_TestCase

@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Requests\Checkout;
 
 use DateTime;

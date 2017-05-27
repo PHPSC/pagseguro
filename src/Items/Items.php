@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPSC\PagSeguro\Items;
 
 use Doctrine\Common\Collections\ArrayCollection;
