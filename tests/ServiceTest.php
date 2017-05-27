@@ -21,7 +21,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->credentials = new Credentials('a@a.com', 't');
-        $this->client = $this->getMock(Client::class, [], [], '', false);
+        $this->client = $this->createMock(Client::class);
     }
 
     /**

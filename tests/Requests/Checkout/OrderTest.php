@@ -24,7 +24,7 @@ class OrderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->items = $this->getMock(ItemCollection::class);
+        $this->items = $this->createMock(ItemCollection::class);
         $this->order = new Order($this->items);
     }
 

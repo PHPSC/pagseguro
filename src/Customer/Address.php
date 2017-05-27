@@ -52,15 +52,22 @@ class Address
      * @param string $number
      * @param string $complement
      */
-    public function __construct($state, $city, $postalCode, $district, $street, $number, $complement = null)
-    {
-        $this->country = 'BRA';
-        $this->state = (string) $state;
-        $this->city = (string) $city;
+    public function __construct(
+        $state,
+        $city,
+        $postalCode,
+        $district,
+        $street,
+        $number,
+        $complement = null
+    ) {
+        $this->country    = 'BRA';
+        $this->state      = (string) $state;
+        $this->city       = (string) $city;
         $this->postalCode = preg_replace('/[^0-9]/', '', (string) $postalCode);
-        $this->district = (string) $district;
-        $this->street = (string) $street;
-        $this->number = (string) $number;
+        $this->district   = (string) $district;
+        $this->street     = (string) $street;
+        $this->number     = (string) $number;
 
         if (!empty($complement)) {
             $this->complement = (string) $complement;

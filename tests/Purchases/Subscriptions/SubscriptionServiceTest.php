@@ -13,11 +13,26 @@ use SimpleXMLElement;
  */
 class SubscriptionServiceTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Credentials|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $credentials;
+
+    /**
+     * @var Client|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $client;
+
+    /**
+     * @var ChargeSerializer|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $serializer;
+
     protected function setUp()
     {
-        $this->credentials = $this->getMock(Credentials::class, [], [], '', false);
-        $this->client = $this->getMock(CLient::class, [], [], '', false);
-        $this->serializer = $this->getMock(ChargeSerializer::class, [], [], '', false);
+        $this->credentials = $this->createMock(Credentials::class);
+        $this->client      = $this->createMock(Client::class);
+        $this->serializer  = $this->createMock(ChargeSerializer::class);
     }
 
     public function testConstructShouldSettersDecoder()
@@ -63,7 +78,7 @@ class SubscriptionServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testChargeShouldDoReturnChargeResponse()
     {
-        $charge = $this->getMock(Charge::class, [], [], '', false);
+        $charge = $this->createMock(Charge::class);
 
         $request  = '<?xml version="1.0" encoding="UTF-8"?><payment/>';
         $xmlRequest = new SimpleXMLElement($request);

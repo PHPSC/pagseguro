@@ -20,7 +20,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->preApproval = $this->getMock(PreApproval::class, [], [], '', false);
+        $this->preApproval = $this->createMock(PreApproval::class);
         $this->request = new Request($this->preApproval);
     }
 
@@ -105,9 +105,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     public function getCustomerShouldReturnConfiguredCustomer()
     {
-        $customer = $this->getMock(Customer::class, [], [], '', false);
+        $customer = $this->createMock(Customer::class);
         $this->request->setCustomer($customer);
-        
+
         $this->assertSame($customer, $this->request->getCustomer());
     }
 
@@ -116,9 +116,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     public function setCustomerToShouldChangeTheAttribute()
     {
-        $customer = $this->getMock(Customer::class, [], [], '', false);
+        $customer = $this->createMock(Customer::class);
         $this->request->setCustomer($customer);
-        
+
         $this->assertAttributeSame($customer, 'customer', $this->request);
     }
 }

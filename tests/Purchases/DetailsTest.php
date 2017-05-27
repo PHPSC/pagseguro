@@ -33,8 +33,15 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
     {
         $this->date = new DateTime("2015-01-01");
         $this->lastEventDate = new DateTime("2015-01-01");
-        $this->customer = $this->getMock(Customer::class, [], [], '', false);
-        $this->details = new Details("1", "SomeRef", 2, $this->date, $this->lastEventDate, $this->customer);
+        $this->customer = $this->createMock(Customer::class);
+        $this->details = new Details(
+            '1',
+            'SomeRef',
+            2,
+            $this->date,
+            $this->lastEventDate,
+            $this->customer
+        );
     }
 
     /**
@@ -42,8 +49,8 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldConfigureTheAttributes()
     {
-        $this->assertAttributeEquals("1", 'code', $this->details);
-        $this->assertAttributeEquals("SomeRef", 'reference', $this->details);
+        $this->assertAttributeEquals('1', 'code', $this->details);
+        $this->assertAttributeEquals('SomeRef', 'reference', $this->details);
         $this->assertAttributeEquals(2, 'status', $this->details);
         $this->assertAttributeSame($this->date, 'date', $this->details);
         $this->assertAttributeSame($this->lastEventDate, 'lastEventDate', $this->details);

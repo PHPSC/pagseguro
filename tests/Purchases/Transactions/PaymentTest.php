@@ -26,7 +26,7 @@ class PaymentTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->escrowEndDate = new DateTime("2015-01-01");
-        $this->paymentMethod = $this->getMock(PaymentMethod::class, [], [], '', false);
+        $this->paymentMethod = $this->createMock(PaymentMethod::class);
         $this->payment = new Payment($this->paymentMethod, 123, 2, 3, 4, 5, 1, $this->escrowEndDate);
     }
 

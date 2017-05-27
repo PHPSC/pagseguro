@@ -38,12 +38,18 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->details = $this->getMock(Details::class, [], [], '', false);
-        $this->payment = $this->getMock(Payment::class, [], [], '', false);
-        $this->itemCollection = $this->getMock(ItemCollection::class, [], [], '', false);
-        $this->shipping = $this->getMock(Shipping::class, [], [], '', false);
+        $this->details        = $this->createMock(Details::class);
+        $this->payment        = $this->createMock(Payment::class);
+        $this->itemCollection = $this->createMock(ItemCollection::class);
+        $this->shipping       = $this->createMock(Shipping::class);
         
-        $this->transaction = new Transaction($this->details, $this->payment, 1, $this->itemCollection, $this->shipping);
+        $this->transaction = new Transaction(
+            $this->details,
+            $this->payment,
+            1,
+            $this->itemCollection,
+            $this->shipping
+        );
     }
 
     /**

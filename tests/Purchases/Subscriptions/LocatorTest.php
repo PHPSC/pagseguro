@@ -16,9 +16,10 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructShouldSettersDecoder()
     {
-        $credentials = $this->getMock(Credentials::class, [], [], '', false);
-        $client = $this->getMock(CLient::class, [], [], '', false);
-        $decoder = $this->getMock(Decoder::class, [], [], '', false);
+        $credentials = $this->createMock(Credentials::class);
+        $client      = $this->createMock(Client::class);
+        $decoder     = $this->createMock(Decoder::class);
+
         $locator = new Locator($credentials, $client, $decoder);
 
         $this->assertInstanceOf(NotificationService::class, $locator);
@@ -29,21 +30,23 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetByCodeShouldDoAGetRequestAddingCredentialsData()
     {
-        $credentials = $this->getMock(Credentials::class, [], [], '', false);
-        $client = $this->getMock(CLient::class, [], [], '', false);
-        $decoder = $this->getMock(Decoder::class, [], [], '', false);
+        $credentials = $this->createMock(Credentials::class);
+        $client      = $this->createMock(CLient::class);
+        $decoder     = $this->createMock(Decoder::class);
+
         $locator = new Locator($credentials, $client, $decoder);
 
         $wsUrl = 'https://ws.test.com/v2/transactions?token=zzzzz';
+
         $credentials->expects($this->once())
-            ->method('getWsUrl')
-            ->with('/v2/pre-approvals/123456', [])
-            ->willReturn($wsUrl);
+                    ->method('getWsUrl')
+                    ->with('/v2/pre-approvals/123456', [])
+                    ->willReturn($wsUrl);
 
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><transaction/>');
         $client->expects($this->once())->method('get')->with($wsUrl)->willReturn($xml);
 
-        $transaction = $this->getMock(Transaction::class, [], [], '', false);
+        $transaction = $this->createMock(Transaction::class);
         $decoder->expects($this->once())->method('decode')->with($xml)->willReturn($transaction);
 
         $this->assertEquals($transaction, $locator->getByCode('123456'));
@@ -51,9 +54,10 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetByNotificationShouldDoAGetRequestAddingCredentialsData()
     {
-        $credentials = $this->getMock(Credentials::class, [], [], '', false);
-        $client = $this->getMock(CLient::class, [], [], '', false);
-        $decoder = $this->getMock(Decoder::class, [], [], '', false);
+        $credentials = $this->createMock(Credentials::class);
+        $client      = $this->createMock(Client::class);
+        $decoder     = $this->createMock(Decoder::class);
+
         $locator = new Locator($credentials, $client, $decoder);
 
         $wsUrl = 'https://ws.test.com/v2/transactions?token=xxxxx';
@@ -65,8 +69,12 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><transaction/>');
         $client->expects($this->once())->method('get')->with($wsUrl)->willReturn($xml);
 
-        $transaction = $this->getMock(Transaction::class, [], [], '', false);
-        $decoder->expects($this->once())->method('decode')->with($xml)->willReturn($transaction);
+        $transaction = $this->createMock(Transaction::class);
+
+        $decoder->expects($this->once())
+                ->method('decode')
+                ->with($xml)
+                ->willReturn($transaction);
 
         $this->assertEquals($transaction, $locator->getByNotification('abcd'));
     }
