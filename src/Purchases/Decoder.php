@@ -22,7 +22,7 @@ abstract class Decoder
         return new Details(
             (string) $obj->code,
             isset($obj->reference) ? (string) $obj->reference : null,
-            (string) $obj->status,
+            (int) $obj->status,
             new DateTime((string) $obj->date),
             new DateTime((string) $obj->lastEventDate),
             $this->createCustomer($obj->sender)

@@ -20,7 +20,7 @@ class Details
     protected $reference;
 
     /**
-     * @var mixed
+     * @var integer
      */
     protected $status;
 
