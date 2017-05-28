@@ -1,16 +1,10 @@
 # API PagSeguro
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/PHPSC/pagseguro?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/PHPSC/pagseguro?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-master
 [![Build Status](https://secure.travis-ci.org/PHPSC/pagseguro.png?branch=master)](http://travis-ci.org/#!/PHPSC/pagseguro)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PHPSC/pagseguro/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PHPSC/pagseguro/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/PHPSC/pagseguro/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/PHPSC/pagseguro/?branch=master)
-
-develop
-[![Build Status](https://secure.travis-ci.org/PHPSC/pagseguro.png?branch=develop)](http://travis-ci.org/#!/PHPSC/pagseguro)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PHPSC/pagseguro/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/PHPSC/pagseguro/?branch=develop)
-[![Code Coverage](https://scrutinizer-ci.com/g/PHPSC/pagseguro/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/PHPSC/pagseguro/?branch=develop)
 
 [![Total Downloads](https://poser.pugx.org/PHPSC/pagseguro/downloads.png)](https://packagist.org/packages/PHPSC/pagseguro)
 [![Latest Stable Version](https://poser.pugx.org/PHPSC/pagseguro/v/stable.png)](https://packagist.org/packages/PHPSC/pagseguro)
