@@ -9,7 +9,7 @@
 [![Total Downloads](https://poser.pugx.org/PHPSC/pagseguro/downloads.png)](https://packagist.org/packages/PHPSC/pagseguro)
 [![Latest Stable Version](https://poser.pugx.org/PHPSC/pagseguro/v/stable.png)](https://packagist.org/packages/PHPSC/pagseguro)
 
-API de integração com o PagSeguro para PHP 5.5+, deve ser utilizado um Autoloader compatível com a PSR-4.
+API de integração com o PagSeguro para PHP 5.6+, deve ser utilizado um Autoloader compatível com a PSR-4.
 
 ## Instalação
 
