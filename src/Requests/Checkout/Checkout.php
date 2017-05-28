@@ -1,49 +1,68 @@
 <?php
 namespace PHPSC\PagSeguro\Requests\Checkout;
 
+use JMS\Serializer\Annotation as Serializer;
 use PHPSC\PagSeguro\Customer\Customer;
+use PHPSC\PagSeguro\SerializerTrait;
 
 /**
+ * @Serializer\AccessType("public_method")
+ * @Serializer\ReadOnly
+ * @Serializer\XmlRoot("checkout")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Checkout
 {
+    use SerializerTrait;
+
     /**
+     * @Serializer\Inline
+     * @Serializer\Type("PHPSC\PagSeguro\Requests\Checkout\Order")
+     *
      * @var Order
      */
     private $order;
 
     /**
+     * @Serializer\SerializedName("sender")
+     * @Serializer\Type("PHPSC\PagSeguro\Customer\Customer")
+     *
      * @var Customer
      */
     private $customer;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SerializedName("redirectURL")
+     *
      * @var string
      */
     private $redirectTo;
 
     /**
+     * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $maxUses;
 
     /**
+     * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $maxAge;
 
     /**
-    * @var string
+     * @Serializer\XmlElement(cdata=false)
+     *
+     * @var string
     */
     private $notificationURL;
 
     /**
      * @param Order $order
-     * @param Customer $customer
-     * @param string $redirectTo
-     * @param string $maxUses
-     * @param string $maxAge
      */
     public function __construct(Order $order = null)
     {

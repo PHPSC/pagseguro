@@ -31,7 +31,8 @@
         "squizlabs/php_codesniffer": "~2.7",
         "pdepend/pdepend": "~2.2",
         "phpmd/phpmd": "~2.4",
-        "sebastian/phpcpd": "~2.0"
+        "sebastian/phpcpd": "~2.0",
+      "jms/serializer":"~1.1"
     },
     "autoload": {
         "psr-4": {

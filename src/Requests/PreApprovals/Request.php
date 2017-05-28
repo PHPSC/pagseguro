@@ -1,34 +1,55 @@
 <?php
 namespace PHPSC\PagSeguro\Requests\PreApprovals;
 
+use JMS\Serializer\Annotation as Serializer;
 use PHPSC\PagSeguro\Customer\Customer;
+use PHPSC\PagSeguro\SerializerTrait;
 
 /**
+ * @Serializer\AccessType("public_method")
+ * @Serializer\ReadOnly
+ * @Serializer\XmlRoot("preApprovalRequest")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Request
 {
+    use SerializerTrait;
+
     /**
+     * @Serializer\Type("PHPSC\PagSeguro\Requests\PreApprovals\PreApproval")
+     *
      * @var PreApproval
      */
     private $preApproval;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $reference;
 
     /**
+     * @Serializer\Type("PHPSC\PagSeguro\Customer\Customer")
+     * @Serializer\SerializedName("sender")
+     *
      * @var Customer
      */
     private $customer;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SerializedName("redirectURL")
+     *
      * @var string
      */
     private $redirectTo;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SerializedName("reviewURL")
+     *
      * @var string
      */
     private $reviewOn;

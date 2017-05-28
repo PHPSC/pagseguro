@@ -1,8 +1,6 @@
 <?php
 namespace PHPSC\PagSeguro\Requests\PreApprovals;
 
-use PHPSC\PagSeguro\Client\Client;
-use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Requests\PreApprovalService as PreApprovalServiceInterface;
 use PHPSC\PagSeguro\Requests\Service;
 
@@ -11,26 +9,6 @@ use PHPSC\PagSeguro\Requests\Service;
  */
 class PreApprovalService extends Service implements PreApprovalServiceInterface
 {
-    /**
-     * @var RequestSerializer
-     */
-    private $serializer;
-
-    /**
-     * @param Credentials $credentials
-     * @param Client $client
-     * @param RequestSerializer $serializer
-     */
-    public function __construct(
-        Credentials $credentials,
-        Client $client = null,
-        RequestSerializer $serializer = null
-    ) {
-        parent::__construct($credentials, $client);
-
-        $this->serializer = $serializer ?: new RequestSerializer();
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -46,7 +24,7 @@ class PreApprovalService extends Service implements PreApprovalServiceInterface
     {
         $response = $this->post(
             static::ENDPOINT,
-            $this->serializer->serialize($request)
+            $request->xmlSerialize()
         );
 
         return $this->getRedirection($response);

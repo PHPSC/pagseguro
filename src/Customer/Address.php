@@ -1,8 +1,20 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
+use JMS\Serializer\Annotation as Serializer;
+use PHPSC\PagSeguro\SerializerTrait;
+
+/**
+ * @Serializer\AccessType("public_method")
+ * @Serializer\ReadOnly
+ * @Serializer\XmlRoot("address")
+ *
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Address
 {
+    use SerializerTrait;
+
     /**
      * @var string
      */

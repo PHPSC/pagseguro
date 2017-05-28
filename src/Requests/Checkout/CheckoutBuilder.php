@@ -97,6 +97,16 @@ class CheckoutBuilder implements CheckoutBuilderInterface
     /**
      * {@inheritdoc}
      */
+    public function setExtraAmount($extraAmount)
+    {
+        $this->checkout->getOrder()->setExtraAmount($extraAmount);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getCheckout()
     {
         return $this->checkout;

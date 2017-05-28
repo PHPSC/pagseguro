@@ -11,15 +11,16 @@ use SimpleXMLElement;
  */
 class PreApprovalServiceTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreateRequestBuilderShouldDoReturnObject()
+    /**
+     * @test
+     */
+    public function createRequestBuilderShouldDoReturnObject()
     {
         $credentials = $this->createMock(Credentials::class);
         $client      = $this->createMock(Client::class);
-        $serializer  = $this->createMock(RequestSerializer::class);
 
-        $service = new PreApprovalService($credentials, $client, $serializer);
+        $service = new PreApprovalService($credentials, $client);
 
-        $this->assertAttributeEquals($serializer, 'serializer', $service);
         $this->assertAttributeEquals($credentials, 'credentials', $service);
         $this->assertAttributeEquals($client, 'client', $service);
 
@@ -27,24 +28,26 @@ class PreApprovalServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new RequestBuilder(false), $service->createRequestBuilder(false));
     }
 
-    public function testAproveShouldReturningTheRedirection()
+    /**
+     * @test
+     */
+    public function aproveShouldReturningTheRedirection()
     {
-        $request = new Request;
+        $request = $this->createMock(Request::class);
         $response = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><response/>');
         $xmlSerialize = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><request/>');
         $redirect = $this->createMock(Redirection::class);
 
         $credentials = $this->createMock(Credentials::class);
         $client      = $this->createMock(Client::class);
-        $serializer  = $this->createMock(RequestSerializer::class);
 
-        $serializer->expects($this->once())
-                   ->method('serialize')
+        $request->expects($this->once())
+                   ->method('xmlSerialize')
                    ->willReturn($xmlSerialize);
 
         $service = $this->getMockBuilder(PreApprovalService::class)
                         ->setMethods(['post', 'getRedirection'])
-                        ->setConstructorArgs([$credentials, $client, $serializer])
+                        ->setConstructorArgs([$credentials, $client])
                         ->disableOriginalClone()
                         ->getMock();
 

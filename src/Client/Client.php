@@ -42,7 +42,7 @@ class Client
 
             return new SimpleXMLElement($response->getBody());
         } catch (RequestException $e) {
-            throw new PagSeguroException($e->getMessage());
+            throw new PagSeguroException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
