@@ -7,12 +7,13 @@ class PagSeguroException extends \RuntimeException
 {
     /**
      * @param ResponseInterface $response
+     * @param \Exception|null   $cause
      *
      * @return PagSeguroException
      */
-    public static function create(ResponseInterface $response)
+    public static function create(ResponseInterface $response, \Exception $cause = null)
     {
-        return new static(static::createMessage($response));
+        return new static(static::createMessage($response), null, $cause);
     }
 
     /**
@@ -22,8 +23,8 @@ class PagSeguroException extends \RuntimeException
      */
     protected static function createMessage(ResponseInterface $response)
     {
-        if ($response->getStatusCode() != 400) {
-            return  '[' . $response->getStatusCode() . '] A HTTP error has occurred: ' . $response->getBody(true);
+        if ($response->getStatusCode() !== 400) {
+            return  '[' . $response->getStatusCode() . '] A HTTP error has occurred: ' . $response->getBody();
         }
 
         $message = 'Some errors occurred:';
