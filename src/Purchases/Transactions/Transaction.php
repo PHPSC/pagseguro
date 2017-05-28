@@ -52,7 +52,7 @@ class Transaction
     private $details;
 
     /**
-     * @var PaymentDetails
+     * @var Payment
      */
     private $payment;
 
@@ -73,7 +73,7 @@ class Transaction
 
     /**
      * @param Details $details
-     * @param PaymentDetails $payment
+     * @param Payment $payment
      * @param int $type
      * @param ItemCollection $items
      * @param Shipping $shipping
@@ -109,7 +109,7 @@ class Transaction
     }
 
     /**
-     * @return PaymentDetails
+     * @return Payment
      */
     public function getPayment()
     {
@@ -117,7 +117,7 @@ class Transaction
     }
 
     /**
-     * @return Collection
+     * @return ItemCollection
      */
     public function getItems()
     {

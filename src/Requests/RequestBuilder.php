@@ -74,11 +74,12 @@ interface RequestBuilder
     public function setMaxTotalAmount($maxTotalAmount);
 
     /**
-     * @param float $maxTotalAmount
+     * @param float $amountPerPayment
      *
      * @return self
      */
     public function setAmountPerPayment($amountPerPayment);
+
     /**
      * @param float $maxAmountPerPayment
      *
