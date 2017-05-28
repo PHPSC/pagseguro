@@ -4,7 +4,7 @@ namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 use DateTime;
 
 /**
- * @author Adelar Tiemann Junior <adelar@adelarcubs.com>       
+ * @author Adelar Tiemann Junior <adelar@adelarcubs.com>
  */
 class CancellationResponseTest extends \PHPUnit_Framework_TestCase
 {

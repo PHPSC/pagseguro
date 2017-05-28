@@ -1,13 +1,10 @@
 <?php
 namespace PHPSC\PagSeguro\Client;
 
-use GuzzleHttp\Event\ErrorEvent as Event;
-use GuzzleHttp\Event\Emitter;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Message\Request;
-use PHPSC\PagSeguro\Environments\Production;
-use GuzzleHttp\Transaction;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,28 +14,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     protected $httpClient;
 
     /**
-     * @var Request|\PHPUnit_Framework_MockObject_MockObject
+     * @var RequestInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $request;
-
-    /**
-     * @var Response|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $response;
+    private $response;
 
     protected function setUp()
     {
-        $this->httpClient = $this->getMock(HttpClient::class, [], [], '', false);
-        $this->request = $this->getMock(Request::class, [], [], '', false);
-        $this->response = $this->getMock(Response::class, [], [], '', false);
-
-        $this->httpClient->expects($this->any())
-                         ->method('getEmitter')
-                         ->willReturn(new Emitter());
-
-        $this->request->expects($this->any())
-                      ->method('send')
-                      ->willReturn($this->response);
+        $this->httpClient = $this->createMock(ClientInterface::class);
+        $this->request    = $this->createMock(RequestInterface::class);
+        $this->response   = $this->createMock(ResponseInterface::class);
 
         $xml = <<<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -48,63 +33,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 </checkout>
 XML;
 
-        $this->response->expects($this->any())
-                       ->method('xml')
-                       ->willReturn(simplexml_load_string($xml));
-    }
-
-    /**
-     * @test
-     */
-    public function constructShouldAppendANewErrorListener()
-    {
-        $client = new Client($this->httpClient);
-
-        $this->assertAttributeSame($this->httpClient, 'client', $client);
-        $this->assertTrue($this->httpClient->getEmitter()->hasListeners('error'));
-    }
-
-    /**
-     * @test
-     */
-    public function handleErrorShouldBypassEventWhenHostIsNotFromPagSeguro()
-    {
-        $client = new Client($this->httpClient);
-        $transaction = new Transaction($this->httpClient, $this->request);
-        $transaction->response = $this->response;
-        $event = new Event($transaction);
-
-        $this->request->expects($this->any())
-                      ->method('getHost')
-                      ->willReturn('example.org');
-
-        $this->assertNull($client->handleError($event));
-    }
-
-    /**
-     * @test
-     * @expectedException \PHPSC\PagSeguro\Client\PagSeguroException
-     */
-    public function handleErrorShouldRaiseExceptionWhenHostIsFromPagSeguro()
-    {
-        $client = new Client($this->httpClient);
-        $transaction = new Transaction($this->httpClient, $this->request);
-        $transaction->response = $this->response;
-        $event = new Event($transaction);
-
-        $this->request->expects($this->any())
-                      ->method('getHost')
-                      ->willReturn(Production::WS_HOST);
-
-        $this->response->expects($this->any())
-                       ->method('getStatusCode')
-                       ->willReturn(401);
-
-        $this->response->expects($this->any())
+        $this->response->expects($this->once())
                        ->method('getBody')
-                       ->willReturn('Unauthorized');
-
-        $client->handleError($event);
+                       ->willReturn($xml);
     }
 
     /**
@@ -116,13 +47,14 @@ XML;
         $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><checkout/>');
 
         $this->httpClient->expects($this->once())
-                         ->method('post')
+                         ->method('request')
                          ->with(
+                             'POST',
                              '/test',
                              [
                                 'headers' => ['Content-Type' => 'application/xml; charset=UTF-8'],
-                                'body' => $xml->asXML(),
-                                'verify' => false
+                                'body'    => $xml->asXML(),
+                                'verify'  => false
                              ]
                          )->willReturn($this->response);
 
@@ -137,10 +69,12 @@ XML;
         $client = new Client($this->httpClient);
 
         $this->httpClient->expects($this->once())
-                         ->method('get')
-                         ->with('/test?name=Test', ['verify' => false])
+                         ->method('request')
+                         ->with('GET', '/test?name=Test', ['verify' => false])
                          ->willReturn($this->response);
 
         $this->assertInstanceOf('SimpleXMLElement', $client->get('/test?name=Test'));
     }
+
+
 }

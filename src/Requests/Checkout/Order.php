@@ -1,36 +1,56 @@
 <?php
 namespace PHPSC\PagSeguro\Requests\Checkout;
 
+use JMS\Serializer\Annotation as Serializer;
 use PHPSC\PagSeguro\Items\ItemCollection;
-use PHPSC\PagSeguro\Shipping\Shipping;
 use PHPSC\PagSeguro\Items\Items;
+use PHPSC\PagSeguro\SerializerTrait;
+use PHPSC\PagSeguro\Shipping\Shipping;
 
 /**
+ * @Serializer\AccessType("public_method")
+ * @Serializer\ReadOnly
+ * @Serializer\XmlRoot("order")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Order
 {
+    use SerializerTrait;
+
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $currency;
 
     /**
+     * @Serializer\SerializedName("items")
+     * @Serializer\Type("ArrayCollection<PHPSC\PagSeguro\Items\Item>")
+     * @Serializer\XmlList(entry="item")
+     *
      * @var ItemCollection
      */
     private $items;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $reference;
 
     /**
+     * @Serializer\Type("PHPSC\PagSeguro\Shipping\Shipping")
+     *
      * @var Shipping
      */
     private $shipping;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var float
      */
     private $extraAmount;
@@ -40,7 +60,7 @@ class Order
      */
     public function __construct(ItemCollection $items = null)
     {
-        $this->items = $items ?: new Items();
+        $this->items    = $items ? : new Items();
         $this->currency = 'BRL';
     }
 
@@ -97,7 +117,7 @@ class Order
      */
     public function getExtraAmount()
     {
-        return $this->extraAmount;
+        return $this->formatAmount($this->extraAmount);
     }
 
     /**

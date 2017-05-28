@@ -30,14 +30,14 @@ class PhoneTest extends \PHPUnit_Framework_TestCase
      */
     public function xmlSerializeMustAppendFormattedPhoneData()
     {
-        $this->markTestSkipped();
 
-        $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><test />');
+        $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
+        
+        $phone = new Phone(47, 1234567890);
+        $xml = $phone->xmlSerialize($data);
 
-        $phone = new Phone(479, 1234567890);
-        $phone->xmlSerialize($xml);
-
+        $this->assertSame($data, $xml);
         $this->assertEquals(47, (string) $xml->phone->areaCode);
-        $this->assertEquals(123456789, (string) $xml->phone->number);
+        $this->assertEquals(1234567890, (string) $xml->phone->number);
     }
 }

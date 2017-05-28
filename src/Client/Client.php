@@ -1,9 +1,9 @@
 <?php
 namespace PHPSC\PagSeguro\Client;
 
-use GuzzleHttp\Event\ErrorEvent as Event;
 use GuzzleHttp\Client as HttpClient;
-use PHPSC\PagSeguro\Environment;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
 use SimpleXMLElement;
 
 /**
@@ -11,32 +11,14 @@ use SimpleXMLElement;
  */
 class Client
 {
-    /**
-     * @var HttpClient
-     */
     private $client;
 
     /**
-     * @param HttpClient $client
+     * @param ClientInterface $client
      */
-    public function __construct(HttpClient $client = null)
+    public function __construct(ClientInterface $client = null)
     {
         $this->client = $client ?: new HttpClient();
-        $this->client->getEmitter()->on('error', [$this, 'handleError']);
-    }
-
-    /**
-     * @param Event $event
-     *
-     * @throws PagSeguroException
-     */
-    public function handleError(Event $event)
-    {
-        if (!Environment::isValid($event->getRequest()->getHost())) {
-            return ;
-        }
-
-        throw PagSeguroException::create($event->getResponse());
     }
 
     /**
@@ -47,16 +29,21 @@ class Client
      */
     public function post($url, SimpleXMLElement $body)
     {
-        $response = $this->client->post(
-            $url,
-            [
-                'headers' => ['Content-Type' => 'application/xml; charset=UTF-8'],
-                'body' => $body->asXML(),
-                'verify' => false
-            ]
-        );
+        try {
+            $response = $this->client->request(
+                'POST',
+                $url,
+                [
+                    'headers' => ['Content-Type' => 'application/xml; charset=UTF-8'],
+                    'body'    => $body->asXML(),
+                    'verify'  => false
+                ]
+            );
 
-        return $response->xml();
+            return new SimpleXMLElement($response->getBody());
+        } catch (RequestException $e) {
+            throw new PagSeguroException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**
@@ -66,8 +53,11 @@ class Client
      */
     public function get($url)
     {
-        $response = $this->client->get($url, ['verify' => false]);
-
-        return $response->xml();
+        try {
+            $response = $this->client->request('GET', $url, ['verify' => false]);
+            return new SimpleXMLElement($response->getBody());
+        } catch (RequestException $e) {
+            throw new PagSeguroException($e->getMessage());
+        }
     }
 }

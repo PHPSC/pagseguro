@@ -1,8 +1,20 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
+use JMS\Serializer\Annotation as Serializer;
+use PHPSC\PagSeguro\SerializerTrait;
+
+/**
+ * @Serializer\AccessType("public_method")
+ * @Serializer\ReadOnly
+ * @Serializer\XmlRoot("address")
+ *
+ * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
+ */
 class Address
 {
+    use SerializerTrait;
+
     /**
      * @var string
      */
@@ -52,15 +64,22 @@ class Address
      * @param string $number
      * @param string $complement
      */
-    public function __construct($state, $city, $postalCode, $district, $street, $number, $complement = null)
-    {
-        $this->country = 'BRA';
-        $this->state = (string) $state;
-        $this->city = (string) $city;
+    public function __construct(
+        $state,
+        $city,
+        $postalCode,
+        $district,
+        $street,
+        $number,
+        $complement = null
+    ) {
+        $this->country    = 'BRA';
+        $this->state      = (string) $state;
+        $this->city       = (string) $city;
         $this->postalCode = preg_replace('/[^0-9]/', '', (string) $postalCode);
-        $this->district = (string) $district;
-        $this->street = (string) $street;
-        $this->number = (string) $number;
+        $this->district   = (string) $district;
+        $this->street     = (string) $street;
+        $this->number     = (string) $number;
 
         if (!empty($complement)) {
             $this->complement = (string) $complement;

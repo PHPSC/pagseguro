@@ -43,7 +43,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      */
     public function constructorMustBeAbleToReceiveTypeAndAddress()
     {
-        $address = $this->getMock(Address::class, [], [], '', false);
+        $address = $this->createMock(Address::class);
         $shipping = new Shipping(Type::TYPE_PAC, $address);
 
         $this->assertAttributeEquals(Type::TYPE_PAC, 'type', $shipping);
@@ -56,7 +56,7 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      */
     public function constructorMustBeAbleToReceiveAllArguments()
     {
-        $address = $this->getMock(Address::class, [], [], '', false);
+        $address = $this->createMock(Address::class);
         $shipping = new Shipping(Type::TYPE_PAC, $address, '10.31');
 
         $this->assertAttributeEquals(Type::TYPE_PAC, 'type', $shipping);
@@ -69,33 +69,35 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      */
     public function getterShouldReturnConfiguredData()
     {
-        $address = $this->getMock(Address::class, [], [], '', false);
+        $address = $this->createMock(Address::class);
         $shipping = new Shipping(Type::TYPE_PAC, $address, '10.31');
 
         $this->assertEquals(Type::TYPE_PAC, $shipping->getType());
         $this->assertSame($address, $shipping->getAddress());
-        $this->assertEquals(10.31, $shipping->getCost());
+        $this->assertSame('10.31', $shipping->getCost());
     }
 
     /**
      * @test
      */
-    public function xmlSerializeMustAppendShippingData()
+    public function xmlSerializeMustAppendFormattedShippingData()
     {
-        $this->markTestSkipped();
+        $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
 
-        $xml = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><test />');
-
-        $address = $this->getMock(Address::class, [], [], '', false);
+        $address = new Address('BA', 'Salvador', '40999-999', 'Red River', 'Beco Sem Nome', 25, 'Buteco do França');
         $shipping = new Shipping(Type::TYPE_PAC, $address, '10.31');
 
-        $address->expects($this->once())
-                ->method('xmlSerialize')
-                ->with($this->isInstanceOf('SimpleXMLElement'));
+        $xml = $shipping->xmlSerialize($data);
 
-        $shipping->xmlSerialize($xml);
-
-        $this->assertEquals(1, (string) $xml->shipping->type);
-        $this->assertEquals(10.31, (string) $xml->shipping->cost);
+        $this->assertSame('1', (string) $xml->shipping->type);
+        $this->assertSame('10.31', (string) $xml->shipping->cost);
+        $this->assertSame('BRA', (string) $xml->shipping->address->country);
+        $this->assertSame('BA', (string) $xml->shipping->address->state);
+        $this->assertSame('Salvador', (string) $xml->shipping->address->city);
+        $this->assertSame('40999999', (string) $xml->shipping->address->postalCode);
+        $this->assertSame('Red River', (string) $xml->shipping->address->district);
+        $this->assertSame('Beco Sem Nome', (string) $xml->shipping->address->street);
+        $this->assertSame('25', (string) $xml->shipping->address->number);
+        $this->assertSame('Buteco do França', (string) $xml->shipping->address->complement);
     }
 }

@@ -52,7 +52,8 @@ class Decoder extends BaseDecoder
 
     /**
      * @param SimpleXMLElement $itemsNode
-     * @return array
+     *
+     * @return Items
      */
     protected function createItems(SimpleXMLElement $itemsNode)
     {

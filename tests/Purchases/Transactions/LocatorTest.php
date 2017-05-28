@@ -43,23 +43,10 @@ class LocatorTest extends \PHPUnit_Framework_TestCase
                     ->willReturn('ws.test.com');
 
         $this->credentials = new Credentials('a@a.com', 't', $environment);
-        $this->client = $this->getMock(Client::class, [], [], '', false);
 
-        $this->decoder = $this->getMock(
-            Decoder::class,
-            [],
-            [],
-            '',
-            false
-        );
-
-        $this->transaction = $this->getMock(
-            Transaction::class,
-            [],
-            [],
-            '',
-            false
-        );
+        $this->client      = $this->createMock(Client::class);
+        $this->decoder     = $this->createMock(Decoder::class);
+        $this->transaction = $this->createMock(Transaction::class);
     }
 
     /**

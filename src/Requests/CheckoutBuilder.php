@@ -61,6 +61,13 @@ interface CheckoutBuilder
     public function setMaxUses($maxUses);
 
     /**
+     * @param float $extraAmount
+     *
+     * @return self
+     */
+    public function setExtraAmount($extraAmount);
+
+    /**
      * @return Checkout
      */
     public function getCheckout();

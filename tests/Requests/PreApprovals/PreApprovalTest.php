@@ -50,11 +50,11 @@ class PreApprovalTest extends \PHPUnit_Framework_TestCase
         $preApproval->setDetails('Cobranca Mensal');
         $preApproval->setPeriod('MONTHLY');
         $preApproval->setFinalDate(new DateTime('2016-11-18'));
-        $preApproval->setMaxTotalAmount(3000);
-        $preApproval->setAmountPerPayment(100);
-        $preApproval->setMaxAmountPerPayment(150);
+        $preApproval->setMaxTotalAmount(3000.50);
+        $preApproval->setAmountPerPayment(100.50);
+        $preApproval->setMaxAmountPerPayment(150.50);
         $preApproval->setMaxPaymentsPerPeriod(12);
-        $preApproval->setMaxAmountPerPeriod(1200);
+        $preApproval->setMaxAmountPerPeriod(1200.50);
         $preApproval->setInitialDate(new DateTime('2015-11-18'));
 
         $this->assertAttributeEquals('Name Assinatura', 'name', $preApproval);
@@ -62,11 +62,11 @@ class PreApprovalTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals('Cobranca Mensal', 'details', $preApproval);
         $this->assertAttributeEquals('MONTHLY', 'period', $preApproval);
         $this->assertAttributeEquals(new DateTime('2016-11-18'), 'finalDate', $preApproval);
-        $this->assertAttributeEquals(3000, 'maxTotalAmount', $preApproval);
-        $this->assertAttributeEquals(100, 'amountPerPayment', $preApproval);
-        $this->assertAttributeEquals(150, 'maxAmountPerPayment', $preApproval);
-        $this->assertAttributeEquals(12, 'maxPaymentsPerPeriod', $preApproval);
-        $this->assertAttributeEquals(1200, 'maxAmountPerPeriod', $preApproval);
+        $this->assertAttributeSame(3000.50, 'maxTotalAmount', $preApproval);
+        $this->assertAttributeSame(100.50, 'amountPerPayment', $preApproval);
+        $this->assertAttributeSame(150.50, 'maxAmountPerPayment', $preApproval);
+        $this->assertAttributeSame(12, 'maxPaymentsPerPeriod', $preApproval);
+        $this->assertAttributeSame(1200.50, 'maxAmountPerPeriod', $preApproval);
         $this->assertAttributeEquals(new DateTime('2015-11-18'), 'initialDate', $preApproval);
 
         $this->assertEquals('Name Assinatura', $preApproval->getName());
@@ -74,11 +74,11 @@ class PreApprovalTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Cobranca Mensal', $preApproval->getDetails());
         $this->assertEquals('MONTHLY', $preApproval->getPeriod());
         $this->assertEquals(new DateTime('2016-11-18'), $preApproval->getFinalDate());
-        $this->assertEquals(3000, $preApproval->getMaxTotalAmount());
-        $this->assertEquals(100, $preApproval->getAmountPerPayment());
-        $this->assertEquals(150, $preApproval->getMaxAmountPerPayment());
-        $this->assertEquals(12, $preApproval->getMaxPaymentsPerPeriod());
-        $this->assertEquals(1200, $preApproval->getMaxAmountPerPeriod());
+        $this->assertSame('3000.50', $preApproval->getMaxTotalAmount());
+        $this->assertSame('100.50', $preApproval->getAmountPerPayment());
+        $this->assertSame('150.50', $preApproval->getMaxAmountPerPayment());
+        $this->assertSame(12, $preApproval->getMaxPaymentsPerPeriod());
+        $this->assertSame('1200.50', $preApproval->getMaxAmountPerPeriod());
         $this->assertEquals(new DateTime('2015-11-18'), $preApproval->getInitialDate());
     }
 }

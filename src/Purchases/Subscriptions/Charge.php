@@ -1,25 +1,42 @@
 <?php
 namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 
+use JMS\Serializer\Annotation as Serializer;
 use PHPSC\PagSeguro\Items\ItemCollection;
 use PHPSC\PagSeguro\Items\Items;
+use PHPSC\PagSeguro\SerializerTrait;
 
 /**
+ * @Serializer\AccessType("public_method")
+ * @Serializer\ReadOnly
+ * @Serializer\XmlRoot("charge")
+ *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
 class Charge
 {
+    use SerializerTrait;
+
     /**
+     * @Serializer\SerializedName("preApprovalCode")
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $subscriptionCode;
 
     /**
+     * @Serializer\Type("ArrayCollection<PHPSC\PagSeguro\Items\Item>")
+     * @Serializer\XmlList(entry="item")
+     * @Serializer\SerializedName("items")
+     *
      * @var ItemCollection
      */
     private $items;
 
     /**
+     * @Serializer\XmlElement(cdata=false)
+     *
      * @var string
      */
     private $reference;

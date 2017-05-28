@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<checkout><currency>BRL</currency>
+<checkout>
+    <currency>BRL</currency>
+
     <items>
         <item>
             <id>77</id>
@@ -20,7 +22,7 @@
     </items>
 
     <reference>REF1234</reference>
-    <extraAmount>1.01</extraAmount>
+    <extraAmount>-10.30</extraAmount>
 
     <shipping>
         <type>1</type>
