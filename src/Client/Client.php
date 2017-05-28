@@ -42,7 +42,7 @@ class Client
 
             return new SimpleXMLElement($response->getBody());
         } catch (RequestException $e) {
-            throw PagSeguroException::create($e->getResponse());
+            throw PagSeguroException::create($e->getResponse(), $e);
         }
     }
 
@@ -58,7 +58,7 @@ class Client
 
             return new SimpleXMLElement($response->getBody());
         } catch (RequestException $e) {
-            throw PagSeguroException::create($e->getResponse());
+            throw PagSeguroException::create($e->getResponse(), $e);
         }
     }
 }
