@@ -105,7 +105,7 @@ try {
     $checkout->setRedirectTo( "http://seu_dominio/uri/retorno" );
     
     //Se você quer usar uma url de notificação
-    $checkout->setNotificationURL( "http:://seu_dominio/admin/transacao/notificacao" );
+    $checkout->setNotificationURL( "http://seu_dominio/admin/transacao/notificacao" );
 
     header('Location: ' . $response->getRedirectionUrl()); // Redireciona o usuário
 } catch (Exception $error) { // Caso ocorreu algum erro
