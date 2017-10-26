@@ -6,6 +6,7 @@ use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Items\Items;
 use PHPSC\PagSeguro\Purchases\Decoder as BaseDecoder;
 use PHPSC\PagSeguro\Shipping\Shipping;
+use PHPSC\PagSeguro\Shipping\Type;
 use SimpleXMLElement;
 
 /**
