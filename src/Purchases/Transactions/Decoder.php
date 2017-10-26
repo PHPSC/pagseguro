@@ -82,7 +82,7 @@ class Decoder extends BaseDecoder
     protected function createShipping(SimpleXMLElement $shipping)
     {
         return new Shipping(
-            (int) $shipping->type,
+            (int) $shipping->type ?: Type::TYPE_UNKNOWN,
             isset($shipping->address) ? $this->createAddress($shipping->address) : null,
             isset($shipping->cost) ? (float) $shipping->cost : null
         );
