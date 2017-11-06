@@ -1,10 +1,12 @@
 <?php
 namespace PHPSC\PagSeguro\Requests\PreApprovals;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class ChargeTypeTest extends \PHPUnit_Framework_TestCase
+class ChargeTypeTest extends TestCase
 {
     public function testValidShouldReturnTrue()
     {

@@ -3,11 +3,12 @@ namespace PHPSC\PagSeguro\Requests\Checkout;
 
 use PHPSC\PagSeguro\Items\ItemCollection;
 use PHPSC\PagSeguro\Shipping\Shipping;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class OrderTest extends \PHPUnit_Framework_TestCase
+class OrderTest extends TestCase
 {
     /**
      * @var ItemCollection

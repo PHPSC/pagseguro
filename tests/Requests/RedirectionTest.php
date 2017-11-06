@@ -2,8 +2,9 @@
 namespace PHPSC\PagSeguro\Requests;
 
 use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class RedirectionTest extends \PHPUnit_Framework_TestCase
+class RedirectionTest extends TestCase
 {
     /**
      * @var Redirection

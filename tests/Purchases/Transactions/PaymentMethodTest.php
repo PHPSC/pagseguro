@@ -1,7 +1,9 @@
 <?php
 namespace PHPSC\PagSeguro\Purchases\Transactions;
 
-class PaymentMethodTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PaymentMethodTest extends TestCase
 {
     public function testRealCase01()
     {

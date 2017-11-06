@@ -4,11 +4,12 @@ namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 use PHPSC\PagSeguro\Purchases\ChargeBuilder as ChargeBuilderInterface;
 use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Items\Items;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class ChargeBuilderTest extends \PHPUnit_Framework_TestCase
+class ChargeBuilderTest extends TestCase
 {
     private $charge;
 

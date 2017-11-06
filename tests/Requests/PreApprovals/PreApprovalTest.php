@@ -2,11 +2,12 @@
 namespace PHPSC\PagSeguro\Requests\PreApprovals;
 
 use DateTime;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class PreApprovalTest extends \PHPUnit_Framework_TestCase
+class PreApprovalTest extends TestCase
 {
     public function testAttributesShouldValuesEmpty()
     {

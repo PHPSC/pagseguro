@@ -5,8 +5,9 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client as HttpClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use PHPUnit\Framework\TestCase;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     /**
      * @var HttpClient|\PHPUnit_Framework_MockObject_MockObject

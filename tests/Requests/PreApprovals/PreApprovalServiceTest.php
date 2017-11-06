@@ -5,11 +5,12 @@ use PHPSC\PagSeguro\Client\Client;
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Requests\Redirection;
 use SimpleXMLElement;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class PreApprovalServiceTest extends \PHPUnit_Framework_TestCase
+class PreApprovalServiceTest extends TestCase
 {
     /**
      * @test

@@ -2,11 +2,12 @@
 namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Client\Client;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class ServiceTest extends \PHPUnit_Framework_TestCase
+class ServiceTest extends TestCase
 {
     /**
      * @var Credentials

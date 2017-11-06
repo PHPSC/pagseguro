@@ -5,11 +5,12 @@ use SimpleXMLElement;
 use PHPSC\PagSeguro\Items\Items;
 use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Items\ItemCollection;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Adelar Tiemann Junior <adelar@adelarcubs.com>
  */
-class ChargeTest extends \PHPUnit_Framework_TestCase
+class ChargeTest extends TestCase
 {
     /**
      * @var Charge
@@ -36,7 +37,7 @@ class ChargeTest extends \PHPUnit_Framework_TestCase
     {
         $charge = new Charge();
         $charge->setReference('SomeRef');
-        
+
         $this->assertAttributeEquals('SomeRef', 'reference', $charge);
         $this->assertEquals('SomeRef', $charge->getReference());
     }
@@ -48,7 +49,7 @@ class ChargeTest extends \PHPUnit_Framework_TestCase
     {
         $charge = new Charge();
         $charge->setSubscriptionCode('SomeSubscription');
-        
+
         $this->assertAttributeEquals('SomeSubscription', 'subscriptionCode', $charge);
         $this->assertEquals('SomeSubscription', $charge->getSubscriptionCode());
     }

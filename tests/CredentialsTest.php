@@ -2,11 +2,12 @@
 namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Environments\Production;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class CredentialsTest extends \PHPUnit_Framework_TestCase
+class CredentialsTest extends TestCase
 {
     /**
      * @var Environment

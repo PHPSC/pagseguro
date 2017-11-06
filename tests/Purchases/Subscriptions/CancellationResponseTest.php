@@ -2,11 +2,12 @@
 namespace PHPSC\PagSeguro\Purchases\Subscriptions;
 
 use DateTime;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Adelar Tiemann Junior <adelar@adelarcubs.com>
  */
-class CancellationResponseTest extends \PHPUnit_Framework_TestCase
+class CancellationResponseTest extends TestCase
 {
     /**
      * @var CancellationResponse

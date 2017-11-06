@@ -1,10 +1,12 @@
 <?php
 namespace PHPSC\PagSeguro\Environments;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class SandboxTest extends \PHPUnit_Framework_TestCase
+class SandboxTest extends TestCase
 {
     /**
      * @test

@@ -4,11 +4,12 @@ namespace PHPSC\PagSeguro\Requests\PreApprovals;
 use DateTime;
 use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\Requests\RequestBuilder as RequestBuilderInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class RequestBuilderTest extends \PHPUnit_Framework_TestCase
+class RequestBuilderTest extends TestCase
 {
     /**
      * @var PreApproval|\PHPUnit_Framework_MockObject_MockObject

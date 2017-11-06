@@ -4,11 +4,12 @@ namespace PHPSC\PagSeguro\Purchases\Transactions;
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Client\Client;
 use PHPSC\PagSeguro\Environment;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class LocatorTest extends \PHPUnit_Framework_TestCase
+class LocatorTest extends TestCase
 {
     /**
      * @var Credentials

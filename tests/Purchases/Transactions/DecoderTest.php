@@ -9,11 +9,12 @@ use PHPSC\PagSeguro\Customer\Phone;
 use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Items\Items;
 use PHPSC\PagSeguro\Shipping\Shipping;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class DecoderTest extends \PHPUnit_Framework_TestCase
+class DecoderTest extends TestCase
 {
     public function testDecodeShouldDoReturningObjectTransaction()
     {

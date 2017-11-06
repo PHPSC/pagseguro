@@ -2,8 +2,9 @@
 namespace PHPSC\PagSeguro\Shipping;
 
 use PHPSC\PagSeguro\Customer\Address;
+use PHPUnit\Framework\TestCase;
 
-class ShippingTest extends \PHPUnit_Framework_TestCase
+class ShippingTest extends TestCase
 {
     /**
      * @test

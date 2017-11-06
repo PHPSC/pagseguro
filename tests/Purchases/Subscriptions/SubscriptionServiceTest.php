@@ -7,11 +7,12 @@ use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Client\Client;
 use DateTime;
 use SimpleXMLElement;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class SubscriptionServiceTest extends \PHPUnit_Framework_TestCase
+class SubscriptionServiceTest extends TestCase
 {
     /**
      * @var Credentials|\PHPUnit_Framework_MockObject_MockObject
