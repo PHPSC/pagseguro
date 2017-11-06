@@ -6,11 +6,12 @@ use PHPSC\PagSeguro\Purchases\Details;
 use PHPSC\PagSeguro\Customer\Address;
 use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\Customer\Phone;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class SubscriptionTest extends \PHPUnit_Framework_TestCase
+class SubscriptionTest extends TestCase
 {
     protected function setUp()
     {

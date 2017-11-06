@@ -3,11 +3,12 @@ namespace PHPSC\PagSeguro\Purchases;
 
 use DateTime;
 use PHPSC\PagSeguro\Customer\Customer;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Adelar Tiemann Junior <adelar@adelarcubs.com>
  */
-class DetailsTest extends \PHPUnit_Framework_TestCase
+class DetailsTest extends TestCase
 {
     /**
      * @var Details

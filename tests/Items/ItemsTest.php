@@ -2,11 +2,12 @@
 namespace PHPSC\PagSeguro\Items;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class ItemsTest extends \PHPUnit_Framework_TestCase
+class ItemsTest extends TestCase
 {
     /**
      * @test

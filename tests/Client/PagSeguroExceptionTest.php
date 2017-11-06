@@ -2,8 +2,9 @@
 namespace PHPSC\PagSeguro\Client;
 
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\TestCase;
 
-class PagSeguroExceptionTest extends \PHPUnit_Framework_TestCase
+class PagSeguroExceptionTest extends TestCase
 {
     /**
      * @test

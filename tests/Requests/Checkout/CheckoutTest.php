@@ -9,11 +9,12 @@ use PHPSC\PagSeguro\Shipping\Shipping;
 use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\Customer\Phone;
 use PHPSC\PagSeguro\Customer\Address;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class CheckoutTest extends \PHPUnit_Framework_TestCase
+class CheckoutTest extends TestCase
 {
     /**
      * @var Checkout

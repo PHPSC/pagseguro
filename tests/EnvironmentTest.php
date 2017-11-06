@@ -3,11 +3,12 @@ namespace PHPSC\PagSeguro;
 
 use PHPSC\PagSeguro\Environments\Production;
 use PHPSC\PagSeguro\Environments\Sandbox;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class EnvironmentTest extends \PHPUnit_Framework_TestCase
+class EnvironmentTest extends TestCase
 {
     /**
      * @var Environment

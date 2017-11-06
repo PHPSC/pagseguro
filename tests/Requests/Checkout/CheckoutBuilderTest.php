@@ -4,11 +4,12 @@ namespace PHPSC\PagSeguro\Requests\Checkout;
 use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\Items\Item;
 use PHPSC\PagSeguro\Shipping\Shipping;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class CheckoutBuilderTest extends \PHPUnit_Framework_TestCase
+class CheckoutBuilderTest extends TestCase
 {
     /**
      * @var Checkout

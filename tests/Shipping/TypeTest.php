@@ -1,10 +1,12 @@
 <?php
 namespace PHPSC\PagSeguro\Shipping;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class TypeTest extends \PHPUnit_Framework_TestCase
+class TypeTest extends TestCase
 {
     public function testGetTypesShouldDoReturnArray()
     {

@@ -5,32 +5,33 @@ use DateTime;
 use PHPSC\PagSeguro\Shipping\Shipping;
 use PHPSC\PagSeguro\Purchases\Details;
 use PHPSC\PagSeguro\Items\ItemCollection;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Adelar Tiemann Junior <adelar@adelarcubs.com>
  */
-class TransactionTest extends \PHPUnit_Framework_TestCase
+class TransactionTest extends TestCase
 {
     /**
      * @var Transaction
      */
     private $transaction;
-       
+
     /**
      * @var Details
      */
     private $details;
-    
+
     /**
      * @var Payment
      */
     private $payment;
-    
+
     /**
      * @var ItemCollection
      */
     private $itemCollection;
-    
+
     /**
      * @var Shipping
      */
@@ -42,7 +43,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         $this->payment        = $this->createMock(Payment::class);
         $this->itemCollection = $this->createMock(ItemCollection::class);
         $this->shipping       = $this->createMock(Shipping::class);
-        
+
         $this->transaction = new Transaction(
             $this->details,
             $this->payment,

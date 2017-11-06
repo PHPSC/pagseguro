@@ -6,11 +6,12 @@ use DateTime;
 use PHPSC\PagSeguro\Customer\Customer;
 use PHPSC\PagSeguro\Customer\Phone;
 use PHPSC\PagSeguro\Customer\Address;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Adelar Tiemann Junior <adelar@adelarcubs.com>
  */
-class RequestTest extends \PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
     /**
      * @var Request

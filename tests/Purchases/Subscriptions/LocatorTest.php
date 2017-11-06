@@ -8,11 +8,12 @@ use PHPSC\PagSeguro\Purchases\SearchService;
 use PHPSC\PagSeguro\Service;
 use PHPSC\PagSeguro\Purchases\Transactions\Transaction;
 use SimpleXMLElement;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Renato Moura <moura137@gmail.com>
  */
-class LocatorTest extends \PHPUnit_Framework_TestCase
+class LocatorTest extends TestCase
 {
     public function testConstructShouldSettersDecoder()
     {

@@ -1,7 +1,9 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
-class PhoneTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PhoneTest extends TestCase
 {
     /**
      * @test
@@ -32,7 +34,7 @@ class PhoneTest extends \PHPUnit_Framework_TestCase
     {
 
         $data = simplexml_load_string('<?xml version="1.0" encoding="UTF-8"?><data />');
-        
+
         $phone = new Phone(47, 1234567890);
         $xml = $phone->xmlSerialize($data);
 

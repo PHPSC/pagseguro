@@ -1,7 +1,9 @@
 <?php
 namespace PHPSC\PagSeguro\Customer;
 
-class CustomerTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class CustomerTest extends TestCase
 {
     /**
      * @test

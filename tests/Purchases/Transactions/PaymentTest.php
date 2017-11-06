@@ -2,22 +2,23 @@
 namespace PHPSC\PagSeguro\Purchases\Transactions;
 
 use DateTime;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Adelar Tiemann Junior <adelar@adelarcubs.com>
  */
-class PaymentTest extends \PHPUnit_Framework_TestCase
+class PaymentTest extends TestCase
 {
     /**
      * @var Payment
      */
     private $payment;
-    
+
     /**
      * @var DateTime
      */
     private $escrowEndDate;
-    
+
     /**
      * @var PaymentMethod
      */

@@ -6,11 +6,12 @@ use PHPSC\PagSeguro\Client\Client;
 use PHPSC\PagSeguro\Credentials;
 use PHPSC\PagSeguro\Environment;
 use PHPSC\PagSeguro\Requests\Redirection;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
-class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
+class CheckoutServiceTest extends TestCase
 {
     /**
      * @var Client|\PHPUnit_Framework_MockObject_MockObject
