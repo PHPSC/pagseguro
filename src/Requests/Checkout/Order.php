@@ -42,9 +42,10 @@ class Order
     private $reference;
 
     /**
-     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\XmlElement(cdata=true)
+     * @Serializer\Type("boolean")
      *
-     * @var string
+     * @var bool
      */
     private $shippingAddressRequired;
 
@@ -104,19 +105,19 @@ class Order
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getShippingAddressRequired()
+    public function isShippingAddressRequired()
     {
         return $this->shippingAddressRequired;
     }
 
     /**
-     * @param string $shippingAddressRequired
+     * {@inheritdoc}
      */
-    public function setShippingAddressRequired($shippingAddressRequired)
+    public function notRequireShippingAddress()
     {
-        $this->shippingAddressRequired = $shippingAddressRequired;
+        $this->shippingAddressRequired = false;
     }
 
     /**
