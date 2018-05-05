@@ -84,6 +84,16 @@ class CheckoutBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function setShippingAddressRequiredShouldConfigureTheShippingAddressRequired()
+    {
+        $this->builder->setShippingAddressRequired(false);
+
+        $this->assertAttributeEquals(false, 'shippingAddressRequired', $this->checkout->getOrder());
+    }
+
+    /**
+     * @test
+     */
     public function setCustomerShouldConfigureTheReference()
     {
         $customer = new Customer('test@test.com');
