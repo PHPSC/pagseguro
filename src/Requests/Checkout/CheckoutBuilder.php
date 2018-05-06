@@ -57,9 +57,9 @@ class CheckoutBuilder implements CheckoutBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function notRequireShippingAddress()
+    public function withoutShippingAddress()
     {
-        $this->checkout->getOrder()->notRequireShippingAddress();
+        $this->checkout->getOrder()->withoutShippingAddress();
 
         return $this;
     }

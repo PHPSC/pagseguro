@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkout>
     <currency>BRL</currency>
+    <shippingAddressRequired>true</shippingAddressRequired>
 
     <sender>
         <email>usuario@site.com</email>

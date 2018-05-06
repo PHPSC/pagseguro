@@ -48,7 +48,10 @@ class CheckoutServiceTest extends \PHPUnit_Framework_TestCase
         $wsUri = 'https://ws.test.com/v2/checkout?email=test%40test.com&token=test';
         $request = simplexml_load_string(
             '<?xml version="1.0" encoding="UTF-8"?>'
-            . '<checkout><currency>BRL</currency></checkout>'
+            . '<checkout>'
+            . '<currency>BRL</currency>'
+            . '<shippingAddressRequired>true</shippingAddressRequired>'
+            . '</checkout>'
         );
 
         $response = simplexml_load_string(

@@ -35,7 +35,7 @@ interface CheckoutBuilder
     /**
      * @return self
      */
-    public function notRequireShippingAddress();
+    public function withoutShippingAddress();
 
     /**
      * @param Customer $customer

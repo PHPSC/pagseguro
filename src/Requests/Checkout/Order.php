@@ -70,6 +70,7 @@ class Order
     {
         $this->items    = $items ? : new Items();
         $this->currency = 'BRL';
+        $this->shippingAddressRequired = true;
     }
 
     /**
@@ -115,7 +116,7 @@ class Order
     /**
      * {@inheritdoc}
      */
-    public function notRequireShippingAddress()
+    public function withoutShippingAddress()
     {
         $this->shippingAddressRequired = false;
     }

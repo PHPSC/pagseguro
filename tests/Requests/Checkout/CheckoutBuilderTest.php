@@ -84,9 +84,9 @@ class CheckoutBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function notRequireShippingAddressShouldConfigureTheShippingAddressRequired()
+    public function withoutShippingAddressShouldConfigureTheShippingAddressRequired()
     {
-        $this->builder->notRequireShippingAddress();
+        $this->builder->withoutShippingAddress();
 
         $this->assertAttributeEquals(false, 'shippingAddressRequired', $this->checkout->getOrder());
     }

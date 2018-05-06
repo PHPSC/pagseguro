@@ -74,11 +74,19 @@ class OrderTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function notRequireShippingAddressShouldReturnConfiguredShippingAddressRequired()
+    public function withoutShippingAddressShouldReturnConfiguredShippingAddressRequired()
     {
-        $this->order->notRequireShippingAddress();
+        $this->order->withoutShippingAddress();
 
         $this->assertEquals(false, $this->order->isShippingAddressRequired());
+    }
+
+    /**
+     * @test
+     */
+    public function isShippingAddressRequiredShouldReturnTrueByDefaultConfiguredShippingAddressRequired()
+    {
+        $this->assertTrue($this->order->isShippingAddressRequired());
     }
 
     /**
