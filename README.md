@@ -113,20 +113,23 @@ try {
 }
 ```
 
-Este código realiza o checkout como serviço, sem a necessidade dos dados de endereço:
+Caso você queria enviar os dados de checkout sem requerir o endereço de entrega, você
+pode utilizar o método `CheckoutBuilder#withoutShippingAddress()`. Por exemplo:
 
 ```php
 <?php
-
-...
+// Considere a importação das dependências do exemplo acima.
 
 try {
-    ...
+    $service = new CheckoutService($credentials);
     
     $checkout = $service->createCheckoutBuilder()
                         ->addItem(new Item(1, 'Livro digital', 100.00))
                         ->withoutShippingAddress()
                         ->getCheckout();
+} catch (Exception $error) {
+    echo $error->getMessage();
+}
 ```
 
 #### Assinaturas
