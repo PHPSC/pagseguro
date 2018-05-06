@@ -42,7 +42,7 @@ class Order
     private $reference;
 
     /**
-     * @Serializer\XmlElement(cdata=true)
+     * @Serializer\XmlElement
      * @Serializer\Type("boolean")
      *
      * @var bool
