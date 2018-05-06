@@ -19,7 +19,7 @@ A instalação desta biblioteca pode ser feita utilizando o [Composer](https://p
 
 Nesta versão é possível gerenciar:
 
-* Solicitações (pagamentos e assinaturas);
+* Solicitações (pagamentos, checkout de serviços e assinaturas);
 * Notificações
 * Busca por código (pagamentos e assinaturas);
 * Cancelamento e cobrança de assinaturas.
@@ -111,6 +111,22 @@ try {
 } catch (Exception $error) { // Caso ocorreu algum erro
     echo $error->getMessage(); // Exibe na tela a mensagem de erro
 }
+```
+
+Este código realiza o checkout como serviço, sem a necessidade dos dados de endereço:
+
+```php
+<?php
+
+...
+
+try {
+    ...
+    
+    $checkout = $service->createCheckoutBuilder()
+                        ->addItem(new Item(1, 'Livro digital', 100.00))
+                        ->withoutShippingAddress()
+                        ->getCheckout();
 ```
 
 #### Assinaturas
