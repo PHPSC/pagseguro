@@ -25,7 +25,7 @@ class Decoder extends BaseDecoder
             $this->createPayment($obj),
             (int) $obj->type,
             $this->createItems($obj->items),
-            $this->createShipping($obj->shipping)
+            $this->createShipping($obj)
         );
     }
 
@@ -76,15 +76,19 @@ class Decoder extends BaseDecoder
     }
 
     /**
-     * @param SimpleXMLElement $shipping
+     * @param SimpleXMLElement $obj
      * @return Shipping
      */
-    protected function createShipping(SimpleXMLElement $shipping)
+    protected function createShipping(SimpleXMLElement $obj)
     {
+        if (!isset($obj->shipping)) {
+            return null;
+        }
+
         return new Shipping(
-            (int) $shipping->type,
-            isset($shipping->address) ? $this->createAddress($shipping->address) : null,
-            isset($shipping->cost) ? (float) $shipping->cost : null
+            (int) $obj->shipping->type,
+            isset($obj->shipping->address) ? $this->createAddress($obj->shipping->address) : null,
+            isset($obj->shipping->cost) ? (float) $obj->shipping->cost : null
         );
     }
 }
