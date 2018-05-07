@@ -113,12 +113,11 @@ try {
 }
 ```
 
-Caso você queria enviar os dados de checkout sem requerir o endereço de entrega, você
+Caso você queira enviar os dados de checkout sem requerir o endereço de entrega, você
 pode utilizar o método `CheckoutBuilder#withoutShippingAddress()`. Por exemplo:
 
 ```php
 <?php
-
 // Considere a importação das dependências do exemplo acima.
 
 try {
