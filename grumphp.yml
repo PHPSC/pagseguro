@@ -1,0 +1,7 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    tasks:
+        phpcs:
+            standard: PSR2
+        phpunit: .
