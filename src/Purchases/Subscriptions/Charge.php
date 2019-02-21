@@ -9,7 +9,7 @@ use PHPSC\PagSeguro\SerializerTrait;
 /**
  * @Serializer\AccessType("public_method")
  * @Serializer\ReadOnly
- * @Serializer\XmlRoot("charge")
+ * @Serializer\XmlRoot("payment")
  *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  */
