@@ -32,7 +32,7 @@ class Credentials
     public function __construct($email, $token, Environment $environment = null)
     {
         $this->email = substr($email, 0, 60);
-        $this->token = substr($token, 0, 32);
+        $this->token = substr($token, 0, 100);
         $this->environment = $environment ?: new Production();
     }
 
