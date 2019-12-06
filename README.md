@@ -1,3 +1,10 @@
+# Projeto Descontinuado
+
+![Atenção](https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Dialog-warning-yellow.svg/40px-Dialog-warning-yellow.svg.png)
+
+Este projeto foi descontinuado. Fique à vontade para fazer fork e alterá-lo conforme as suas necessidades.
+
+
 # API PagSeguro
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/PHPSC/pagseguro?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
